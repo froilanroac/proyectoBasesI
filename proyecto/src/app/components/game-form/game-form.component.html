@@ -12,7 +12,7 @@
                     <div class="form-group">
                         <input type="url" name='image' placeholder="Image" [(ngModel)]="game.image"  class="form-control" autofocus>
                     </div>
-                    <button class="btn-success btn-block btn" (click)="saveNewGame()">
+                    <button class="btn-success btn-block btn" (click)=" edit ? updateGame() : saveNewGame()">
                         Guardar
                     </button>
                 </form>

@@ -29,7 +29,7 @@ export class GamesService {
     return this.http.delete(`${this.API_URL}/games/${ id }`)
    }
 
-   updateGame(id:string, updatedGame:Game):Observable<Game>{
+   updateGame(id:any, updatedGame:Game):Observable<Game>{
     return this.http.put(`${this.API_URL}/games/${ id }`, updatedGame)
 
    }
