@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" name='title' [(ngModel)]="registro.title" placeholder="Title" class="form-control" autofocus>
+                    </div>
+                    <button class="btn-success btn-block btn" (click)=" edit ? updateRegistro() : saveNewRegistro()">
+                        Guardar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
