@@ -61,6 +61,7 @@ export class GameFormComponent implements OnInit {
     .subscribe(
       res => {
           console.log(res)
+          this.route.navigate(['/games'])
       },
       err => console.log(err)
     )
