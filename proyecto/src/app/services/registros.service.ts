@@ -25,6 +25,18 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros`, registro)
    }
 
+   registrarPais(pais:any){
+    return this.http.post(`${this.API_URL}/registros/registrarpais`, pais)
+   }
+
+   getPaises(){
+    return this.http.get(`${this.API_URL}/registros/getpaises`)
+   }
+
+   registrarCiudad(ciudad:any){
+    return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
+   }
+
    deleteRegistro(id:string){
     return this.http.delete(`${this.API_URL}/registros/${ id }`)
    }

@@ -3,6 +3,6 @@ export default{
         host:'localhost',
         user: 'root',
         password: 'password',
-        database: 'prueba'
+        database: 'proyecto'
     }
 }

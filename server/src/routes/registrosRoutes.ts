@@ -11,8 +11,10 @@ class RegistrosRoutes{
 
     config():void {
         this.router.get('/', registrosController.list);
-        this.router.get('/:id', registrosController.getOne);
-        this.router.post('/', registrosController.create);
+        this.router.get('/getpaises', registrosController.getPaises);
+        // this.router.post('/', registrosController.create);
+        this.router.post('/registrarpais', registrosController.registrarPais);
+        this.router.post('/registrarciudad', registrosController.registrarCiudad);
         this.router.delete('/:id', registrosController.delete);
         this.router.put('/:id', registrosController.update);
     }

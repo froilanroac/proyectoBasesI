@@ -10,6 +10,9 @@ import { RegistroFormComponent } from './components/registro-form/registro-form.
 import { RegistroListComponent } from './components/registro-list/registro-list.component';
 
 import { RegistrosService } from './services/registros.service';
+import { RegistroPaisFormComponent } from './components/registro-pais-form/registro-pais-form.component';
+import { InicioComponent } from './components/inicio/inicio.component';
+import { RegistroCiudadFormComponent } from './components/registro-ciudad-form/registro-ciudad-form.component';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { RegistrosService } from './services/registros.service';
     AppComponent,
     NavbarComponent,
     RegistroFormComponent,
-    RegistroListComponent
+    RegistroListComponent,
+    RegistroPaisFormComponent,
+    InicioComponent,
+    RegistroCiudadFormComponent
   ],
   imports: [
     BrowserModule,

@@ -38,6 +38,33 @@ class RegistrosController{
         await pool.query('UPDATE registros set ? WHERE id = ?', [req.body, id])
         res.json({text:'el registro fue actualizado'});
     }
+
+    public async registrarPais (req:Request, res:Response){
+        try {
+            const respuesta = await pool.query("INSERT INTO paises set ? ", [req.body]);
+            res.json({message:'pais insertado'});
+          } catch (e) {  
+            res.json("SQL ERROR: " + e.sqlMessage);            
+          }
+    }
+
+    public async getPaises (req:Request, res:Response) {
+        // res.json({text:'listando juegos'})
+        const registros = await pool.query('SELECT * FROM paises');
+        res.json(registros);
+
+    }
+
+    public async registrarCiudad (req:Request, res:Response){
+        try {
+            const respuesta = await pool.query("INSERT INTO ciudades set ? ", [req.body]);
+            res.json({message:'ciudad insertada'});
+          } catch (e) {  
+            res.json("SQL ERROR: " + e.sqlMessage);            
+          }
+    }
+
+
 }
 
 export const registrosController = new RegistrosController();

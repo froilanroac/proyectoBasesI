@@ -52,6 +52,35 @@ class RegistrosController {
             res.json({ text: 'el registro fue actualizado' });
         });
     }
+    registrarPais(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO paises set ? ", [req.body]);
+                res.json({ message: 'pais insertado' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    getPaises(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM paises');
+            res.json(registros);
+        });
+    }
+    registrarCiudad(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO ciudades set ? ", [req.body]);
+                res.json({ message: 'ciudad insertada' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
 }
 exports.registrosController = new RegistrosController();
 exports.default = exports.registrosController;
