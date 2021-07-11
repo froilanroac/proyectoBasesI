@@ -48,6 +48,25 @@ class RegistrosController{
           }
     }
 
+    public async registrarRepresentante (req:Request, res:Response){
+        try {
+            const respuesta = await pool.query("INSERT INTO representantes set ? ", [req.body]);
+            res.json({message:'representante insertado'});
+          } catch (e) {  
+            res.json("SQL ERROR: " + e.sqlMessage);            
+          }
+    }
+
+
+    public async registrarColeccionista (req:Request, res:Response){
+        try {
+            const respuesta = await pool.query("INSERT INTO coleccionistas set ? ", [req.body]);
+            res.json({message:'coleccionista insertado'});
+          } catch (e) {  
+            res.json("SQL ERROR: " + e.sqlMessage);            
+          }
+    }
+
     public async getPaises (req:Request, res:Response) {
         // res.json({text:'listando juegos'})
         const registros = await pool.query('SELECT * FROM paises');

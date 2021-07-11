@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.indexController = void 0;
 class IndexController {
     index(req, res) {
-        res.send("hello");
+        res.send("Servidor proyecto");
     }
 }
 exports.indexController = new IndexController();

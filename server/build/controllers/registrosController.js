@@ -63,6 +63,28 @@ class RegistrosController {
             }
         });
     }
+    registrarRepresentante(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO representantes set ? ", [req.body]);
+                res.json({ message: 'representante insertado' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarColeccionista(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO coleccionistas set ? ", [req.body]);
+                res.json({ message: 'coleccionista insertado' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     getPaises(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})

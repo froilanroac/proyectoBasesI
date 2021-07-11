@@ -17,6 +17,8 @@ class RegistrosRoutes{
         this.router.post('/registrarpais', registrosController.registrarPais);
         this.router.post('/registrarciudad', registrosController.registrarCiudad);
         this.router.post('/registrarclub', registrosController.registrarClub);
+        this.router.post('/registrarrepresentante', registrosController.registrarRepresentante);
+        this.router.post('/registrarcoleccionista', registrosController.registrarColeccionista);
         this.router.delete('/:id', registrosController.delete);
         this.router.put('/:id', registrosController.update);
     }

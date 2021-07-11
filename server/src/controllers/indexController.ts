@@ -4,7 +4,7 @@ class IndexController{
 
     index (req:Request, res:Response) {
     
-        res.send("hello");
+        res.send("Servidor proyecto");
 
     }
 }

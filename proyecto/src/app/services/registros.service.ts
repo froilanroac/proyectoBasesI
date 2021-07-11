@@ -41,6 +41,15 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
    }
 
+   registrarRepresentante(representante:any){
+    return this.http.post(`${this.API_URL}/registros/registrarrepresentante`,representante)
+   }
+
+
+   registrarColeccionista(coleccionista:any){
+    return this.http.post(`${this.API_URL}/registros/registrarcoleccionista`,coleccionista)
+   }
+
    registrarClub(club:any){
     return this.http.post(`${this.API_URL}/registros/registrarclub`,club)
    }

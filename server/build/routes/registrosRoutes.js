@@ -18,6 +18,8 @@ class RegistrosRoutes {
         this.router.post('/registrarpais', registrosController_1.default.registrarPais);
         this.router.post('/registrarciudad', registrosController_1.default.registrarCiudad);
         this.router.post('/registrarclub', registrosController_1.default.registrarClub);
+        this.router.post('/registrarrepresentante', registrosController_1.default.registrarRepresentante);
+        this.router.post('/registrarcoleccionista', registrosController_1.default.registrarColeccionista);
         this.router.delete('/:id', registrosController_1.default.delete);
         this.router.put('/:id', registrosController_1.default.update);
     }
