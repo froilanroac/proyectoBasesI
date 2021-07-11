@@ -99,6 +99,13 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getMembresias(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM membresias');
+            res.json(registros);
+        });
+    }
     registrarCiudad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -115,6 +122,43 @@ class RegistrosController {
             try {
                 const respuesta = yield database_1.default.query("INSERT INTO clubes set ? ", [req.body]);
                 res.json({ message: 'club insertado' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarMembresia(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO membresias set ? ", [req.body]);
+                res.json({ message: 'membresia insertado' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    getColeccionistas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM coleccionistas');
+            res.json(registros);
+        });
+    }
+    getClubes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM clubes');
+            res.json(registros);
+        });
+    }
+    cerrarMembresia(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { fecha, cedula, id_club } = req.body;
+                const registros = yield database_1.default.query('UPDATE MEMBRESIAS SET FECHA_FIN=(CURRENT_DATE) WHERE FECHA_INICIO="' + fecha + '" AND CEDULA_COLECCIONISTA=' + cedula + ' AND ID_CLUB=' + id_club + ';');
+                res.json("cerrando membresia de " + fecha + ' ' + cedula + ' ' + id_club);
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

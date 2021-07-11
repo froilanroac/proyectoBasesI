@@ -7,7 +7,10 @@ import { RegistroPaisFormComponent} from "./components/registro-pais-form/regist
 import { RegistroCiudadFormComponent } from "./components/registro-ciudad-form/registro-ciudad-form.component";
 import { RegistroClubFormComponent } from "./components/registro-club-form/registro-club-form.component";
 import { RegistroRepresentanteFormComponent } from "./components/registro-representante-form/registro-representante-form.component";
-import { RegistroColeccionistaFormComponent } from "./components/registro-coleccionista-form/registro-coleccionista-form.component"
+import { RegistroColeccionistaFormComponent } from "./components/registro-coleccionista-form/registro-coleccionista-form.component";
+import { RegistroMembresiaFormComponent } from "./components/registro-membresia-form/registro-membresia-form.component"
+import { RegistroCierreMembresiaFormComponent } from "./components/registro-cierre-membresia-form/registro-cierre-membresia-form.component"
+
 import { InicioComponent } from "./components/inicio/inicio.component";
 
 const routes: Routes = [
@@ -48,12 +51,20 @@ const routes: Routes = [
   {
     path: 'registros/registrarciudad',
     component: RegistroCiudadFormComponent
-  }
-  ,
+  },
   {
     path: 'registros/registrarcoleccionista',
     component: RegistroColeccionistaFormComponent
+  },
+  {
+    path: 'registros/registrarmembresia',
+    component: RegistroMembresiaFormComponent
+  },
+  {
+    path: 'registros/cerrarmembresia',
+    component: RegistroCierreMembresiaFormComponent
   }
+
 ];
 
 @NgModule({

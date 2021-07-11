@@ -14,14 +14,19 @@ class RegistrosRoutes {
         this.router.get('/', registrosController_1.default.list);
         this.router.get('/getpaises', registrosController_1.default.getPaises);
         this.router.get('/getciudades', registrosController_1.default.getCiudades);
+        this.router.get('/getcoleccionistas', registrosController_1.default.getColeccionistas);
+        this.router.get('/getclubes', registrosController_1.default.getClubes);
+        this.router.get('/getmembresias', registrosController_1.default.getMembresias);
         // this.router.post('/', registrosController.create);
         this.router.post('/registrarpais', registrosController_1.default.registrarPais);
         this.router.post('/registrarciudad', registrosController_1.default.registrarCiudad);
         this.router.post('/registrarclub', registrosController_1.default.registrarClub);
         this.router.post('/registrarrepresentante', registrosController_1.default.registrarRepresentante);
         this.router.post('/registrarcoleccionista', registrosController_1.default.registrarColeccionista);
+        this.router.post('/registrarmembresia', registrosController_1.default.registrarMembresia);
         this.router.delete('/:id', registrosController_1.default.delete);
         this.router.put('/:id', registrosController_1.default.update);
+        this.router.post('/cerrarmembresia', registrosController_1.default.cerrarMembresia);
     }
 }
 const registrosRoutes = new RegistrosRoutes();

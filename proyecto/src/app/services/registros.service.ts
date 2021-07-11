@@ -37,6 +37,18 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getciudades`)
    }
 
+   getClubes(){
+    return this.http.get(`${this.API_URL}/registros/getclubes`)
+   }
+
+   getColeccionistas(){
+    return this.http.get(`${this.API_URL}/registros/getcoleccionistas`)
+   }
+
+   getMembresias(){
+    return this.http.get(`${this.API_URL}/registros/getmembresias`)
+   }
+
    registrarCiudad(ciudad:any){
     return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
    }
@@ -54,13 +66,22 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrarclub`,club)
    }
 
+   registrarMembresia(membresia:any){
+    return this.http.post(`${this.API_URL}/registros/registrarmembresia`,membresia)
+   }
+
    deleteRegistro(id:string){
     return this.http.delete(`${this.API_URL}/registros/${ id }`)
    }
+   
 
    updateRegistro(id:any, updatedRegistro:Registro):Observable<Registro>{
     return this.http.put(`${this.API_URL}/registros/${ id }`, updatedRegistro)
 
+   }
+
+   cerrarMembresia(membresiacerrar:any){
+    return this.http.post(`${this.API_URL}/registros/cerrarmembresia`, membresiacerrar)
    }
 
 

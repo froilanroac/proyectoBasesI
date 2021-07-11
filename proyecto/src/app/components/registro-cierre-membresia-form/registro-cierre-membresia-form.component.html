@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                Membresia a terminar:
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="keyMembresia" >
+                    <option value="{{ membresia.identificador}}" *ngFor="let membresia of membresias2">CEDULA: {{ membresia.cedula }}, NOMBRES: {{ membresia.nombre }} {{ membresia.apellido}},  CLUB: {{ membresia.nombre_club }}</option>
+                </select>
+
+                  
+            </div>
+
+
+
+
+            <button class="btn-success btn-block btn" (click)=cerrarMembresia()>
+                Cerrar Membresia
+            </button>
+        </div>
+    </div>
+</div>

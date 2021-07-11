@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { RegistroCiudadFormComponent } from './components/registro-ciudad-form/r
 import { RegistroClubFormComponent } from './components/registro-club-form/registro-club-form.component';
 import { RegistroRepresentanteFormComponent } from './components/registro-representante-form/registro-representante-form.component';
 import { RegistroColeccionistaFormComponent } from './components/registro-coleccionista-form/registro-coleccionista-form.component';
+import { RegistroMembresiaFormComponent } from './components/registro-membresia-form/registro-membresia-form.component';
+import { RegistroCierreMembresiaFormComponent } from './components/registro-cierre-membresia-form/registro-cierre-membresia-form.component';
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { RegistroColeccionistaFormComponent } from './components/registro-colecc
     RegistroCiudadFormComponent,
     RegistroClubFormComponent,
     RegistroRepresentanteFormComponent,
-    RegistroColeccionistaFormComponent
+    RegistroColeccionistaFormComponent,
+    RegistroMembresiaFormComponent,
+    RegistroCierreMembresiaFormComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ import { RegistroColeccionistaFormComponent } from './components/registro-colecc
     FormsModule
   ],
   providers: [
-    RegistrosService
+    RegistrosService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
