@@ -55,10 +55,26 @@ class RegistrosController{
 
     }
 
+    public async getCiudades (req:Request, res:Response) {
+        // res.json({text:'listando juegos'})
+        const registros = await pool.query('SELECT * FROM ciudades');
+        res.json(registros);
+
+    }
+
     public async registrarCiudad (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO ciudades set ? ", [req.body]);
             res.json({message:'ciudad insertada'});
+          } catch (e) {  
+            res.json("SQL ERROR: " + e.sqlMessage);            
+          }
+    }
+
+    public async registrarClub (req:Request, res:Response){
+        try {
+            const respuesta = await pool.query("INSERT INTO clubes set ? ", [req.body]);
+            res.json({message:'club insertado'});
           } catch (e) {  
             res.json("SQL ERROR: " + e.sqlMessage);            
           }

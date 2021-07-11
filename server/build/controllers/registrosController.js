@@ -70,11 +70,29 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getCiudades(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM ciudades');
+            res.json(registros);
+        });
+    }
     registrarCiudad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const respuesta = yield database_1.default.query("INSERT INTO ciudades set ? ", [req.body]);
                 res.json({ message: 'ciudad insertada' });
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarClub(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO clubes set ? ", [req.body]);
+                res.json({ message: 'club insertado' });
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

@@ -15,6 +15,8 @@ export class RegistroCiudadFormComponent implements OnInit {
   };
 
   paises:any = [] ;
+  
+  mostrar:boolean = false;
 
   constructor(private registrosService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
@@ -22,7 +24,7 @@ export class RegistroCiudadFormComponent implements OnInit {
     this.registrosService.getPaises().subscribe(
       res => {
         this.paises = res;
-        console.log(res)
+        console.log("Paises registrados: "+ this.paises['length'])
       }, 
       err => console.error(err)
     )

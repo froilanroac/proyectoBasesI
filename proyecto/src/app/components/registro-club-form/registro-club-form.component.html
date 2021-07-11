@@ -1,0 +1,25 @@
+<div class="alert alert-danger" role="alert" *ngIf="ciudades['length'] == 0">
+    No puede registrar ningun club porque no hay ninguna ciudad registrada
+ </div>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                <input type="text" name='nombre' [(ngModel)]="club.nombre" placeholder="Nombre" class="form-control" autofocus>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="club.id_ciudad" >
+                    <option value="{{ ciudad.id_ciudad }}" *ngFor="let ciudad of arrayCiudades2">{{ ciudad.nombre_ciudad }}, {{ ciudad.nombre_pais}}</option>
+                  </select>
+                <input type="text" name='Pagina' [(ngModel)]="club.pagina_web" placeholder="Pagina Web" class="form-control" autofocus>
+                <input type="text" name='Proposito' [(ngModel)]="club.proposito" placeholder="Proposito" class="form-control" autofocus>
+                <input id="date" type="date" [(ngModel)]="club.fecha_fund" >
+            </div>
+
+            <button class="btn-success btn-block btn" (click)=guardarClub()>
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>
+

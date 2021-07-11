@@ -5,6 +5,7 @@ import { RegistroListComponent } from './components/registro-list/registro-list.
 import { RegistroFormComponent } from "./components/registro-form/registro-form.component";
 import { RegistroPaisFormComponent} from "./components/registro-pais-form/registro-pais-form.component";
 import { RegistroCiudadFormComponent } from "./components/registro-ciudad-form/registro-ciudad-form.component";
+import { RegistroClubFormComponent } from "./components/registro-club-form/registro-club-form.component";
 import { InicioComponent } from "./components/inicio/inicio.component";
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'registros/edit/:id',
     component: RegistroFormComponent
+  },
+  {
+    path: 'registros/registrarclub',
+    component: RegistroClubFormComponent
   },
   {
     path: 'registros/pais',

@@ -13,6 +13,7 @@ import { RegistrosService } from './services/registros.service';
 import { RegistroPaisFormComponent } from './components/registro-pais-form/registro-pais-form.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { RegistroCiudadFormComponent } from './components/registro-ciudad-form/registro-ciudad-form.component';
+import { RegistroClubFormComponent } from './components/registro-club-form/registro-club-form.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { RegistroCiudadFormComponent } from './components/registro-ciudad-form/r
     RegistroListComponent,
     RegistroPaisFormComponent,
     InicioComponent,
-    RegistroCiudadFormComponent
+    RegistroCiudadFormComponent,
+    RegistroClubFormComponent
   ],
   imports: [
     BrowserModule,

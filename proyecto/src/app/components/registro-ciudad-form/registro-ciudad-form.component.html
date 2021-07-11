@@ -1,4 +1,9 @@
-<div class="row">
+
+<div class="alert alert-danger" role="alert" *ngIf="paises['length'] == 0">
+   No puede registrar ninguna ciudad porque no hay ningun pais registrado
+</div>
+
+  <div class="row" *ngIf="paises['length'] != 0">
     <div class="col-md-4 offset-md-4">
         <div class="card">
             <div class="card-body">
@@ -14,7 +19,4 @@
         </div>
     </div>
 </div>
-<!-- <div class="alert alert-danger" role="alert" *ngIf="paises.length == 0">
-   No puede registrar ninguna ciudad porque no hay ningun pais registrado
-  </div> -->
 

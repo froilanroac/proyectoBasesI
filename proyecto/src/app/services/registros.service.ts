@@ -33,8 +33,16 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getpaises`)
    }
 
+   getCiudades(){
+    return this.http.get(`${this.API_URL}/registros/getciudades`)
+   }
+
    registrarCiudad(ciudad:any){
     return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
+   }
+
+   registrarClub(club:any){
+    return this.http.post(`${this.API_URL}/registros/registrarclub`,club)
    }
 
    deleteRegistro(id:string){
