@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                PERSONA A REGISTRAR MEMBRESIA:
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="membresia.cedula_coleccionista" >
+                    <option value="{{ coleccionista.cedula }}" *ngFor="let coleccionista of coleccionistas">CEDULA: {{ coleccionista.cedula }}, NOMBRES: {{ coleccionista.nombre_1 }} {{ coleccionista.apellido1 }}</option>
+                </select>
+                CLUB A REGISTRARSE:
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="membresia.id_club" >
+                    <option value="{{ club.id }}" *ngFor="let club of clubes">Club: {{ club.nombre }} (id:{{ club.id }})</option>
+                </select>
+                <input type="text" name='email' [(ngModel)]="membresia.email" placeholder="Email" class="form-control">
+                CLUB RESPONSABLE:
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="membresia.id_club_responsable" >
+                    <option [ngValue]="-1">NO ES RESPONSABLE</option>
+                    <option value="{{ club.id }}" *ngFor="let club of clubes">Club: {{ club.nombre }} (id:{{ club.id }})</option>
+                </select>
+                  
+            </div>
+
+
+
+
+            <button class="btn-success btn-block btn" (click)=registrarMembresia()>
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>

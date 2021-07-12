@@ -15,29 +15,29 @@ export class RegistroListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRegistros();
+    // this.getRegistros();
   }
 
-  getRegistros(){
-    this.registrosService.getRegistros().subscribe(
-      res => {
-        this.registros = res;
-      }, 
-      err => console.error(err)
-    )
-  }
+  // getRegistros(){
+  //   this.registrosService.getRegistros().subscribe(
+  //     res => {
+  //       this.registros = res;
+  //     }, 
+  //     err => console.error(err)
+  //   )
+  // }
 
-  deleteRegistro(id:string){
+  // deleteRegistro(id:string){
 
-    this.registrosService.deleteRegistro(id).subscribe(
-      res => {
-        console.log(res)
-        this.getRegistros();
-      },
-      err => console.error(err)
-    );
+  //   this.registrosService.deleteRegistro(id).subscribe(
+  //     res => {
+  //       console.log(res)
+  //       this.getRegistros();
+  //     },
+  //     err => console.error(err)
+  //   );
 
-  }
+  // }
 
   editRegistro(id:string){
 

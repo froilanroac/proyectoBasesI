@@ -4,13 +4,95 @@
             <div class="card-body">
                 <form>
                     <div class="form-group">
-                        <input type="text" name='title' [(ngModel)]="registro.title" placeholder="Title" class="form-control" autofocus>
+                        <button class="btn-success btn-block btn" routerLink="/registros/pais">
+                            Registrar pais
+                        </button> 
                     </div>
-                    <button class="btn-success btn-block btn" (click)=" edit ? updateRegistro() : saveNewRegistro()">
-                        Guardar
-                    </button>
                 </form>
             </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <button class="btn-success btn-block btn" routerLink="/registros/registrarciudad">
+                            Registrar ciudad
+                        </button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <button class="btn-success btn-block btn" routerLink="/registros/registrarclub">
+                                Registrar Club
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <button class="btn-success btn-block btn" routerLink="/registros/registrarrepresentante">
+                                Registrar Representante
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <button class="btn-success btn-block btn" routerLink="/registros/registrarcoleccionista">
+                                Registrar Coleccionista
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <button class="btn-success btn-block btn" routerLink="/registros/registrarmembresia">
+                                Registrar Membresia
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <button class="btn-success btn-block btn" routerLink="/registros/cerrarmembresia">
+                                Cerrar Membresia
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <button class="btn-success btn-block btn" routerLink="/registros/objetovalor">
+                                Registrar Objeto de valor
+                            </button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            
         </div>
     </div>
 </div>

@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                <input type="text" [(ngModel)]="objetovalor.nombre"  placeholder="Nombre del objeto" class="form-control" >
+                <input type="text" [(ngModel)]="objetovalor.descripcion"  placeholder="Descripcion del objeto" class="form-control" >
+                <input type="date" [(ngModel)]="objetovalor.fecha_fabricacion"   class="form-control" >
+                <input type="text" [(ngModel)]="objetovalor.significado"  placeholder="Significado del objeto" class="form-control" >
+                COLOCAR VALOR EN $ Y CON DOS DECIMALES:
+                <input type="text" [(ngModel)]="objetovalor.precio_compra$"  placeholder="Precio de compra del objeto" class="form-control" >
+
+
+                Seleccionar dueño del objeto
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="objetovalor.cedula_coleccionista" >
+                    <option value="{{ coleccionista.cedula }}" *ngFor="let coleccionista of coleccionistas">Nombres: {{ coleccionista.nombre_1 }} {{ coleccionista.apellido1 }}, CEDULA: {{ coleccionista.cedula }}</option>
+                </select>
+
+            </div>
+
+            <button class="btn-success btn-block btn" (click)=registrarObjeto()>
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>

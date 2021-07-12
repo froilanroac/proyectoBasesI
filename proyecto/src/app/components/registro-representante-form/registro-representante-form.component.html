@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                <input type="text" [(ngModel)]="representante.nombre1_repre"  placeholder="Primer Nombre del Representante" class="form-control" autofocus>
+                
+                <input type="text" name='apellido1' [(ngModel)]="representante.apellido1_repre" placeholder="Primer Apellido del Representante" class="form-control" autofocus>
+                <input type="text" name='cedula' [(ngModel)]="representante.cedula" placeholder="Cedula del Representante" class="form-control" autofocus>
+                <input type="text" name='nombre2_repre' [(ngModel)]="representante.nombre2_repre" placeholder="Segundo nombre del Representante" class="form-control" autofocus>
+                <input type="text" name='apellido2_repre' [(ngModel)]="representante.apellido2_repre" placeholder="Segundo apellido del Representante" class="form-control" autofocus> 
+
+
+            </div>
+
+            <button class="btn-success btn-block btn" (click)=registrarRepresentante()>
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>

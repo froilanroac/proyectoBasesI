@@ -52,6 +52,147 @@ class RegistrosController {
             res.json({ text: 'el registro fue actualizado' });
         });
     }
+    registrarPais(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO paises set ? ", [req.body]);
+                res.json('PAIS INSERTADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarRepresentante(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO representantes set ? ", [req.body]);
+                res.json('REPRESENTANTE REGISTRADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarColeccionista(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO coleccionistas set ? ", [req.body]);
+                res.json('COLECCIONISTA INSERTADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    getPaises(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM paises');
+            res.json(registros);
+        });
+    }
+    getCiudades(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM ciudades');
+            res.json(registros);
+        });
+    }
+    getMembresias(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM membresias');
+            res.json(registros);
+        });
+    }
+    registrarCiudad(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO ciudades set ? ", [req.body]);
+                res.json('CIUDAD INSERTADA CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarClub(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO clubes set ? ", [req.body]);
+                res.json('CLUB INSERTADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarMembresia(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO membresias set ? ", [req.body]);
+                res.json('MEMBRESIA REGISTRADA CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    getColeccionistas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM coleccionistas');
+            res.json(registros);
+        });
+    }
+    getClubes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM clubes');
+            res.json(registros);
+        });
+    }
+    cerrarMembresia(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { fecha, cedula, id_club } = req.body;
+                const registros = yield database_1.default.query('UPDATE MEMBRESIAS SET FECHA_FIN=(CURRENT_DATE) WHERE FECHA_INICIO="' + fecha + '" AND CEDULA_COLECCIONISTA=' + cedula + ' AND ID_CLUB=' + id_club + ';');
+                res.json("CERRANDO MEMBRESIA DE " + fecha + ',' + cedula + ',' + id_club);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarObjeto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { nombre, descripcion, fecha_fabricacion, cedula_coleccionista, fecha_registro, precio_compra$, significado } = req.body;
+            var id;
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO objetos_de_valor (NOMBRE,DESCRIPCION,FECHA_FABRICACION) VALUES ('" + nombre + "','" + descripcion + "','" + fecha_fabricacion + "');");
+                const respuesta2 = yield database_1.default.query("SELECT E.ID FROM OBJETOS_DE_VALOR E WHERE NOMBRE='" + nombre + "';");
+                console.log(respuesta2[0]['ID']);
+                if (respuesta2['length'] != 0) {
+                    const respuesta3 = yield database_1.default.query("INSERT INTO historicos_duenos (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,ID_OBJETO_VALOR) VALUES (" + cedula_coleccionista + ",'" + fecha_registro + "'," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['ID'] + ");");
+                }
+                else {
+                    console.log("problemas con el historico");
+                }
+                res.json(respuesta2);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    getIdObjeto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { nombre } = req.body;
+            const registros = yield database_1.default.query("SELECT E.ID FROM OBJETOS_DE_VALOR E WHERE NOMBRE='" + nombre + "';");
+            res.json(registros);
+        });
+    }
 }
 exports.registrosController = new RegistrosController();
 exports.default = exports.registrosController;

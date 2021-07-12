@@ -1,0 +1,22 @@
+
+<div class="alert alert-danger" role="alert" *ngIf="paises['length'] == 0">
+   No puede registrar ninguna ciudad porque no hay ningun pais registrado
+</div>
+
+  <div class="row" *ngIf="paises['length'] != 0">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                <input type="text" name='pais' [(ngModel)]="ciudad.nombre" placeholder="Ciudad" class="form-control" autofocus>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="ciudad.id_pais" >
+                    <option value="{{ registro.id }}" *ngFor="let registro of paises">{{ registro.nombre }} id:({{ registro.id }})</option>
+                  </select>
+            </div>
+            <button class="btn-success btn-block btn" (click)=guardarCiudad()>
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
