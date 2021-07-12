@@ -19,6 +19,7 @@ import { RegistroRepresentanteFormComponent } from './components/registro-repres
 import { RegistroColeccionistaFormComponent } from './components/registro-coleccionista-form/registro-coleccionista-form.component';
 import { RegistroMembresiaFormComponent } from './components/registro-membresia-form/registro-membresia-form.component';
 import { RegistroCierreMembresiaFormComponent } from './components/registro-cierre-membresia-form/registro-cierre-membresia-form.component';
+import { RegistroObjetoFormComponent } from './components/registro-objeto-form/registro-objeto-form.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { RegistroCierreMembresiaFormComponent } from './components/registro-cier
     RegistroRepresentanteFormComponent,
     RegistroColeccionistaFormComponent,
     RegistroMembresiaFormComponent,
-    RegistroCierreMembresiaFormComponent
+    RegistroCierreMembresiaFormComponent,
+    RegistroObjetoFormComponent
   ],
   imports: [
     BrowserModule,

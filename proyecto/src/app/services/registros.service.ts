@@ -84,5 +84,13 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/cerrarmembresia`, membresiacerrar)
    }
 
+   registrarObjeto(objeto:any){
+    return this.http.post(`${this.API_URL}/registros/registrarobjeto`,objeto)
+   }
+
+   getIdObjeto(nombre:any){
+    return this.http.post(`${this.API_URL}/registros/getidobjeto`,nombre)
+   }
+
 
   }

@@ -140,7 +140,31 @@ public async cerrarMembresia (req:Request, res:Response){
 } catch (e) { 
   res.json("SQL ERROR: " + e.sqlMessage);            
 }
+}
 
+public async registrarObjeto (req:Request, res:Response){
+  const { nombre, descripcion,fecha_fabricacion,cedula_coleccionista,fecha_registro,precio_compra$,significado } = req.body;
+  var id ;
+  try {
+      const respuesta = await pool.query("INSERT INTO objetos_de_valor (NOMBRE,DESCRIPCION,FECHA_FABRICACION) VALUES ('"+nombre+ "','"+descripcion+"','"+fecha_fabricacion+"');");
+      const respuesta2 = await pool.query("SELECT E.ID FROM OBJETOS_DE_VALOR E WHERE NOMBRE='"+nombre+"';");
+      console.log(respuesta2[0]['ID']);
+      if(respuesta2['length'] != 0){
+        
+        const respuesta3 = await pool.query("INSERT INTO historicos_duenos (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECION_COMPRA$,SIGNIFICADO,ID_OBJETO_VALOR) VALUES ("+cedula_coleccionista+",'"+fecha_registro+"',"+precio_compra$+",'"+significado+"',"+respuesta2[0]['ID']+");");
+      }else{
+        console.log("problemas con el historico");
+      }
+      res.json(respuesta2);
+    } catch (e) {  
+      res.json("SQL ERROR: " + e.sqlMessage);            
+    }
+  }
+
+  public async getIdObjeto (req:Request, res:Response) {
+    const { nombre } = req.body;
+    const registros = await pool.query("SELECT E.ID FROM OBJETOS_DE_VALOR E WHERE NOMBRE='"+nombre+"';");
+    res.json(registros);
 
 }
 

@@ -17,6 +17,7 @@ class RegistrosRoutes {
         this.router.get('/getcoleccionistas', registrosController_1.default.getColeccionistas);
         this.router.get('/getclubes', registrosController_1.default.getClubes);
         this.router.get('/getmembresias', registrosController_1.default.getMembresias);
+        this.router.post('/getidobjeto', registrosController_1.default.getIdObjeto);
         // this.router.post('/', registrosController.create);
         this.router.post('/registrarpais', registrosController_1.default.registrarPais);
         this.router.post('/registrarciudad', registrosController_1.default.registrarCiudad);
@@ -27,6 +28,7 @@ class RegistrosRoutes {
         this.router.delete('/:id', registrosController_1.default.delete);
         this.router.put('/:id', registrosController_1.default.update);
         this.router.post('/cerrarmembresia', registrosController_1.default.cerrarMembresia);
+        this.router.post('/registrarobjeto', registrosController_1.default.registrarObjeto);
     }
 }
 const registrosRoutes = new RegistrosRoutes();
