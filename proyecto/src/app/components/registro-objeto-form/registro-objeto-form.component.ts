@@ -18,7 +18,7 @@ export class RegistroObjetoFormComponent implements OnInit {
     // historico valores
     cedula_coleccionista:0,
     fecha_registro:this.datepipe.transform(new Date(),'yyyy/MM/dd'),
-    precio_compra$:0,
+    precio_compra$:null,
     significado:'',
 
   }
@@ -60,7 +60,7 @@ export class RegistroObjetoFormComponent implements OnInit {
 
     this.registroService.registrarObjeto(this.objetovalor).subscribe(
       res => {
-        console.log(res)
+        alert(res)
         this.route.navigate(['/inicio']);
       }, 
       err => console.error(err)

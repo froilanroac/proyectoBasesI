@@ -125,7 +125,7 @@ CREATE TABLE historicos_duenos (
     id INT AUTO_INCREMENT,
     cedula_coleccionista INT,
     fecha_registro DATE,
-    precion_compra$ INT,
+    precio_compra$ DECIMAL(13,2),
     significado VARCHAR(50),
     id_comic INT,
     id_objeto_valor INT,

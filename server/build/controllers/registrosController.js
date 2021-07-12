@@ -174,7 +174,7 @@ class RegistrosController {
                 const respuesta2 = yield database_1.default.query("SELECT E.ID FROM OBJETOS_DE_VALOR E WHERE NOMBRE='" + nombre + "';");
                 console.log(respuesta2[0]['ID']);
                 if (respuesta2['length'] != 0) {
-                    const respuesta3 = yield database_1.default.query("INSERT INTO historicos_duenos (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECION_COMPRA$,SIGNIFICADO,ID_OBJETO_VALOR) VALUES (" + cedula_coleccionista + ",'" + fecha_registro + "'," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['ID'] + ");");
+                    const respuesta3 = yield database_1.default.query("INSERT INTO historicos_duenos (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,ID_OBJETO_VALOR) VALUES (" + cedula_coleccionista + ",'" + fecha_registro + "'," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['ID'] + ");");
                 }
                 else {
                     console.log("problemas con el historico");
