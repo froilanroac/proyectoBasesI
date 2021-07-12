@@ -33,10 +33,13 @@ export class RegistroPaisFormComponent implements OnInit {
     this.registroService.registrarPais(this.pais)
     .subscribe(
       res => {
-        console.log(res);
+        alert(res);
         this.route.navigate(['/inicio']);
       },
-      err => console.error(err)
+      err =>{ 
+        console.error(err)
+      }
+     
     );
   }
 

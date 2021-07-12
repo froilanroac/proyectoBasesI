@@ -42,7 +42,7 @@ class RegistrosController{
     public async registrarPais (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO paises set ? ", [req.body]);
-            res.json({message:'pais insertado'});
+            res.json('PAIS INSERTADO CON EXITO');
           } catch (e) {  
             res.json("SQL ERROR: " + e.sqlMessage);            
           }
@@ -91,7 +91,7 @@ class RegistrosController{
     public async registrarCiudad (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO ciudades set ? ", [req.body]);
-            res.json({message:'ciudad insertada'});
+            res.json('CIUDAD INSERTADA CON EXITO');
           } catch (e) {  
             res.json("SQL ERROR: " + e.sqlMessage);            
           }
@@ -100,7 +100,7 @@ class RegistrosController{
     public async registrarClub (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO clubes set ? ", [req.body]);
-            res.json({message:'club insertado'});
+            res.json('CLUB INSERTADO CON EXITO');
           } catch (e) {  
             res.json("SQL ERROR: " + e.sqlMessage);            
           }

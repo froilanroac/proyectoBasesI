@@ -32,19 +32,18 @@ export class RegistroCiudadFormComponent implements OnInit {
 
   guardarCiudad(){
 
+    console.log("Ciudad a insertar: ");
     console.log(this.ciudad);
 
     this.registrosService.registrarCiudad(this.ciudad).subscribe(
       res => {
         this.paises = res;
-        console.log(res)
+        alert(res);
         this.route.navigate(['/inicio']);
       }, 
       err => console.error(err)
     )
-
   }
-
 }
 
 

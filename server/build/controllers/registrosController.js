@@ -56,7 +56,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const respuesta = yield database_1.default.query("INSERT INTO paises set ? ", [req.body]);
-                res.json({ message: 'pais insertado' });
+                res.json('PAIS INSERTADO CON EXITO');
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);
@@ -110,7 +110,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const respuesta = yield database_1.default.query("INSERT INTO ciudades set ? ", [req.body]);
-                res.json({ message: 'ciudad insertada' });
+                res.json('CIUDAD INSERTADA CON EXITO');
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);
@@ -121,7 +121,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const respuesta = yield database_1.default.query("INSERT INTO clubes set ? ", [req.body]);
-                res.json({ message: 'club insertado' });
+                res.json('CLUB INSERTADO CON EXITO');
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

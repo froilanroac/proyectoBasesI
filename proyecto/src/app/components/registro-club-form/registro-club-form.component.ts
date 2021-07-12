@@ -66,7 +66,7 @@ export class RegistroClubFormComponent implements OnInit {
                 ciudad.nombre_pais=pais.nombre;
             }
           }
-          console.log(this.arrayCiudades2);  
+          // console.log(this.arrayCiudades2);  
         }   
            
       }, 
@@ -84,11 +84,12 @@ export class RegistroClubFormComponent implements OnInit {
     }
 
     console.log(this.arrayCiudades2);
-    console.log("Elemento a insertar: "+ this.club);
+    console.log("Elemento a insertar: ");
+    console.log(this.club);
 
     this.registroService.registrarClub(this.club).subscribe(
       res => {
-        console.log(res)
+        alert(res);
         this.route.navigate(['/inicio']);
       }, 
       err => console.error(err)
