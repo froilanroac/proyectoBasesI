@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+            <div class="form-group">
+                <input type="text" [(ngModel)]="comic.titulo" placeholder="Titulo" class="form-control" >
+                FECHA DE PUBLICACION:
+                <input type="date" [(ngModel)]="comic.fecha_publicacion" class="form-control" >
+                <input type="text" [(ngModel)]="comic.sinopsis" placeholder="Sinopsis"  class="form-control" >
+                <input type="text" [(ngModel)]="comic.editor" placeholder="Editor"  class="form-control" >
+                <input type="number" [(ngModel)]="comic.paginas" placeholder="Paginas"  class="form-control" >
+                <div class="form-check">
+                    <input value="true" class="form-check-input"[(ngModel)]="comic.color" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      A COLOR
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input value="false" class="form-check-input"[(ngModel)]="comic.color" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      BLANCO Y NEGRO
+                    </label>
+                  </div>
+                  <input type="number" [(ngModel)]="comic.numero" placeholder="Numero de comic"  class="form-control" >
+                  <input type="number" [(ngModel)]="comic.precio_org" placeholder="Precio original del comic"  class="form-control" >
+                  <input type="number" [(ngModel)]="comic.vol_numero" placeholder="Numero de volumen del comic"  class="form-control" >
+
+            </div>
+            <button class="btn-success btn-block btn" >
+                Guardar
+            </button>
+        </div>
+    </div>
+</div>
