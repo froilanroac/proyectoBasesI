@@ -155,7 +155,7 @@ public async registrarObjeto (req:Request, res:Response){
       }else{
         console.log("problemas con el historico");
       }
-      res.json(respuesta2);
+      res.json("OBJETO REGISTRADO CON EXITO");
     } catch (e) {  
       res.json("SQL ERROR: " + e.sqlMessage);            
     }
@@ -167,6 +167,25 @@ public async registrarObjeto (req:Request, res:Response){
     res.json(registros);
 
 }
+public async registrarComic (req:Request, res:Response){
+  const { fecha_publicacion, sinopsis,editor,paginas,color,titulo,numero,precio_org$,vol_numero, cedula_coleccionista,fecha_registro,precio_compra$, significado} = req.body;
+
+  var id ;
+  try {
+      const respuesta = await pool.query("INSERT INTO comics (FECHA_PUBLICACION,SINOPSIS,EDITOR,PAGINAS,COLOR,TITULO,NUMERO,PRECIO_ORG$,VOL_NUMERO) VALUES ('"+fecha_publicacion+"','"+sinopsis+"','"+editor+"','"+paginas+"',"+color+",'"+titulo+"',"+numero+","+precio_org$+","+vol_numero+");");
+      const respuesta2 = await pool.query("SELECT E.ID FROM comics E WHERE titulo='"+titulo+"';");
+      console.log(respuesta2[0]['ID']);
+      if(respuesta2['length'] != 0){
+        
+        const respuesta3 = await pool.query("INSERT INTO historicos_duenos (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,ID_COMIC) VALUES ("+cedula_coleccionista+",'"+fecha_registro+"',"+precio_compra$+",'"+significado+"',"+respuesta2[0]['ID']+");");
+      }else{
+        console.log("problemas con el historico");
+      }
+      res.json("OBJETO REGISTRADO CON EXITO");
+    } catch (e) {  
+      res.json("SQL ERROR: " + e.sqlMessage);            
+    }
+  }
 
 
 }

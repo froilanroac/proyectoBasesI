@@ -37,6 +37,8 @@ export class RegistroObjetoFormComponent implements OnInit {
 
   coleccionistas:any = [];
 
+  errorRegistro:boolean = false;
+
 
   constructor(public datepipe: DatePipe,private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
@@ -57,7 +59,7 @@ export class RegistroObjetoFormComponent implements OnInit {
     console.log("registrando objeto");
     // console.log(this.historico);
     console.log(this.objetovalor);
-
+    if(this.objetovalor.cedula_coleccionista !=0){
     this.registroService.registrarObjeto(this.objetovalor).subscribe(
       res => {
         alert(res)
@@ -65,6 +67,9 @@ export class RegistroObjetoFormComponent implements OnInit {
       }, 
       err => console.error(err)
     )
+    }else{
+      alert("DEBE REGISTRAR UN DUEÑO PARA EL OBJETO")
+    }
 
 
   }

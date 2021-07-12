@@ -10,23 +10,29 @@
                 <input type="text" [(ngModel)]="comic.editor" placeholder="Editor"  class="form-control" >
                 <input type="number" [(ngModel)]="comic.paginas" placeholder="Paginas"  class="form-control" >
                 <div class="form-check">
-                    <input value="true" class="form-check-input"[(ngModel)]="comic.color" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">
-                      A COLOR
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input value="false" class="form-check-input"[(ngModel)]="comic.color" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                      BLANCO Y NEGRO
-                    </label>
-                  </div>
+                  <input class="form-check-input" type="boolean" value="true" [(ngModel)]="comic.paginas" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    A COLOR
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="boolean" value="false" [(ngModel)]="comic.paginas" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    BLANCO Y NEGRO
+                  </label>
+                </div>
+
                   <input type="number" [(ngModel)]="comic.numero" placeholder="Numero de comic"  class="form-control" >
-                  <input type="number" [(ngModel)]="comic.precio_org" placeholder="Precio original del comic"  class="form-control" >
+                  <input type="number" [(ngModel)]="comic.precio_org$" placeholder="Precio original del comic"  class="form-control" >
                   <input type="number" [(ngModel)]="comic.vol_numero" placeholder="Numero de volumen del comic"  class="form-control" >
 
+                  Seleccionar dueño del objeto
+                  <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="comic.cedula_coleccionista" >
+                      <option value="{{ coleccionista.cedula }}" *ngFor="let coleccionista of coleccionistas">Nombres: {{ coleccionista.nombre_1 }} {{ coleccionista.apellido1 }}, CEDULA: {{ coleccionista.cedula }}</option>
+                  </select>
+
             </div>
-            <button class="btn-success btn-block btn" >
+            <button class="btn-success btn-block btn" (click)=registrarComic()>
                 Guardar
             </button>
         </div>

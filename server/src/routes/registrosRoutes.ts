@@ -28,6 +28,7 @@ class RegistrosRoutes{
         this.router.put('/:id', registrosController.update);
         this.router.post('/cerrarmembresia', registrosController.cerrarMembresia);
         this.router.post('/registrarobjeto', registrosController.registrarObjeto);
+        this.router.post('/registrarcomic', registrosController.registrarComic);
         
 
     }

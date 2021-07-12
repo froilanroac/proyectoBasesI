@@ -18,13 +18,48 @@ export class RegistroComicFormComponent implements OnInit {
     color:true,
     titulo:'',
     numero:null,
-    precio_org:null,
-    vol_numero:null
+    precio_org$:null,
+    vol_numero:null,
+    // historico valores
+    cedula_coleccionista:null,
+    fecha_registro:this.datepipe.transform(new Date(),'yyyy/MM/dd'),
+    precio_compra$:null,
+    significado:null,
+  
+    
   }
+  coleccionistas:any = [];
 
-  constructor(private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
+  constructor(public datepipe:DatePipe,private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    this.registroService.getColeccionistas().subscribe(
+      res => {
+        this.coleccionistas = res;
+        console.log("Coleccionistas registrados: "+ this.coleccionistas['length'])
+        console.log(this.coleccionistas)
+      }, 
+      err => console.error(err)
+    )
+  }
+
+  registrarComic(){
+    console.log("registrando el comic");
+    // console.log(this.historico);
+    console.log(this.comic);
+    if(this.comic.cedula_coleccionista){
+    this.registroService.registrarComic(this.comic).subscribe(
+      res => {
+        alert(res)
+        this.route.navigate(['/inicio']);
+      }, 
+      err => console.error(err)
+    )
+
+    }else{
+      alert("DEBE REGISTRAR UN DUEÑO PARA EL COMIC");
+    }
   }
 
 }

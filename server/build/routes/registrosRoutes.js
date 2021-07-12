@@ -29,6 +29,7 @@ class RegistrosRoutes {
         this.router.put('/:id', registrosController_1.default.update);
         this.router.post('/cerrarmembresia', registrosController_1.default.cerrarMembresia);
         this.router.post('/registrarobjeto', registrosController_1.default.registrarObjeto);
+        this.router.post('/registrarcomic', registrosController_1.default.registrarComic);
     }
 }
 const registrosRoutes = new RegistrosRoutes();
