@@ -31,7 +31,7 @@ export class RegistroClubFormComponent implements OnInit {
     proposito:''
   };
 
-
+  interes:string=''
 
   constructor(private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 

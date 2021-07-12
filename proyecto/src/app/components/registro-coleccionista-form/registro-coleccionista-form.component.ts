@@ -27,18 +27,18 @@ export class RegistroColeccionistaFormComponent implements OnInit {
   paises:any = [];
 
   coleccionista = {
-    cedula:0,
+    cedula:null,
     nombre_1:'',
     apellido1:'',
     telefono:'',
     fecha_nacimiento:'',
-    id_ciudad:0,
-    id_pais:0,
+    id_ciudad:null,
+    id_pais:null,
     apellido2:'',
-    id_pais_nac:0,
+    id_pais_nac:null,
     nombre2:'',
-    cedula_representante:0,
-    id_representante:0
+    cedula_representante:null,
+    id_representante:null
     
   };
 
@@ -87,15 +87,16 @@ export class RegistroColeccionistaFormComponent implements OnInit {
 
   registrarColeccionista(){
 
-    
+    console.log(this.coleccionista.cedula_representante);
+    console.log(this.coleccionista.id_representante);
 
-    if (this.coleccionista.id_representante != 0 && this.coleccionista.cedula_representante != 0){
+    if (this.coleccionista.id_representante && this.coleccionista.cedula_representante){
       alert("VERIFICAR CAMPOS DE REPRESENTANTES, NO PUEDEN ESTAR LOS DOS AL MISMO TIMEMOP")
       this.route.navigate(['/inicio']);
     }
     
 
-    if (this.coleccionista.cedula_representante!=0 && this.coleccionista.id_representante==0){
+    if (this.coleccionista.cedula_representante && !this.coleccionista.id_representante){
       console.log("representante coleccionsita");
       let coleccionistaInsertar = {
         cedula:this.coleccionista.cedula,
@@ -124,7 +125,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
         this.registroService.registrarColeccionista(coleccionistaInsertar)
         .subscribe(
         res => {
-          console.log(res);
+          alert(res);
           this.route.navigate(['/inicio']);
         },
         err => console.error(err)
@@ -134,7 +135,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
 
     }
 
-    if (this.coleccionista.id_representante!=0 && this.coleccionista.cedula_representante==0){
+    if (!this.coleccionista.cedula_representante && this.coleccionista.id_representante){
       console.log("representante no coleccionsita");
       let coleccionistaInsertar = {
         cedula:this.coleccionista.cedula,
@@ -163,7 +164,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
         this.registroService.registrarColeccionista(coleccionistaInsertar)
         .subscribe(
         res => {
-          console.log(res);
+          alert(res);
           this.route.navigate(['/inicio']);
         },
         err => console.error(err)
@@ -173,7 +174,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
 
     }
 
-    if (this.coleccionista.id_representante == 0 && this.coleccionista.cedula_representante == 0){
+    if (!this.coleccionista.id_representante  && !this.coleccionista.cedula_representante){
       console.log("mayor de edad");
       let coleccionistaInsertar = {
         cedula:this.coleccionista.cedula,
@@ -202,7 +203,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
       this.registroService.registrarColeccionista(coleccionistaInsertar)
       .subscribe(
       res => {
-        console.log(res);
+        alert(res);
         this.route.navigate(['/inicio']);
       },
       err => console.error(err)

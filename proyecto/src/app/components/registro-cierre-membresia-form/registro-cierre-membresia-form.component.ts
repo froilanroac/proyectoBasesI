@@ -17,6 +17,8 @@ export class RegistroCierreMembresiaFormComponent implements OnInit {
 
   coleccionistas: any = [];
 
+  mostrar:boolean=true;
+
   
 
   clubes:any =[];
@@ -95,6 +97,9 @@ export class RegistroCierreMembresiaFormComponent implements OnInit {
     }
     console.log("Membresias 2 ");
     console.log(this.membresias2);
+    if(this.membresias2['length'] == 0){
+      this.mostrar=false;
+    }
   }
 
   cerrarMembresia(){
@@ -113,7 +118,7 @@ export class RegistroCierreMembresiaFormComponent implements OnInit {
 
     this.registroService.cerrarMembresia(this.keysCerrar).subscribe(
       res => {
-        console.log(res)
+        alert(res)
       }, 
       err => console.error(err)
     )

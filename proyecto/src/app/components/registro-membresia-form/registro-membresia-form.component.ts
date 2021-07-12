@@ -69,7 +69,7 @@ export class RegistroMembresiaFormComponent implements OnInit {
       console.log(membresia)
       this.registroService.registrarMembresia(membresia).subscribe(
         res => {
-          console.log(res)
+          alert(res)
           this.route.navigate(['/inicio']);
         }, 
         err => console.error(err)
@@ -79,7 +79,7 @@ export class RegistroMembresiaFormComponent implements OnInit {
       console.log(this.membresia)
     this.registroService.registrarMembresia(this.membresia).subscribe(
       res => {
-        console.log(res)
+        alert(res)
         this.route.navigate(['/inicio']);
       }, 
       err => console.error(err)

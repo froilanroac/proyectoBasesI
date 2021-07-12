@@ -24,11 +24,12 @@ export class RegistroRepresentanteFormComponent implements OnInit {
   }
 
   registrarRepresentante(){
+    console.log("representante a insertar: ")
     console.log(this.representante)
     this.registroService.registrarRepresentante(this.representante)
     .subscribe(
       res => {
-        console.log(res);
+        alert(res);
         this.route.navigate(['/inicio']);
       },
       err => console.error(err)

@@ -51,7 +51,7 @@ class RegistrosController{
     public async registrarRepresentante (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO representantes set ? ", [req.body]);
-            res.json({message:'representante insertado'});
+            res.json('REPRESENTANTE REGISTRADO CON EXITO');
           } catch (e) {  
             res.json("SQL ERROR: " + e.sqlMessage);            
           }
@@ -61,7 +61,7 @@ class RegistrosController{
     public async registrarColeccionista (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO coleccionistas set ? ", [req.body]);
-            res.json({message:'coleccionista insertado'});
+            res.json('COLECCIONISTA INSERTADO CON EXITO');
           } catch (e) {  
             res.json("SQL ERROR: " + e.sqlMessage);            
           }
@@ -109,7 +109,7 @@ class RegistrosController{
     public async registrarMembresia (req:Request, res:Response){
       try {
           const respuesta = await pool.query("INSERT INTO membresias set ? ", [req.body]);
-          res.json({message:'membresia insertado'});
+          res.json('MEMBRESIA REGISTRADA CON EXITO');
         } catch (e) {  
           res.json("SQL ERROR: " + e.sqlMessage);            
         }
@@ -136,7 +136,7 @@ public async cerrarMembresia (req:Request, res:Response){
   const { fecha,cedula,id_club } = req.body; 
   const registros = await pool.query('UPDATE MEMBRESIAS SET FECHA_FIN=(CURRENT_DATE) WHERE FECHA_INICIO="'+fecha+'" AND CEDULA_COLECCIONISTA='+cedula+' AND ID_CLUB='+ id_club+';');
 
-  res.json("cerrando membresia de " +fecha+' '+ cedula+' '+id_club);
+  res.json("CERRANDO MEMBRESIA DE " +fecha+','+ cedula+','+id_club);
 } catch (e) { 
   res.json("SQL ERROR: " + e.sqlMessage);            
 }
