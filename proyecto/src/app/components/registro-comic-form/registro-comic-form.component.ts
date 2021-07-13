@@ -59,6 +59,7 @@ export class RegistroComicFormComponent implements OnInit {
 
     }else{
       alert("DEBE REGISTRAR UN DUEÑO PARA EL COMIC");
+      
     }
   }
 
