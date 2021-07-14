@@ -49,6 +49,10 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getmembresias`)
    }
 
+   getIntereses(){
+    return this.http.get(`${this.API_URL}/registros/getintereses`)
+   }
+
    registrarCiudad(ciudad:any){
     return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
    }
@@ -94,6 +98,10 @@ export class RegistrosService {
 
    registrarComic(comic:any){
     return this.http.post(`${this.API_URL}/registros/registrarcomic`,comic)
+   }
+
+   registrarInteres(interes:any){
+    return this.http.post(`${this.API_URL}/registros/registrarinteres`,interes)
    }
 
 

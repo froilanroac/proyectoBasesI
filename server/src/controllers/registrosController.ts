@@ -130,6 +130,13 @@ class RegistrosController{
 
 }
 
+public async getIntereses (req:Request, res:Response) {
+  // res.json({text:'listando juegos'})
+  const registros = await pool.query('SELECT * FROM intereses');
+  res.json(registros);
+
+}
+
 
 public async cerrarMembresia (req:Request, res:Response){
   try {
@@ -186,6 +193,35 @@ public async registrarComic (req:Request, res:Response){
       res.json("SQL ERROR: " + e.sqlMessage);            
     }
   }
+
+  public async registrarInteres (req:Request, res:Response){
+    const { id_club, interes } = req.body;
+
+    try {
+        const resp = await pool.query("SELECT E.ID FROM intereses E WHERE  descripcion='"+interes+"';") 
+        if(resp['length'] == 0){
+          const respuesta = await pool.query("INSERT INTO INTERESES (descripcion) VALUES ('"+interes+"');");
+          const respuesta2 = await pool.query("SELECT E.ID FROM intereses E WHERE  descripcion='"+interes+"';");
+          console.log(respuesta2[0]['ID']);
+          if(respuesta2['length'] != 0){
+            const respuesta3 = await pool.query("INSERT INTO c_i (id_club,id_interes) VALUES ("+id_club+","+respuesta2[0]['ID']+");");
+          }else{
+            console.log("problemas con c_i");
+          }
+          
+        }else{
+          console.log("ya existe ese interes");
+
+          let respuesta2 = await pool.query("SELECT E.ID FROM intereses E WHERE  descripcion='"+interes+"';");
+          let respuesta3 = await pool.query("INSERT INTO c_i (id_club,id_interes) VALUES ("+id_club+","+respuesta2[0]['ID']+");");
+
+        }
+        res.json("INTERES REGISTRADO CON EXITO");
+      } catch (e) {  
+
+        res.json("SQL ERROR: " + e.sqlMessage);           
+      }
+    }
 
 
 }

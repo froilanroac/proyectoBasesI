@@ -153,6 +153,13 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getIntereses(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM intereses');
+            res.json(registros);
+        });
+    }
     cerrarMembresia(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -208,6 +215,34 @@ class RegistrosController {
                     console.log("problemas con el historico");
                 }
                 res.json("OBJETO REGISTRADO CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarInteres(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id_club, interes } = req.body;
+            try {
+                const resp = yield database_1.default.query("SELECT E.ID FROM intereses E WHERE  descripcion='" + interes + "';");
+                if (resp['length'] == 0) {
+                    const respuesta = yield database_1.default.query("INSERT INTO INTERESES (descripcion) VALUES ('" + interes + "');");
+                    const respuesta2 = yield database_1.default.query("SELECT E.ID FROM intereses E WHERE  descripcion='" + interes + "';");
+                    console.log(respuesta2[0]['ID']);
+                    if (respuesta2['length'] != 0) {
+                        const respuesta3 = yield database_1.default.query("INSERT INTO c_i (id_club,id_interes) VALUES (" + id_club + "," + respuesta2[0]['ID'] + ");");
+                    }
+                    else {
+                        console.log("problemas con c_i");
+                    }
+                }
+                else {
+                    console.log("ya existe ese interes");
+                    let respuesta2 = yield database_1.default.query("SELECT E.ID FROM intereses E WHERE  descripcion='" + interes + "';");
+                    let respuesta3 = yield database_1.default.query("INSERT INTO c_i (id_club,id_interes) VALUES (" + id_club + "," + respuesta2[0]['ID'] + ");");
+                }
+                res.json("INTERES REGISTRADO CON EXITO");
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

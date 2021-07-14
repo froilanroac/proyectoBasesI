@@ -17,6 +17,8 @@ class RegistrosRoutes{
         this.router.get('/getclubes', registrosController.getClubes);
         this.router.get('/getmembresias', registrosController.getMembresias);
         this.router.post('/getidobjeto', registrosController.getIdObjeto);
+        // revisar esto de objeto (post?)
+        this.router.get('/getintereses', registrosController.getIntereses);
         // this.router.post('/', registrosController.create);
         this.router.post('/registrarpais', registrosController.registrarPais);
         this.router.post('/registrarciudad', registrosController.registrarCiudad);
@@ -29,6 +31,7 @@ class RegistrosRoutes{
         this.router.post('/cerrarmembresia', registrosController.cerrarMembresia);
         this.router.post('/registrarobjeto', registrosController.registrarObjeto);
         this.router.post('/registrarcomic', registrosController.registrarComic);
+        this.router.post('/registrarinteres', registrosController.registrarInteres);
         
 
     }
