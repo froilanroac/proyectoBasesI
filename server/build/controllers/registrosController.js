@@ -63,6 +63,18 @@ class RegistrosController {
             }
         });
     }
+    registrarOrganizacion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { nombre, descripcion } = req.body;
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO organizaciones_caridad (NOMBRE,DESCRIPCION) VALUES ('" + nombre + "','" + descripcion + "');");
+                res.json('ORGANIZACION INSERTADA CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     registrarRepresentante(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -48,6 +48,16 @@ class RegistrosController{
           }
     }
 
+    public async registrarOrganizacion(req:Request, res:Response){
+      const { nombre,descripcion } = req.body; 
+      try {
+          const respuesta = await pool.query("INSERT INTO organizaciones_caridad (NOMBRE,DESCRIPCION) VALUES ('"+nombre+"','"+descripcion+"');");
+          res.json('ORGANIZACION INSERTADA CON EXITO');
+        } catch (e) {  
+          res.json("SQL ERROR: " + e.sqlMessage);            
+        }
+    }
+
     public async registrarRepresentante (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO representantes set ? ", [req.body]);

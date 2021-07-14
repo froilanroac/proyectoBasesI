@@ -13,6 +13,7 @@ import { RegistroCierreMembresiaFormComponent } from "./components/registro-cier
 import { RegistroObjetoFormComponent } from "./components/registro-objeto-form/registro-objeto-form.component";
 import { RegistroInteresesComponent } from "./components/registro-intereses/registro-intereses.component";
 import { RegistroContactosClubesComponent } from "./components/registro-contactos-clubes/registro-contactos-clubes.component";
+import { RegistroOrganizacionCaridadComponent } from "./components/registro-organizacion-caridad/registro-organizacion-caridad.component";
 
 import { RegistroComicFormComponent  } from "./components/registro-comic-form/registro-comic-form.component";
 import { InicioComponent } from "./components/inicio/inicio.component";
@@ -83,6 +84,10 @@ const routes: Routes = [
   {
     path: 'registros/contactos',
     component: RegistroContactosClubesComponent
+  },
+  {
+    path: 'registros/organizacion',
+    component: RegistroOrganizacionCaridadComponent
   }
   
   

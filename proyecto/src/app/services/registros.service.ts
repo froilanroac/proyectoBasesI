@@ -108,5 +108,9 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrartelefono`,telefono)
    }
 
+   registrarOrganizacion(organizacion:any){
+    return this.http.post(`${this.API_URL}/registros/registrarorganizacion`,organizacion)
+   }
+
 
   }

@@ -34,6 +34,7 @@ class RegistrosRoutes {
         this.router.post('/registrarobjeto', registrosController_1.default.registrarObjeto);
         this.router.post('/registrarcomic', registrosController_1.default.registrarComic);
         this.router.post('/registrarinteres', registrosController_1.default.registrarInteres);
+        this.router.post('/registrarorganizacion', registrosController_1.default.registrarOrganizacion);
     }
 }
 const registrosRoutes = new RegistrosRoutes();
