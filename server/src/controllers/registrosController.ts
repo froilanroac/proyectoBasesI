@@ -223,6 +223,18 @@ public async registrarComic (req:Request, res:Response){
       }
     }
 
+    public async registrarTelefono(req:Request, res:Response){
+      const { telefono,id_club } = req.body; 
+      console.log("INSERT INTO contactos_club (id_club,telefono) VALUES ("+id_club+","+telefono+");")
+      try {
+      const { telefono,id_club } = req.body; 
+      const registros = await pool.query("INSERT INTO contactos_club (id_club,telefono) VALUES ("+id_club+","+telefono+");");    
+      res.json("TELEFONO REGISTRADO CON EXITO");
+    } catch (e) { 
+      res.json("SQL ERROR: " + e.sqlMessage);            
+    }
+    }
+
 
 }
 

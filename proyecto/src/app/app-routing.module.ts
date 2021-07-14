@@ -12,6 +12,7 @@ import { RegistroMembresiaFormComponent } from "./components/registro-membresia-
 import { RegistroCierreMembresiaFormComponent } from "./components/registro-cierre-membresia-form/registro-cierre-membresia-form.component"
 import { RegistroObjetoFormComponent } from "./components/registro-objeto-form/registro-objeto-form.component";
 import { RegistroInteresesComponent } from "./components/registro-intereses/registro-intereses.component";
+import { RegistroContactosClubesComponent } from "./components/registro-contactos-clubes/registro-contactos-clubes.component";
 
 import { RegistroComicFormComponent  } from "./components/registro-comic-form/registro-comic-form.component";
 import { InicioComponent } from "./components/inicio/inicio.component";
@@ -74,13 +75,16 @@ const routes: Routes = [
   {
     path: 'registros/comic',
     component: RegistroComicFormComponent 
-  }
-  ,
+  },
   {
     path: 'registros/intereses',
     component: RegistroInteresesComponent
+  },
+  {
+    path: 'registros/contactos',
+    component: RegistroContactosClubesComponent
   }
-
+  
   
 ];
 

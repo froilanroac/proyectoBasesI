@@ -22,6 +22,7 @@ import { RegistroCierreMembresiaFormComponent } from './components/registro-cier
 import { RegistroObjetoFormComponent } from './components/registro-objeto-form/registro-objeto-form.component';
 import { RegistroComicFormComponent } from './components/registro-comic-form/registro-comic-form.component';
 import { RegistroInteresesComponent } from './components/registro-intereses/registro-intereses.component';
+import { RegistroContactosClubesComponent } from './components/registro-contactos-clubes/registro-contactos-clubes.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { RegistroInteresesComponent } from './components/registro-intereses/regi
     RegistroCierreMembresiaFormComponent,
     RegistroObjetoFormComponent,
     RegistroComicFormComponent,
-    RegistroInteresesComponent
+    RegistroInteresesComponent,
+    RegistroContactosClubesComponent
   ],
   imports: [
     BrowserModule,

@@ -26,6 +26,8 @@ class RegistrosRoutes{
         this.router.post('/registrarrepresentante', registrosController.registrarRepresentante);
         this.router.post('/registrarcoleccionista', registrosController.registrarColeccionista);
         this.router.post('/registrarmembresia', registrosController.registrarMembresia);
+        this.router.post('/registrartelefono', registrosController.registrarTelefono);
+        
         this.router.delete('/:id', registrosController.delete);
         this.router.put('/:id', registrosController.update);
         this.router.post('/cerrarmembresia', registrosController.cerrarMembresia);

@@ -249,6 +249,20 @@ class RegistrosController {
             }
         });
     }
+    registrarTelefono(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { telefono, id_club } = req.body;
+            console.log("INSERT INTO contactos_club (id_club,telefono) VALUES (" + id_club + "," + telefono + ");");
+            try {
+                const { telefono, id_club } = req.body;
+                const registros = yield database_1.default.query("INSERT INTO contactos_club (id_club,telefono) VALUES (" + id_club + "," + telefono + ");");
+                res.json("TELEFONO REGISTRADO CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
 }
 exports.registrosController = new RegistrosController();
 exports.default = exports.registrosController;

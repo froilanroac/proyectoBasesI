@@ -104,5 +104,9 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrarinteres`,interes)
    }
 
+   registrarTelefono(telefono:any){
+    return this.http.post(`${this.API_URL}/registros/registrartelefono`,telefono)
+   }
+
 
   }
