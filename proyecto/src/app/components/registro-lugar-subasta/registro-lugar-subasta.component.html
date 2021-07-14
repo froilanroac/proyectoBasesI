@@ -1,0 +1,17 @@
+REGISTRAR LUGAR PARA UNA SUBASTA:
+SELECIONE UNA CIUDAD
+<select class="form-select form-select-sm" aria-label=".form-select-sm example"  [(ngModel)]="lugarInsertar.id_ciudad" >
+    <option value="{{  ciudad.id_ciudad }}" *ngFor="let ciudad of arrayCiudades2">{{ ciudad.nombre_ciudad }}, {{ ciudad.nombre_pais}}</option>
+</select>
+
+
+<input type="text"  [(ngModel)]="lugarInsertar.avenida" placeholder="Avenida" class="form-control">
+<input type="text"  [(ngModel)]="lugarInsertar.calle" placeholder="calle" class="form-control">
+<input type="text" [(ngModel)]="lugarInsertar.tipo"  placeholder="Tipo del lugar (descripcion)" class="form-control">
+<input type="text"  [(ngModel)]="lugarInsertar.nombre_lugar" placeholder="Nombre del lugar" class="form-control">
+
+<button class="btn-success btn-block btn" (click)=registrarLugar()>
+    Registrar
+ </button>
+
+

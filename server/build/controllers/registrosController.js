@@ -275,6 +275,18 @@ class RegistrosController {
             }
         });
     }
+    registrarLugar(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { calle, avenida, id_ciudad, id_pais, tipo, nombre_lugar } = req.body;
+                const registros = yield database_1.default.query("INSERT INTO lugares_subasta (calle,avenida,id_ciudad,id_pais,tipo,nombre_lugar) VALUES ('" + calle + "','" + avenida + "'," + id_ciudad + "," + id_pais + ",'" + tipo + "','" + nombre_lugar + "');");
+                res.json("LUGAR REGISTRADO CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
 }
 exports.registrosController = new RegistrosController();
 exports.default = exports.registrosController;

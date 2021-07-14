@@ -112,5 +112,9 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrarorganizacion`,organizacion)
    }
 
+   registrarLugar(lugar:any){
+    return this.http.post(`${this.API_URL}/registros/registrarlugar`,lugar)
+   }
+
 
   }
