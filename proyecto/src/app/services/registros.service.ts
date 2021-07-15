@@ -37,6 +37,22 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getciudades`)
    }
 
+   getObjetos(){
+    return this.http.get(`${this.API_URL}/registros/getobjetos`)
+   }
+
+   getComics(){
+    return this.http.get(`${this.API_URL}/registros/getcomics`)
+   }
+
+   getLugares(){
+    return this.http.get(`${this.API_URL}/registros/getlugares`)
+   }
+
+   getMembresiasActivas(){
+    return this.http.get(`${this.API_URL}/registros/getmembresiasactivas`)
+   }
+
    getClubes(){
     return this.http.get(`${this.API_URL}/registros/getclubes`)
    }
@@ -59,6 +75,10 @@ export class RegistrosService {
 
    registrarRepresentante(representante:any){
     return this.http.post(`${this.API_URL}/registros/registrarrepresentante`,representante)
+   }
+
+   registrarEvento(evento:any){
+    return this.http.post(`${this.API_URL}/registros/registrarevento`,evento)
    }
 
 

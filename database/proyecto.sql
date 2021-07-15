@@ -137,20 +137,20 @@ CREATE TABLE historicos_duenos (
 
 CREATE TABLE subastas (
     id INT AUTO_INCREMENT,
-    hora_inicio DATE NOT NULL,
-    hora_fin DATE NOT NULL,
+    hora_inicio time NOT NULL,
+    hora_fin time NOT NULL,
     fecha DATE NOT NULL,
     modo CHAR(5) NOT NULL,
     tipo CHAR(5) NOT NULL,
     caridad CHAR(5) NOT NULL,
-    cancelada CHAR(5) NOT NULL,
+    cancelada CHAR(5),
     id_lugar INT,
     CONSTRAINT pk_subasta PRIMARY KEY (id),
     CONSTRAINT fk_lugar_subasta FOREIGN KEY (id_lugar) REFERENCES lugares_subasta (id),
     CONSTRAINT modo_subasta CHECK (modo in ('PRE','VIR')),
-    CONSTRAINT tipo_subasta CHECK (modo in ('A','S')),
-    CONSTRAINT caridad_subasta CHECK (modo in ('SI','NO')),
-    CONSTRAINT subasta_cancelada CHECK (modo in ('SI','NO'))
+    CONSTRAINT tipo_subasta CHECK (tipo in ('A','S')),
+    CONSTRAINT caridad_subasta CHECK (caridad in ('SI','NO')),
+    CONSTRAINT subasta_cancelada CHECK (cancelada in ('SI','NO'))
 );
 
 CREATE TABLE inscripciones (

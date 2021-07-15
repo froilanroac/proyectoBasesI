@@ -25,6 +25,8 @@ import { RegistroInteresesComponent } from './components/registro-intereses/regi
 import { RegistroContactosClubesComponent } from './components/registro-contactos-clubes/registro-contactos-clubes.component';
 import { RegistroOrganizacionCaridadComponent } from './components/registro-organizacion-caridad/registro-organizacion-caridad.component';
 import { RegistroLugarSubastaComponent } from './components/registro-lugar-subasta/registro-lugar-subasta.component';
+import { RegistroSubastasComponentComponent } from './components/registro-subastas-component/registro-subastas-component.component';
+import { RegistroSubastaComponent } from './components/registro-subasta/registro-subasta.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { RegistroLugarSubastaComponent } from './components/registro-lugar-subas
     RegistroInteresesComponent,
     RegistroContactosClubesComponent,
     RegistroOrganizacionCaridadComponent,
-    RegistroLugarSubastaComponent
+    RegistroLugarSubastaComponent,
+    RegistroSubastasComponentComponent,
+    RegistroSubastaComponent
   ],
   imports: [
     BrowserModule,

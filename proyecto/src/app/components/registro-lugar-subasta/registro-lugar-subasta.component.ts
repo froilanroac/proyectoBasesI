@@ -16,12 +16,12 @@ export class RegistroLugarSubastaComponent implements OnInit {
   arrayCiudades2:any = [];
 
   lugarInsertar = {
-    calle:'',
-    avenida:'',
+    calle:null,
+    avenida:null,
     id_ciudad:0,
     id_pais:0,
-    tipo:'',
-    nombre_lugar:''
+    tipo:null,
+    nombre_lugar:null
   }
 
   constructor(private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
@@ -66,6 +66,8 @@ export class RegistroLugarSubastaComponent implements OnInit {
   }
 
   registrarLugar(){
+    console.log(this.lugarInsertar)
+    if (this.lugarInsertar.avenida !=null && this.lugarInsertar.calle != null && this.lugarInsertar.id_ciudad != null && this.lugarInsertar.id_pais != null && this.lugarInsertar.nombre_lugar !=null ){
     
     for(let ciudad of this.arrayCiudades2){
 
@@ -84,7 +86,9 @@ export class RegistroLugarSubastaComponent implements OnInit {
       }, 
       err => console.error(err)
     )
-
+    }else{
+      alert("VERIFIQUE QUE LOS CAMPOS REQUERIDOS ESTEN LLENOS")
+    }
   }
 
 }

@@ -91,12 +91,39 @@ class RegistrosController{
 
     }
 
+    public async getLugares (req:Request, res:Response) {
+      const registros = await pool.query('SELECT * FROM lugares_subasta');
+      res.json(registros);
+
+  }
+
     public async getMembresias(req:Request, res:Response) {
       // res.json({text:'listando juegos'})
       const registros = await pool.query('SELECT * FROM membresias');
       res.json(registros);
 
   }
+
+  public async getComics(req:Request, res:Response) {
+    // res.json({text:'listando juegos'})
+    const registros = await pool.query('SELECT * FROM comics');
+    res.json(registros);
+
+}
+
+public async getMembresiasActivas(req:Request, res:Response) {
+  // res.json({text:'listando juegos'})
+  const registros = await pool.query('SELECT * FROM membresias where fecha_fin is null;');
+  res.json(registros);
+
+}
+
+  public async getObjetos(req:Request, res:Response) {
+    // res.json({text:'listando juegos'})
+    const registros = await pool.query('SELECT * FROM objetos_de_valor');
+    res.json(registros);
+
+}
 
     public async registrarCiudad (req:Request, res:Response){
         try {
@@ -124,6 +151,17 @@ class RegistrosController{
           res.json("SQL ERROR: " + e.sqlMessage);            
         }
   }
+
+  public async registrarEvento (req:Request, res:Response){
+    try {
+      const { hora_inicio,hora_fin,fecha,modo,tipo,caridad,id_lugar} = req.body; 
+      const respuesta = await pool.query("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");")
+      // res.json("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");");
+      res.json('EVENTO REGISTRADO CON EXITO');
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+}
 
 
     public async getColeccionistas (req:Request, res:Response) {

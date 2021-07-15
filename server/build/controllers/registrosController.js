@@ -111,10 +111,37 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getLugares(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const registros = yield database_1.default.query('SELECT * FROM lugares_subasta');
+            res.json(registros);
+        });
+    }
     getMembresias(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})
             const registros = yield database_1.default.query('SELECT * FROM membresias');
+            res.json(registros);
+        });
+    }
+    getComics(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM comics');
+            res.json(registros);
+        });
+    }
+    getMembresiasActivas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM membresias where fecha_fin is null;');
+            res.json(registros);
+        });
+    }
+    getObjetos(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // res.json({text:'listando juegos'})
+            const registros = yield database_1.default.query('SELECT * FROM objetos_de_valor');
             res.json(registros);
         });
     }
@@ -145,6 +172,19 @@ class RegistrosController {
             try {
                 const respuesta = yield database_1.default.query("INSERT INTO membresias set ? ", [req.body]);
                 res.json('MEMBRESIA REGISTRADA CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarEvento(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { hora_inicio, hora_fin, fecha, modo, tipo, caridad, id_lugar } = req.body;
+                const respuesta = yield database_1.default.query("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('" + hora_inicio + "','" + hora_fin + "','" + fecha + "','" + modo + "','" + tipo + "','" + caridad + "','NO'," + id_lugar + ");");
+                // res.json("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");");
+                res.json('EVENTO REGISTRADO CON EXITO');
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

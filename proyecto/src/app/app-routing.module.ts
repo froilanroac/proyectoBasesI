@@ -16,6 +16,9 @@ import { RegistroContactosClubesComponent } from "./components/registro-contacto
 import { RegistroOrganizacionCaridadComponent } from "./components/registro-organizacion-caridad/registro-organizacion-caridad.component";
 import { RegistroLugarSubastaComponent } from "./components/registro-lugar-subasta/registro-lugar-subasta.component";
 import { RegistroComicFormComponent  } from "./components/registro-comic-form/registro-comic-form.component";
+import { RegistroSubastasComponentComponent } from "./components/registro-subastas-component/registro-subastas-component.component";
+import { RegistroSubastaComponent } from "./components/registro-subasta/registro-subasta.component";
+
 import { InicioComponent } from "./components/inicio/inicio.component";
 
 const routes: Routes = [
@@ -92,6 +95,14 @@ const routes: Routes = [
   {
     path: 'registros/lugares',
     component: RegistroLugarSubastaComponent
+  },
+  {
+    path: 'registros/subastas',
+    component: RegistroSubastasComponentComponent
+  },
+  {
+    path: 'registros/subasta',
+    component: RegistroSubastaComponent
   }
   
   
