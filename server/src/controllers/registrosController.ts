@@ -125,6 +125,13 @@ public async getMembresiasActivas(req:Request, res:Response) {
 
 }
 
+public async primeraSubasta(req:Request, res:Response) {
+  const { id } =  req.body; 
+  const registros = await pool.query('SELECT * FROM objetos_de_valor');
+  res.json(registros);
+
+}
+
     public async registrarCiudad (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO ciudades set ? ", [req.body]);
@@ -154,14 +161,137 @@ public async getMembresiasActivas(req:Request, res:Response) {
 
   public async registrarEvento (req:Request, res:Response){
     try {
-      const { hora_inicio,hora_fin,fecha,modo,tipo,caridad,id_lugar} = req.body; 
-      const respuesta = await pool.query("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");")
-      // res.json("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");");
+      const { id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,id_lugar} = req.body; 
+      const respuesta = await pool.query("INSERT INTO SUBASTAS (ID,HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ("+id+",'"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");")
       res.json('EVENTO REGISTRADO CON EXITO');
       } catch (e) {  
         res.json("SQL ERROR: " + e.sqlMessage);            
       }
-}
+  }
+
+  
+
+  public async primeraSubastaObjeto(req:Request, res:Response){
+    var mensaje = ''
+    try {
+      const { id_objeto_valor } = req.body; 
+      const respuesta = await pool.query("select e.id from historicos_duenos e where id_objeto_valor = "+id_objeto_valor+";")
+      console.log(respuesta)
+      // const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista from historicos_duenos e where id_objeto_valor = "+id_objeto_valor+" and fecha")
+      if(respuesta['length'] > 1){
+        mensaje = "NO"
+      }else{
+        mensaje = "SI"
+      }
+      res.json(mensaje)
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async primeraSubastaComic(req:Request, res:Response){
+    var mensaje = ''
+    try {
+      const { id_comic } = req.body; 
+      const respuesta = await pool.query("select e.id from historicos_duenos e where id_objeto_valor = "+id_comic+";")
+      if(respuesta['length'] > 1){
+        mensaje = "NO"
+      }else{
+        mensaje = "SI"
+      }
+      res.json(mensaje)
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async ordenVentaComicSubastado(req:Request, res:Response){
+    try {
+      const { id_comic , id_subasta } = req.body; 
+      const respuesta = await pool.query("select  max(fecha_registro) from historicos_duenos where id_comic = "+id_comic+";")
+      var fecha = respuesta[0]['max(fecha_registro)']
+      fecha = fecha.toISOString().split('T')[0]
+      const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_comic = "+id_comic+" and fecha_registro='"+fecha+"';")
+
+      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
+
+      res.json("ORDEN VENTA DE COMIC HECHA CON EXITO")
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async ordenVentaComicRegular(req:Request, res:Response){
+
+    try {
+      const { id_comic , id_subasta, precio_base$, numero_en_subasta, duracion_puja_min } = req.body; 
+      const respuesta = await pool.query("select  max(fecha_registro) from historicos_duenos where id_comic = "+id_comic+";")
+      var fecha = respuesta[0]['max(fecha_registro)']
+      fecha = fecha.toISOString().split('T')[0]
+      const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_comic = "+id_comic+" and fecha_registro='"+fecha+"';")
+
+      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO,NUMERO_EN_SUBASTA,DURACION_PUJA_MIN) VALUES ("+id_subasta+","+precio_base$+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"',"+numero_en_subasta+","+duracion_puja_min+");")
+      res.json("ORDEN VENTA DE COMIC HECHA CON EXITO")
+      } catch (e) {  
+        console.log(e); 
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async ordenVentaObjetoSubastado(req:Request, res:Response){
+    var mensaje = ''
+    try {
+      const { id_objeto_valor , id_subasta } = req.body; 
+      const respuesta = await pool.query("select  max(fecha_registro) from historicos_duenos where id_objeto_valor = "+id_objeto_valor+";")
+      var fecha = respuesta[0]['max(fecha_registro)']
+      fecha = fecha.toISOString().split('T')[0]
+      const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_objeto_valor = "+id_objeto_valor+" and fecha_registro='"+fecha+"';")
+
+      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
+      // console.log("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
+
+      res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO")
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async ordenVentaObjetoRegular(req:Request, res:Response){
+
+    try {
+      const { id_objeto_valor , id_subasta, precio_base$, numero_en_subasta, duracion_puja_min } = req.body; 
+      const respuesta = await pool.query("select  max(fecha_registro) from historicos_duenos where id_objeto_valor = "+id_objeto_valor+";")
+      var fecha = respuesta[0]['max(fecha_registro)']
+      fecha = fecha.toISOString().split('T')[0]
+      const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_objeto_valor = "+id_objeto_valor+" and fecha_registro='"+fecha+"';")
+
+      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO,NUMERO_EN_SUBASTA,DURACION_PUJA_MIN) VALUES ("+id_subasta+","+precio_base$+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"',"+numero_en_subasta+","+duracion_puja_min+");")
+      res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO")
+      } catch (e) {  
+        console.log(e); 
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async registrarOrganizador(req:Request, res:Response){
+    try {
+      const { id_subasta, id_club } = req.body; 
+      const respuesta = await pool.query("INSERT INTO S_C (ID_SUBASTA,ID_CLUB) VALUES ("+id_subasta+","+id_club+");")
+      res.json('ORGANIZADOR REGISTRADO CON EXITO');
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async registrarInvitacion(req:Request, res:Response){
+    try {
+      const { id_subasta, club_invitado } = req.body; 
+      const respuesta = await pool.query("INSERT INTO S_C (ID_SUBASTA,CLUB_INVITADO) VALUES ("+id_subasta+","+club_invitado+");")
+      res.json('INVITACION REGISTRADA CON EXITO');
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
 
 
     public async getColeccionistas (req:Request, res:Response) {
@@ -222,6 +352,8 @@ public async registrarObjeto (req:Request, res:Response){
     res.json(registros);
 
 }
+
+
 public async registrarComic (req:Request, res:Response){
   const { fecha_publicacion, sinopsis,editor,paginas,color,titulo,numero,precio_org$,vol_numero, cedula_coleccionista,fecha_registro,precio_compra$, significado} = req.body;
 

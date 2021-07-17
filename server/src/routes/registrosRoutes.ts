@@ -21,6 +21,13 @@ class RegistrosRoutes{
         this.router.get('/getcomics', registrosController.getComics);
         this.router.post('/getidobjeto', registrosController.getIdObjeto);
         this.router.get('/getlugares', registrosController.getLugares);
+        this.router.post('/primerasubastaobjeto', registrosController.primeraSubastaObjeto);
+        this.router.post('/primerasubastacomic', registrosController.primeraSubastaComic);
+        this.router.post('/ordenventaobjetosubastado', registrosController.ordenVentaObjetoSubastado);
+        this.router.post('/ordenventaobjetoregular', registrosController.ordenVentaObjetoRegular);
+        this.router.post('/ordenventacomicsubastado', registrosController.ordenVentaComicSubastado);
+        this.router.post('/ordenventacomicregular', registrosController.ordenVentaComicRegular);
+
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController.getIntereses);
         // this.router.post('/', registrosController.create);
@@ -32,6 +39,8 @@ class RegistrosRoutes{
         this.router.post('/registrarmembresia', registrosController.registrarMembresia);
         this.router.post('/registrarevento', registrosController.registrarEvento);
         this.router.post('/registrartelefono', registrosController.registrarTelefono);
+        this.router.post('/registrarorganizador', registrosController.registrarOrganizador);
+        this.router.post('/registrarinvitacion', registrosController.registrarInvitacion);
         
         this.router.delete('/:id', registrosController.delete);
         this.router.put('/:id', registrosController.update);

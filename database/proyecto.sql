@@ -19,9 +19,7 @@ CREATE TABLE ciudades (
     id_pais INT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     CONSTRAINT pk_ciudad PRIMARY KEY (id, id_pais),
-    CONSTRAINT fk_pais FOREIGN KEY (id_pais) REFERENCES paises (id),
-    CONSTRAINT unique_ciudades_pais UNIQUE (id_pais,nombre)
-    -- este unique es nuevo ciudades por pais
+    CONSTRAINT fk_pais FOREIGN KEY (id_pais) REFERENCES paises (id)
 );
 
 CREATE TABLE intereses (
@@ -136,7 +134,7 @@ CREATE TABLE historicos_duenos (
 ); 
 
 CREATE TABLE subastas (
-    id INT AUTO_INCREMENT,
+    id INT,
     hora_inicio time NOT NULL,
     hora_fin time NOT NULL,
     fecha DATE NOT NULL,
@@ -201,7 +199,7 @@ CREATE TABLE registros_beneficio (
 CREATE TABLE ordenes_venta_subasta (
     id INT AUTO_INCREMENT,
     id_subasta INT NOT NULL,
-    precio_base$ INT NOT NULL,
+    precio_base$ DECIMAL(13,2) NOT NULL,
     id_historico INT NOT NULL,
     cedula_coleccionista INT NOT NULL,
     fecha_registro DATE NOT NULL,

@@ -1,20 +1,10 @@
-<div class="container">
-    <!-- subastaRegistrar ={
-
-
-
-
-        cancelada:'',
-        id_lugar:null
-    CONSTRAINT modo_subasta CHECK (modo in ('PRE','VIR')),
-    CONSTRAINT tipo_subasta CHECK (tipo in ('A','S')),
-    CONSTRAINT caridad_subasta CHECK (caridad in ('SI','NO')),
-    CONSTRAINT subasta_cancelada CHECK (cancelada in ('SI','NO'))
-      } -->
+<div class="container" *ngIf="subastaRegistrada == false">
 
 INGRESE LOS DATOS PARA EL EVENTO:
 <br>
 <br>
+IDENTIFICADOR DEL EVENTO (SOLO NUMEROS ENTEROS)
+<input type="number"  class="form-control" placeholder="ID" [(ngModel)]='subastaRegistrar.id'>
 HORA DE INICIO:
 <input type="time"  class="form-control" [(ngModel)]='subastaRegistrar.hora_inicio'>
 HORA DE FIN:
@@ -51,52 +41,88 @@ Direccion:
 </button>
 
 <br>
+</div>
 
-
+<div *ngIf="subastaRegistrada==true">
 <!-- todo esto se activa luego de registrada la subasta. -->
-<!-- SELECCIONAR CLUB ORGANIZADOR: 
+PARA SEGUIR CON LOS REGISTROS DEL EVENTO, POR FAVOR COMPLETE LOS SIGUIENTES APARTADOS:
+<br><br>
+<br>
 
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-    <option *ngFor="let club of clubes" value="">NOMBRE: {{ club.nombre }}</option>
+<div *ngIf="organizadorRegistrado == false">
+    SELECCIONAR CLUB ORGANIZADOR: 
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]='organizadorRegistrar.id_club'>
+    <option value="{{club.id}}" *ngFor="let club of clubes" value="">NOMBRE: {{ club.nombre }}</option>
 </select>
 
-<button class="btn-success btn-block btn">
+<button class="btn-success btn-block btn" (click)=registrarOrganizador()>
     REGISTRAR ORGANIZADOR
 </button>
 
+</div>
+
 <br>
-<br>
+
 
 SELECCIONAR OBJETO DE VALOR A SUBASTAR: 
 
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-    <option *ngFor="let objeto of objetosDeValor" value="">NOMBRE: {{ objeto.nombre }} DESCRIPCION: {{ objeto.descripcion }}</option>
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]= "ordenVentaObjetoValor.id_objeto_valor">
+    <option value="{{ objeto.id }}" *ngFor="let objeto of objetosDeValor2" value="">NOMBRE: {{ objeto.nombre }} DESCRIPCION: {{ objeto.descripcion }}</option>
 </select>
+<div *ngIf="botonObjeto==false">
+COMPLETE LOS CAMPOS REQUERIDOS: 
+<br>
+<input *ngIf="subastaRegistrar.caridad == 'NO'" type="number"  class="form-control" placeholder="DURACIOn DE LAS PUJAS (EN MINUTOS)" [(ngModel)]='ordenVentaObjetoValor.duracion_puja_min'>
+<input *ngIf="precioBase == true" type="number"  class="form-control" placeholder="PRECIO BASE" [(ngModel)]='ordenVentaObjetoValor.precio_base$'>
 
-<button class="btn-success btn-block btn">
-    REGISTRAR OBJETO
+<button class="btn-success btn-block btn" *ngIf="primeraVezObjetoRegular == true" (click)="oVentaObjetoRegular()">
+    CONFIRMAR ORDEN DE VENTA
+</button>
+
+<button class="btn-success btn-block btn" *ngIf="primeraVezObjetoRegular == false" (click)="oVentaObjetoSubastadoRegular()">
+    CONFIRMAR ORDEN DE VENTA
+</button>
+</div>
+
+<button class="btn-success btn-block btn" (click)=registrarOrdenVentaObjeto() *ngIf="botonObjeto==true">
+    REGISTRAR
 </button>
 <br>
 <br>
+
+
 SELECCIONAR COMIC A SUBASTAR: 
 
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-    <option value="">NOMBRE:</option>
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]= "ordenVentaComic.id_comic">
+    <option value="{{ comic.id }}" *ngFor="let comic of comics2" value="">NOMBRE: {{ comic.titulo }} Titulo: {{ comic.titulo }}, {{ comic.editor}}</option>
 </select>
-<button class="btn-success btn-block btn">
-    REGISTRAR COMIC
+<div *ngIf="botonObjetoComic==false">
+COMPLETE LOS CAMPOS REQUERIDOS: 
+<br>
+<input *ngIf="subastaRegistrar.caridad == 'NO'" type="number"  class="form-control" placeholder="DURACION DE LAS PUJAS (EN MINUTOS)" [(ngModel)]='ordenVentaComic.duracion_puja_min'>
+<input *ngIf="precioBaseComic == true" type="number"  class="form-control" placeholder="PRECIO BASE" [(ngModel)]='ordenVentaComic.precio_base$'>
+
+<button class="btn-success btn-block btn" *ngIf="primeraVezComic == true" (click)="oVentaComic()">
+    CONFIRMAR ORDEN DE VENTA 1
 </button>
 
-<br>
-<br>
+<button class="btn-success btn-block btn" *ngIf="primeraVezComic == false" (click)="oVentaComicSubastadoRegular()">
+    CONFIRMAR ORDEN DE VENTA 2
+</button> 
+</div>
 
+<button class="btn-success btn-block btn" (click)=registrarOrdenVentaComic() *ngIf="botonObjetoComic==true">
+    REGISTRAR
+</button>
+<br>
+<br>
 SELECCIONAR CLUB A INVITAR: 
 
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-    <option *ngFor="let club of clubes" value="">NOMBRE: {{ club.nombre }}</option>
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]= "invitacionRegistrar.club_invitado">
+    <option *ngFor="let club of clubes2" value="{{ club.id }}">NOMBRE: {{ club.nombre }}</option>
 </select>
 
-<button class="btn-success btn-block btn">
+<button class="btn-success btn-block btn" (click)="registrarInvitacion()" >
     REGISTRAR INVITACION
 </button>
 
@@ -106,15 +132,14 @@ SELECCIONAR CLUB A INVITAR:
 INSCRIBIR A PARTICIPANTE: 
 
 <select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-    <option *ngFor="let club of clubes" value="">NOMBRE: {{ club.nombre }}</option>
+    <option *ngFor="let coleccionista of coleccionistas2" value=""> CEDULA: {{ coleccionista.cedula }}, NOMBRE: {{ coleccionista.nombre_1 }}</option>
 </select>
 
 <button class="btn-success btn-block btn">
     REGISTRAR PARTICIPANTE
-</button> -->
-
-
-
-
+</button>
 
 </div>
+
+
+

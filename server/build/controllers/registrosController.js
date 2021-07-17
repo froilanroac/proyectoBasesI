@@ -145,6 +145,13 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    primeraSubasta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            const registros = yield database_1.default.query('SELECT * FROM objetos_de_valor');
+            res.json(registros);
+        });
+    }
     registrarCiudad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -181,10 +188,141 @@ class RegistrosController {
     registrarEvento(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { hora_inicio, hora_fin, fecha, modo, tipo, caridad, id_lugar } = req.body;
-                const respuesta = yield database_1.default.query("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('" + hora_inicio + "','" + hora_fin + "','" + fecha + "','" + modo + "','" + tipo + "','" + caridad + "','NO'," + id_lugar + ");");
-                // res.json("INSERT INTO SUBASTAS (HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ('"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");");
+                const { id, hora_inicio, hora_fin, fecha, modo, tipo, caridad, id_lugar } = req.body;
+                const respuesta = yield database_1.default.query("INSERT INTO SUBASTAS (ID,HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES (" + id + ",'" + hora_inicio + "','" + hora_fin + "','" + fecha + "','" + modo + "','" + tipo + "','" + caridad + "','NO'," + id_lugar + ");");
                 res.json('EVENTO REGISTRADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    primeraSubastaObjeto(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var mensaje = '';
+            try {
+                const { id_objeto_valor } = req.body;
+                const respuesta = yield database_1.default.query("select e.id from historicos_duenos e where id_objeto_valor = " + id_objeto_valor + ";");
+                console.log(respuesta);
+                // const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista from historicos_duenos e where id_objeto_valor = "+id_objeto_valor+" and fecha")
+                if (respuesta['length'] > 1) {
+                    mensaje = "NO";
+                }
+                else {
+                    mensaje = "SI";
+                }
+                res.json(mensaje);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    primeraSubastaComic(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var mensaje = '';
+            try {
+                const { id_comic } = req.body;
+                const respuesta = yield database_1.default.query("select e.id from historicos_duenos e where id_objeto_valor = " + id_comic + ";");
+                if (respuesta['length'] > 1) {
+                    mensaje = "NO";
+                }
+                else {
+                    mensaje = "SI";
+                }
+                res.json(mensaje);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    ordenVentaComicSubastado(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_comic, id_subasta } = req.body;
+                const respuesta = yield database_1.default.query("select  max(fecha_registro) from historicos_duenos where id_comic = " + id_comic + ";");
+                var fecha = respuesta[0]['max(fecha_registro)'];
+                fecha = fecha.toISOString().split('T')[0];
+                const respuesta2 = yield database_1.default.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_comic = " + id_comic + " and fecha_registro='" + fecha + "';");
+                const respuesta3 = yield database_1.default.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES (" + id_subasta + "," + respuesta2[0]['precio_compra$'] + "," + respuesta2[0]['cedula_coleccionista'] + "," + respuesta2[0]['id'] + ",'" + fecha + "');");
+                res.json("ORDEN VENTA DE COMIC HECHA CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    ordenVentaComicRegular(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_comic, id_subasta, precio_base$, numero_en_subasta, duracion_puja_min } = req.body;
+                const respuesta = yield database_1.default.query("select  max(fecha_registro) from historicos_duenos where id_comic = " + id_comic + ";");
+                var fecha = respuesta[0]['max(fecha_registro)'];
+                fecha = fecha.toISOString().split('T')[0];
+                const respuesta2 = yield database_1.default.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_comic = " + id_comic + " and fecha_registro='" + fecha + "';");
+                const respuesta3 = yield database_1.default.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO,NUMERO_EN_SUBASTA,DURACION_PUJA_MIN) VALUES (" + id_subasta + "," + precio_base$ + "," + respuesta2[0]['cedula_coleccionista'] + "," + respuesta2[0]['id'] + ",'" + fecha + "'," + numero_en_subasta + "," + duracion_puja_min + ");");
+                res.json("ORDEN VENTA DE COMIC HECHA CON EXITO");
+            }
+            catch (e) {
+                console.log(e);
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    ordenVentaObjetoSubastado(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var mensaje = '';
+            try {
+                const { id_objeto_valor, id_subasta } = req.body;
+                const respuesta = yield database_1.default.query("select  max(fecha_registro) from historicos_duenos where id_objeto_valor = " + id_objeto_valor + ";");
+                var fecha = respuesta[0]['max(fecha_registro)'];
+                fecha = fecha.toISOString().split('T')[0];
+                const respuesta2 = yield database_1.default.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_objeto_valor = " + id_objeto_valor + " and fecha_registro='" + fecha + "';");
+                const respuesta3 = yield database_1.default.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES (" + id_subasta + "," + respuesta2[0]['precio_compra$'] + "," + respuesta2[0]['cedula_coleccionista'] + "," + respuesta2[0]['id'] + ",'" + fecha + "');");
+                // console.log("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
+                res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    ordenVentaObjetoRegular(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_objeto_valor, id_subasta, precio_base$, numero_en_subasta, duracion_puja_min } = req.body;
+                const respuesta = yield database_1.default.query("select  max(fecha_registro) from historicos_duenos where id_objeto_valor = " + id_objeto_valor + ";");
+                var fecha = respuesta[0]['max(fecha_registro)'];
+                fecha = fecha.toISOString().split('T')[0];
+                const respuesta2 = yield database_1.default.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_objeto_valor = " + id_objeto_valor + " and fecha_registro='" + fecha + "';");
+                const respuesta3 = yield database_1.default.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO,NUMERO_EN_SUBASTA,DURACION_PUJA_MIN) VALUES (" + id_subasta + "," + precio_base$ + "," + respuesta2[0]['cedula_coleccionista'] + "," + respuesta2[0]['id'] + ",'" + fecha + "'," + numero_en_subasta + "," + duracion_puja_min + ");");
+                res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO");
+            }
+            catch (e) {
+                console.log(e);
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarOrganizador(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_subasta, id_club } = req.body;
+                const respuesta = yield database_1.default.query("INSERT INTO S_C (ID_SUBASTA,ID_CLUB) VALUES (" + id_subasta + "," + id_club + ");");
+                res.json('ORGANIZADOR REGISTRADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarInvitacion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_subasta, club_invitado } = req.body;
+                const respuesta = yield database_1.default.query("INSERT INTO S_C (ID_SUBASTA,CLUB_INVITADO) VALUES (" + id_subasta + "," + club_invitado + ");");
+                res.json('INVITACION REGISTRADA CON EXITO');
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

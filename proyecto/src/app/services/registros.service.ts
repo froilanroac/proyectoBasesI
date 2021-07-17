@@ -69,6 +69,14 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getintereses`)
    }
 
+   primeraSubastaObjeto(objeto:any){
+    return this.http.post(`${this.API_URL}/registros/primerasubastaobjeto`,objeto)
+   }
+
+   primeraSubastaComic(comic:any){
+    return this.http.post(`${this.API_URL}/registros/primerasubastacomic`,comic)
+   }
+
    registrarCiudad(ciudad:any){
     return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
    }
@@ -80,6 +88,32 @@ export class RegistrosService {
    registrarEvento(evento:any){
     return this.http.post(`${this.API_URL}/registros/registrarevento`,evento)
    }
+
+   registrarOrganizador(organizador:any){
+    return this.http.post(`${this.API_URL}/registros/registrarorganizador`,organizador)
+   }
+
+   registrarInvitacion(invitacion:any){
+    return this.http.post(`${this.API_URL}/registros/registrarinvitacion`,invitacion)
+   }
+
+   ordenVentaObjetoSubastado(objeto:any){
+    return this.http.post(`${this.API_URL}/registros/ordenventaobjetosubastado`,objeto)
+   }
+
+   ordenVentaObjetoRegular(objeto:any){
+    return this.http.post(`${this.API_URL}/registros/ordenventaobjetoregular`,objeto)
+   }
+
+   ordenVentaComicSubastado(comic:any){
+    return this.http.post(`${this.API_URL}/registros/ordenventacomicsubastado`,comic)
+   }
+
+   ordenVentaComicRegular(comic:any){
+    return this.http.post(`${this.API_URL}/registros/ordenventacomicregular`,comic)
+   }
+
+   
 
 
    registrarColeccionista(coleccionista:any){
