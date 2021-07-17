@@ -27,6 +27,7 @@ class RegistrosRoutes{
         this.router.post('/ordenventaobjetoregular', registrosController.ordenVentaObjetoRegular);
         this.router.post('/ordenventacomicsubastado', registrosController.ordenVentaComicSubastado);
         this.router.post('/ordenventacomicregular', registrosController.ordenVentaComicRegular);
+        this.router.post('/getcoleccionistasinscribir', registrosController.getColeccionistasParaInscribir);
 
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController.getIntereses);
@@ -41,6 +42,7 @@ class RegistrosRoutes{
         this.router.post('/registrartelefono', registrosController.registrarTelefono);
         this.router.post('/registrarorganizador', registrosController.registrarOrganizador);
         this.router.post('/registrarinvitacion', registrosController.registrarInvitacion);
+
         
         this.router.delete('/:id', registrosController.delete);
         this.router.put('/:id', registrosController.update);

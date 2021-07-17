@@ -124,6 +124,18 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getColeccionistasParaInscribir(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id_club } = req.body;
+            try {
+                const registros = yield database_1.default.query('select e.cedula_coleccionista, e.id_club from membresias e where fecha_fin is null and id_club <> ' + id_club + ");");
+                res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     getComics(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})

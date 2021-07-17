@@ -97,6 +97,11 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrarinvitacion`,invitacion)
    }
 
+
+   getColeccionistasParaInscripcion(club:any){
+    return this.http.post(`${this.API_URL}/registros/getcoleccionistasinscribir`,club)
+   }
+
    ordenVentaObjetoSubastado(objeto:any){
     return this.http.post(`${this.API_URL}/registros/ordenventaobjetosubastado`,objeto)
    }

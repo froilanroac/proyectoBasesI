@@ -34,7 +34,7 @@ export class RegistroSubastaComponent implements OnInit {
   membresiasActivas:any = []
 
   subastaRegistrar ={
-    id:null,
+    id:0,
     hora_inicio:"",
     hora_fin:'',
     fecha:'',
@@ -51,7 +51,7 @@ export class RegistroSubastaComponent implements OnInit {
 
   organizadorRegistrar = {
     id_subasta:0,
-    id_club:null
+    id_club:0
   }
 
   ordenVentaObjetoValor = {
@@ -83,6 +83,8 @@ export class RegistroSubastaComponent implements OnInit {
   primeraVezComic: boolean = false; 
 
   clubesInvitarRegular:any = []
+
+  coleccionistasInscribir:any = []
 
   organizadorRegistrado:boolean = false
 
@@ -177,6 +179,7 @@ export class RegistroSubastaComponent implements OnInit {
       err => console.error(err)
     )
     
+    
   }
 
   registrarEvento(){
@@ -198,6 +201,7 @@ export class RegistroSubastaComponent implements OnInit {
           this.subastaRegistrada = false;
         }else{
           this.subastaRegistrada = true;
+          this.organizadorRegistrar.id_subasta =  this.subastaRegistrar.id
         }
         console.log(this.mensajeError)
         alert(res)

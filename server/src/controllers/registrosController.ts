@@ -104,6 +104,17 @@ class RegistrosController{
 
   }
 
+  public async getColeccionistasParaInscribir(req:Request, res:Response) {
+    const { id_club } =  req.body; 
+    try{
+    const registros = await pool.query('select e.cedula_coleccionista, e.id_club from membresias e where fecha_fin is null and id_club <> '+id_club+");");
+    res.json(registros);
+    } catch (e) {  
+      res.json("SQL ERROR: " + e.sqlMessage);            
+    }
+
+}
+
   public async getComics(req:Request, res:Response) {
     // res.json({text:'listando juegos'})
     const registros = await pool.query('SELECT * FROM comics');
