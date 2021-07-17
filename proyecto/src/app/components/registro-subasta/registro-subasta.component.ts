@@ -202,6 +202,10 @@ export class RegistroSubastaComponent implements OnInit {
         }else{
           this.subastaRegistrada = true;
           this.organizadorRegistrar.id_subasta =  this.subastaRegistrar.id
+          this.ordenVentaObjetoValor.id_subasta = this.subastaRegistrar.id
+          this.ordenVentaComic.id_subasta = this.subastaRegistrar.id
+          this.invitacionRegistrar.id_subasta = this.subastaRegistrar.id
+
         }
         console.log(this.mensajeError)
         alert(res)
@@ -416,6 +420,18 @@ oVentaComicSubastadoRegular(){
     }, 
     err2 => console.error(err2)
   )
+}
+
+getColeccionistasInscribir(){
+
+  this.registroService.getColeccionistasParaInscripcion(this.organizadorRegistrar).subscribe(
+    res => {
+      this.lugares = res;
+      console.log(this.lugares) 
+      console.log("Lugares registrados: "+ this.lugares['length'])
+    }, 
+    err => console.error(err)
+  )  
 }
 
 
