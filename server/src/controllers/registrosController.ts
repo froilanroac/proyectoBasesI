@@ -58,6 +58,16 @@ class RegistrosController{
         }
     }
 
+    public async registrarInscripcion(req:Request, res:Response){
+      const { id_subasta,membresia_fechainicio ,cedula_coleccionista,id_club,autorizado } = req.body; 
+      try {
+          const respuesta = await pool.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES ("+id_subasta+",'"+membresia_fechainicio+"',"+cedula_coleccionista+","+id_club+","+autorizado+");")
+          res.json('INSCRIPCION INSERTADA CON EXITO');
+        } catch (e) {  
+          res.json("SQL ERROR: " + e.sqlMessage);            
+        }
+    }
+
     public async registrarRepresentante (req:Request, res:Response){
         try {
             const respuesta = await pool.query("INSERT INTO representantes set ? ", [req.body]);
@@ -107,7 +117,7 @@ class RegistrosController{
   public async getColeccionistasParaInscribir(req:Request, res:Response) {
     const { id_club } =  req.body; 
     try{
-    const registros = await pool.query('select e.cedula_coleccionista, e.id_club from membresias e where fecha_fin is null and id_club <> '+id_club+");");
+    const registros = await pool.query('select e.cedula_coleccionista, e.id_club, e.fecha_inicio from membresias e where fecha_fin is null and id_club <> '+id_club+";");
     res.json(registros);
     } catch (e) {  
       res.json("SQL ERROR: " + e.sqlMessage);            

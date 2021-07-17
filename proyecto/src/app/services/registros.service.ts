@@ -93,6 +93,10 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/registrarorganizador`,organizador)
    }
 
+   registrarInscripcion(inscripcion:any){
+    return this.http.post(`${this.API_URL}/registros/registrarinscripcion`,inscripcion)
+   }
+
    registrarInvitacion(invitacion:any){
     return this.http.post(`${this.API_URL}/registros/registrarinvitacion`,invitacion)
    }

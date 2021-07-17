@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrosService } from 'src/app/services/registros.service';
 import { ActivatedRoute,Router } from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-registro-subasta',
@@ -106,24 +107,28 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   inscripcion = {
-    id_subasta:0,
-    membresia_fechainicio:'',
+    id_subasta:100,
+    membresia_fechainicio:null ,
     cedula_coleccionista:0,
     id_club:0,
-    autorizado:1
+    autorizado:0
   }
 
+  coleccionistasInscribirId:any = []
+
+  idInscripcion:number = 0
 
 
 
-  constructor(private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
+
+  constructor(public datepipe:DatePipe, private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
 
     this.registroService.getLugares().subscribe(
       res => {
         this.lugares = res;
-        console.log(this.lugares) 
+        // console.log(this.lugares) 
         console.log("Lugares registrados: "+ this.lugares['length'])
       }, 
       err => console.error(err)
@@ -134,7 +139,7 @@ export class RegistroSubastaComponent implements OnInit {
         this.clubes = res;
         this.clubes2 = res;
 
-        console.log(this.clubes) 
+        // console.log(this.clubes) 
         console.log("Clubes registrados: "+ this.clubes['length'])
       }, 
       err => console.error(err)
@@ -144,7 +149,7 @@ export class RegistroSubastaComponent implements OnInit {
       res => {
         this.objetosDeValor = res;
         this.objetosDeValor2 = res;
-        console.log(this.objetosDeValor) 
+        // console.log(this.objetosDeValor) 
         console.log("Objetos registrados: "+ this.objetosDeValor['length'])
       }, 
       err => console.error(err)
@@ -154,7 +159,7 @@ export class RegistroSubastaComponent implements OnInit {
       res => {
         this.comics = res;
         this.comics2 = res;
-        console.log(this.comics) 
+        // console.log(this.comics) 
         console.log("Comics registrados: "+ this.comics['length'])
       }, 
       err => console.error(err)
@@ -164,8 +169,8 @@ export class RegistroSubastaComponent implements OnInit {
       res => {
         this.coleccionistas = res;
         this.coleccionistas2 = res;
-        console.log("Coleccionistas registrados: "+ this.coleccionistas['length'])
-        console.log(this.coleccionistas)
+        // console.log("Coleccionistas registrados: "+ this.coleccionistas['length'])
+        // console.log(this.coleccionistas)
       }, 
       err => console.error(err)
     )
@@ -173,8 +178,8 @@ export class RegistroSubastaComponent implements OnInit {
     this.registroService.getMembresiasActivas().subscribe(
       res => {
         this.membresiasActivas = res;
-        console.log("Membresias activas: "+ this.membresiasActivas['length'])
-        console.log(this.membresiasActivas)
+        // console.log("Membresias activas: "+ this.membresiasActivas['length'])
+        // console.log(this.membresiasActivas)
       }, 
       err => console.error(err)
     )
@@ -191,7 +196,7 @@ export class RegistroSubastaComponent implements OnInit {
     if(this.subastaRegistrar.modo == 'VIR'){
       this.subastaRegistrar.id_lugar = null
     }
-    console.log(this.subastaRegistrar);
+    // console.log(this.subastaRegistrar);
 
     this.registroService.registrarEvento(this.subastaRegistrar).subscribe(
       res => {
@@ -205,9 +210,11 @@ export class RegistroSubastaComponent implements OnInit {
           this.ordenVentaObjetoValor.id_subasta = this.subastaRegistrar.id
           this.ordenVentaComic.id_subasta = this.subastaRegistrar.id
           this.invitacionRegistrar.id_subasta = this.subastaRegistrar.id
+          this.inscripcionRegistrar.id_subasta = this.subastaRegistrar.id
+          this.inscripcion.id_subasta = this.subastaRegistrar.id
 
         }
-        console.log(this.mensajeError)
+        // console.log(this.mensajeError)
         alert(res)
       }, 
       err => console.error(err)
@@ -217,7 +224,7 @@ export class RegistroSubastaComponent implements OnInit {
 
   registrarOrganizador(){
 
-    console.log(this.organizadorRegistrar)
+    // console.log(this.organizadorRegistrar)
 
     this.registroService.registrarOrganizador(this.organizadorRegistrar).subscribe(
       res => {
@@ -234,11 +241,12 @@ export class RegistroSubastaComponent implements OnInit {
       err => console.error(err)
     )
     this.eliminarClub()
+    this.getColeccionistasInscribir()
   }
 
   registrarInvitacion(){
 
-    console.log(this.invitacionRegistrar)
+    // console.log(this.invitacionRegistrar)
 
     this.registroService.registrarInvitacion(this.invitacionRegistrar).subscribe(
       res => {
@@ -252,7 +260,29 @@ export class RegistroSubastaComponent implements OnInit {
 
   registrarInscripcion(){
 
-    console.log(this.invitacionRegistrar)
+    for(let inscripcion of this.coleccionistasInscribirId){
+      if(inscripcion.id == this.idInscripcion){
+        this.inscripcion.id_subasta = this.subastaRegistrar.id
+        this.inscripcion.cedula_coleccionista = inscripcion.cedula_coleccionista
+        this.inscripcion.membresia_fechainicio = inscripcion.fecha_inicio
+        this.inscripcion.id_club = inscripcion.id_club
+      }
+    }
+
+    console.log(this.inscripcion)
+    this.registrarInscripcionServidor()
+
+  }
+
+  registrarInscripcionServidor(){
+
+    console.log("hola")
+    this.registroService.registrarInscripcion(this.inscripcion).subscribe(
+      res => {
+    alert(res)
+      }, 
+      err => console.error(err)
+    )
 
   }
 
@@ -262,7 +292,7 @@ export class RegistroSubastaComponent implements OnInit {
     this.registroService.primeraSubastaObjeto(this.ordenVentaObjetoValor).subscribe(
       res => {
          let mensaje = String(res)
-         console.log(res)
+        //  console.log(res)
         if(mensaje.includes("SI")){
           alert("es la primera vez que se subasta este objeto")
           this.botonObjeto = false
@@ -312,7 +342,7 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   oVentaObjetoSubastadoRegular(){
-    console.log(this.ordenVentaObjetoValor)
+    // console.log(this.ordenVentaObjetoValor)
     this.registroService.ordenVentaObjetoSubastado(this.ordenVentaObjetoValor).subscribe(
       res2 => {
          alert(res2)
@@ -331,7 +361,7 @@ export class RegistroSubastaComponent implements OnInit {
   this.registroService.primeraSubastaComic(this.ordenVentaComic).subscribe(
     res => {
        let mensaje = String(res)
-       console.log(res)
+      //  console.log(res)
       if(mensaje.includes("SI")){
         alert("es la primera vez que se subasta este Comic")
         this.botonObjetoComic = false
@@ -371,7 +401,7 @@ eliminarClub(){
       this.clubes2.push(club);
     }
   }
-  console.log(this.clubes2)
+  // console.log(this.clubes2)
 }
 
 eliminarClubInvitado(){
@@ -382,13 +412,13 @@ eliminarClubInvitado(){
         this.clubes2.push(club);
       }
     }
-    console.log(this.clubes2)
+    // console.log(this.clubes2)
   }
 
 oVentaComic(){
 
-  console.log(this.ordenVentaComic)
-  console.log("hoi")
+  // console.log(this.ordenVentaComic)
+  // console.log("hoi")
 
 
   this.registroService.ordenVentaComicRegular(this.ordenVentaComic).subscribe(
@@ -426,13 +456,26 @@ getColeccionistasInscribir(){
 
   this.registroService.getColeccionistasParaInscripcion(this.organizadorRegistrar).subscribe(
     res => {
-      this.lugares = res;
-      console.log(this.lugares) 
-      console.log("Lugares registrados: "+ this.lugares['length'])
+        this.coleccionistasInscribir = res
+        // console.log(this.coleccionistasInscribir)
+        let i = 0
+          for(let coleccionista of this.coleccionistasInscribir){
+            this.coleccionistasInscribirId.push({
+              id:i,
+              cedula_coleccionista: coleccionista.cedula_coleccionista,
+              fecha_inicio: this.datepipe.transform(coleccionista.fecha_inicio,'yyyy/MM/dd'),
+              id_club: coleccionista.id_club
+            })
+            i++
+        }
+        // console.log(this.coleccionistasInscribirId)
     }, 
     err => console.error(err)
   )  
+
 }
+
+
 
 
 

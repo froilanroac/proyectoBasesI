@@ -131,11 +131,13 @@ SELECCIONAR CLUB A INVITAR:
 
 INSCRIBIR A PARTICIPANTE: 
 
-<select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-    <option *ngFor="let coleccionista of coleccionistas2" value=""> CEDULA: {{ coleccionista.cedula }}, NOMBRE: {{ coleccionista.nombre_1 }}</option>
+
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="idInscripcion">
+    <option *ngFor="let coleccionista of coleccionistasInscribirId" value="{{ coleccionista.id }}"> CEDULA: {{ coleccionista.cedula_coleccionista }}, Id Club: {{ coleccionista.id_club }}</option>
 </select>
 
-<button class="btn-success btn-block btn">
+<button class="btn-success btn-block btn" (click)="registrarInscripcion()">
     REGISTRAR PARTICIPANTE
 </button>
 

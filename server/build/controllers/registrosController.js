@@ -75,6 +75,18 @@ class RegistrosController {
             }
         });
     }
+    registrarInscripcion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id_subasta, membresia_fechainicio, cedula_coleccionista, id_club, autorizado } = req.body;
+            try {
+                const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + "," + autorizado + ");");
+                res.json('INSCRIPCION INSERTADA CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     registrarRepresentante(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -128,7 +140,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;
             try {
-                const registros = yield database_1.default.query('select e.cedula_coleccionista, e.id_club from membresias e where fecha_fin is null and id_club <> ' + id_club + ");");
+                const registros = yield database_1.default.query('select e.cedula_coleccionista, e.id_club, e.fecha_inicio from membresias e where fecha_fin is null and id_club <> ' + id_club + ";");
                 res.json(registros);
             }
             catch (e) {
