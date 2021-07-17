@@ -28,7 +28,6 @@ export class RegistroSubastaComponent implements OnInit {
 
   clubes2:any = []
 
-  clubes3:any = []
 
   coleccionistas:any= []
 
@@ -148,8 +147,6 @@ export class RegistroSubastaComponent implements OnInit {
       res => {
         this.clubes = res;
         this.clubes2 = res;
-        this.clubes3 = res;
-
         // console.log(this.clubes) 
         console.log("Clubes registrados: "+ this.clubes['length'])
       }, 
@@ -267,16 +264,14 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   eliminarClubInvitado(){
-    console.log(this.invitacionRegistrar.club_invitado)
-    // revisar si hace que explota el proyecto
-      // this.clubes3 = []
-      // for(let club of this.clubes2){
-      //   if(club.id != this.invitacionRegistrar.club_invitado && club){
-      //     this.clubes3.push(club);
-      //   }
-      // }
-      // console.log(this.clubes2)
+  let clubes = this.clubes2
+  this.clubes2 = []
+    for(let club of clubes){
+    if(club.id != this.invitacionRegistrar.club_invitado){
+      this.clubes2.push(club);
     }
+    }
+  }
 
 
   registrarInvitacion(){
@@ -290,7 +285,6 @@ export class RegistroSubastaComponent implements OnInit {
       err => console.error(err)
     )  
     this.eliminarClubInvitado()
-
   }
 
 
@@ -311,15 +305,27 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   registrarInscripcionServidor(){
-
-    console.log("hola")
+    console.log(this.inscripcion)
     this.registroService.registrarInscripcion(this.inscripcion).subscribe(
       res => {
     alert(res)
       }, 
       err => console.error(err)
     )
+    this.eliminarInscripcion()
+  }
 
+  eliminarInscripcion(){
+
+    let coleccionistas = this.coleccionistasInscribirId
+    // console.log(coleccionistas)
+    // console.log(this.inscripcion)
+    this.coleccionistasInscribirId = []
+      for(let inscripcion of coleccionistas){
+      if(inscripcion.cedula_coleccionista != this.inscripcion.cedula_coleccionista){
+        this.coleccionistasInscribirId.push(inscripcion);
+      }
+      }
   }
 
 
@@ -358,6 +364,7 @@ export class RegistroSubastaComponent implements OnInit {
         alert(res);
         this.eliminarObjetoValor()
         this.botonObjeto = true;
+        this.ordenVentaComic.numero_en_subasta++;
         this.ordenVentaObjetoValor.numero_en_subasta++;
         this.ordenVentaObjetoValor.precio_base$ = null,
         this.ordenVentaObjetoValor.duracion_puja_min = null
@@ -369,8 +376,9 @@ export class RegistroSubastaComponent implements OnInit {
 
   eliminarObjetoValor(){
 
+    let objetos = this.objetosDeValor2
     this.objetosDeValor2 = []
-    for(let objeto of this.objetosDeValor){
+    for(let objeto of objetos){
       if(objeto.id != this.ordenVentaObjetoValor.id_objeto_valor){
         this.objetosDeValor2.push(objeto);
       }
@@ -384,6 +392,7 @@ export class RegistroSubastaComponent implements OnInit {
          alert(res2)
          this.eliminarObjetoValor()
          this.botonObjeto = true;
+         this.ordenVentaComic.numero_en_subasta++;
          this.ordenVentaObjetoValor.numero_en_subasta++;
          this.ordenVentaObjetoValor.precio_base$ = null,
          this.ordenVentaObjetoValor.duracion_puja_min = null
@@ -421,8 +430,9 @@ export class RegistroSubastaComponent implements OnInit {
 
 eliminarComic(){
 
+  let comics = this.comics2
   this.comics2 = []
-  for(let comic of this.comics){
+  for(let comic of comics){
     if(comic.id != this.ordenVentaComic.id_comic){
       this.comics2.push(comic);
     }
@@ -437,15 +447,10 @@ eliminarClub(){
       this.clubes2.push(club);
     }
   }
-  // console.log(this.clubes2)
 }
 
 
 oVentaComic(){
-
-  // console.log(this.ordenVentaComic)
-  // console.log("hoi")
-
 
   this.registroService.ordenVentaComicRegular(this.ordenVentaComic).subscribe(
     res => {
@@ -453,6 +458,7 @@ oVentaComic(){
       this.eliminarComic()
       this.botonObjetoComic = true;
       this.ordenVentaComic.numero_en_subasta++;
+      this.ordenVentaObjetoValor.numero_en_subasta++;
     // this.ordenVentaComic.precio_base$ = null,
     // this.ordenVentaComic.duracion_puja_min = null
     }, 
@@ -471,6 +477,7 @@ oVentaComicSubastadoRegular(){
        this.eliminarComic()
        this.botonObjetoComic = true;
        this.ordenVentaComic.numero_en_subasta++;
+       this.ordenVentaObjetoValor.numero_en_subasta++;
       //  this.ordenVentaComic.precio_base$ = null,
       //  this.ordenVentaComic.duracion_puja_min = null
     }, 
@@ -511,6 +518,10 @@ registrarOrganizacion(){
   ) 
 
 }
+
+  goInicio(){
+    this.route.navigate(['/inicio']);
+  }
 
 
 
