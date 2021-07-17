@@ -20,6 +20,7 @@ class RegistrosRoutes {
         this.router.get('/getmembresiasactivas', registrosController_1.default.getMembresiasActivas);
         this.router.get('/getobjetos', registrosController_1.default.getObjetos);
         this.router.get('/getcomics', registrosController_1.default.getComics);
+        this.router.get('/getorganizaciones', registrosController_1.default.getOrganizaciones);
         this.router.post('/getidobjeto', registrosController_1.default.getIdObjeto);
         this.router.get('/getlugares', registrosController_1.default.getLugares);
         this.router.post('/primerasubastaobjeto', registrosController_1.default.primeraSubastaObjeto);
@@ -43,6 +44,7 @@ class RegistrosRoutes {
         this.router.post('/registrarorganizador', registrosController_1.default.registrarOrganizador);
         this.router.post('/registrarinvitacion', registrosController_1.default.registrarInvitacion);
         this.router.post('/registrarinscripcion', registrosController_1.default.registrarInscripcion);
+        this.router.post('/registrarcaridad', registrosController_1.default.registrarCaridad);
         this.router.delete('/:id', registrosController_1.default.delete);
         this.router.put('/:id', registrosController_1.default.update);
         this.router.post('/cerrarmembresia', registrosController_1.default.cerrarMembresia);

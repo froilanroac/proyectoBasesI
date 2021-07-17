@@ -141,7 +141,29 @@ INSCRIBIR A PARTICIPANTE:
     REGISTRAR PARTICIPANTE
 </button>
 
+
+<br><br>
+
+
+
+<div *ngIf="subastaRegistrar.caridad == 'SI'">
+    INSCRIBIR ORGANIZACION DE CARIDAD : 
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="registroCaridad.id_organizacion" >
+    <option *ngFor="let organizacion of organizacionesCaridad" value="{{ organizacion.id }}"> {{ organizacion.nombre }} </option>
+</select>
+<input type="number"  class="form-control" placeholder="Porcentaje a donar" [(ngModel)]='registroCaridad.porcentaje'>
+
+
+<button class="btn-success btn-block btn" (click)="registrarOrganizacion()" >
+    REGISTRAR ORGANIZACION
+</button>
 </div>
+
+</div>
+
+
+
+
 
 
 

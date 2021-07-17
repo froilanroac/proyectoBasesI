@@ -187,8 +187,8 @@ CREATE TABLE c_i (
 
 CREATE TABLE registros_beneficio (
     id INT AUTO_INCREMENT,
-    id_organizacion INT,
-    id_subasta INT,
+    id_organizacion INT NOT NULL,
+    id_subasta INT NOT NULL,
     porcentaje INT NOT NULL,
     dinero_donado$ INT,
     CONSTRAINT pk_registros_beneficio PRIMARY KEY (id,id_organizacion,id_subasta,porcentaje),

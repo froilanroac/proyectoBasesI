@@ -136,6 +136,12 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getOrganizaciones(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const registros = yield database_1.default.query('SELECT * FROM organizaciones_caridad');
+            res.json(registros);
+        });
+    }
     getColeccionistasParaInscribir(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;
@@ -335,6 +341,18 @@ class RegistrosController {
                 const { id_subasta, id_club } = req.body;
                 const respuesta = yield database_1.default.query("INSERT INTO S_C (ID_SUBASTA,ID_CLUB) VALUES (" + id_subasta + "," + id_club + ");");
                 res.json('ORGANIZADOR REGISTRADO CON EXITO');
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    registrarCaridad(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_organizacion, id_subasta, porcentaje } = req.body;
+                const respuesta = yield database_1.default.query("INSERT INTO registros_beneficio (id_organizacion,id_subasta,porcentaje) VALUES (" + id_organizacion + "," + id_subasta + "," + porcentaje + ");");
+                res.json('CARIDAD REGISTRADA CON EXITO');
             }
             catch (e) {
                 res.json("SQL ERROR: " + e.sqlMessage);

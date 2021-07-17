@@ -114,6 +114,12 @@ class RegistrosController{
 
   }
 
+  public async getOrganizaciones(req:Request, res:Response) {
+    const registros = await pool.query('SELECT * FROM organizaciones_caridad');
+    res.json(registros);
+
+}
+
   public async getColeccionistasParaInscribir(req:Request, res:Response) {
     const { id_club } =  req.body; 
     try{
@@ -170,6 +176,7 @@ public async primeraSubasta(req:Request, res:Response) {
             res.json("SQL ERROR: " + e.sqlMessage);            
           }
     }
+
 
     public async registrarMembresia (req:Request, res:Response){
       try {
@@ -299,6 +306,16 @@ public async primeraSubasta(req:Request, res:Response) {
       const { id_subasta, id_club } = req.body; 
       const respuesta = await pool.query("INSERT INTO S_C (ID_SUBASTA,ID_CLUB) VALUES ("+id_subasta+","+id_club+");")
       res.json('ORGANIZADOR REGISTRADO CON EXITO');
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async registrarCaridad(req:Request, res:Response){
+    try {
+      const { id_organizacion,id_subasta, porcentaje } = req.body; 
+      const respuesta = await pool.query("INSERT INTO registros_beneficio (id_organizacion,id_subasta,porcentaje) VALUES ("+id_organizacion+","+id_subasta+","+porcentaje+");")
+      res.json('CARIDAD REGISTRADA CON EXITO');
       } catch (e) {  
         res.json("SQL ERROR: " + e.sqlMessage);            
       }

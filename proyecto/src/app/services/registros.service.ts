@@ -57,6 +57,10 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getclubes`)
    }
 
+   getOrganizaciones(){
+    return this.http.get(`${this.API_URL}/registros/getorganizaciones`)
+   }
+
    getColeccionistas(){
     return this.http.get(`${this.API_URL}/registros/getcoleccionistas`)
    }
@@ -79,6 +83,10 @@ export class RegistrosService {
 
    registrarCiudad(ciudad:any){
     return this.http.post(`${this.API_URL}/registros/registrarciudad`,ciudad)
+   }
+
+   registrarCaridad(caridad:any){
+    return this.http.post(`${this.API_URL}/registros/registrarcaridad`,caridad)
    }
 
    registrarRepresentante(representante:any){

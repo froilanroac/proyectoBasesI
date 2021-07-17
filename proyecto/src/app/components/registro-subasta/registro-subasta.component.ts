@@ -28,11 +28,15 @@ export class RegistroSubastaComponent implements OnInit {
 
   clubes2:any = []
 
+  clubes3:any = []
+
   coleccionistas:any= []
 
   coleccionistas2:any= []
 
   membresiasActivas:any = []
+
+  organizacionesCaridad:any = []
 
   subastaRegistrar ={
     id:0,
@@ -107,11 +111,17 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   inscripcion = {
-    id_subasta:100,
+    id_subasta:0,
     membresia_fechainicio:null ,
     cedula_coleccionista:0,
     id_club:0,
     autorizado:0
+  }
+
+  registroCaridad = {
+    id_organizacion:0,
+    id_subasta:0,
+    porcentaje:null
   }
 
   coleccionistasInscribirId:any = []
@@ -138,6 +148,7 @@ export class RegistroSubastaComponent implements OnInit {
       res => {
         this.clubes = res;
         this.clubes2 = res;
+        this.clubes3 = res;
 
         // console.log(this.clubes) 
         console.log("Clubes registrados: "+ this.clubes['length'])
@@ -183,6 +194,16 @@ export class RegistroSubastaComponent implements OnInit {
       }, 
       err => console.error(err)
     )
+
+    this.registroService.getOrganizaciones().subscribe(
+      res => {
+        this.organizacionesCaridad = res;
+        console.log(this.organizacionesCaridad)
+        // console.log("Membresias activas: "+ this.membresiasActivas['length'])
+        // console.log(this.membresiasActivas)
+      }, 
+      err => console.error(err)
+    )
     
     
   }
@@ -212,6 +233,7 @@ export class RegistroSubastaComponent implements OnInit {
           this.invitacionRegistrar.id_subasta = this.subastaRegistrar.id
           this.inscripcionRegistrar.id_subasta = this.subastaRegistrar.id
           this.inscripcion.id_subasta = this.subastaRegistrar.id
+          this.registroCaridad.id_subasta = this.subastaRegistrar.id
 
         }
         // console.log(this.mensajeError)
@@ -244,6 +266,19 @@ export class RegistroSubastaComponent implements OnInit {
     this.getColeccionistasInscribir()
   }
 
+  eliminarClubInvitado(){
+    console.log(this.invitacionRegistrar.club_invitado)
+    // revisar si hace que explota el proyecto
+      // this.clubes3 = []
+      // for(let club of this.clubes2){
+      //   if(club.id != this.invitacionRegistrar.club_invitado && club){
+      //     this.clubes3.push(club);
+      //   }
+      // }
+      // console.log(this.clubes2)
+    }
+
+
   registrarInvitacion(){
 
     // console.log(this.invitacionRegistrar)
@@ -257,6 +292,7 @@ export class RegistroSubastaComponent implements OnInit {
     this.eliminarClubInvitado()
 
   }
+
 
   registrarInscripcion(){
 
@@ -404,16 +440,6 @@ eliminarClub(){
   // console.log(this.clubes2)
 }
 
-eliminarClubInvitado(){
-  // revisar si hace que explota el proyecto
-    this.clubes2 = []
-    for(let club of this.clubes){
-      if(club.id != this.organizadorRegistrar.id_club && club.id != this.invitacionRegistrar.club_invitado){
-        this.clubes2.push(club);
-      }
-    }
-    // console.log(this.clubes2)
-  }
 
 oVentaComic(){
 
@@ -472,6 +498,17 @@ getColeccionistasInscribir(){
     }, 
     err => console.error(err)
   )  
+
+}
+
+registrarOrganizacion(){
+
+  this.registroService.registrarCaridad(this.registroCaridad).subscribe(
+    res => {
+      alert(res)
+    }, 
+    err => console.error(err)
+  ) 
 
 }
 
