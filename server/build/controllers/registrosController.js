@@ -154,6 +154,18 @@ class RegistrosController {
             }
         });
     }
+    getIdObjetosPurgados(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id_club } = req.body;
+            try {
+                const registros = yield database_1.default.query("select o.id from objetos_de_valor o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_objeto_valor and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club =" + id_club + " and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_objeto_valor = o.id);");
+                res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     getComics(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})

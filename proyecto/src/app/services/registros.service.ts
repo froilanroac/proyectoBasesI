@@ -61,6 +61,10 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getorganizaciones`)
    }
 
+   getIdObjetosPurgados(club:any){
+    return this.http.post(`${this.API_URL}/registros/getidobjetospurgados`,club)
+   }
+
    getColeccionistas(){
     return this.http.get(`${this.API_URL}/registros/getcoleccionistas`)
    }

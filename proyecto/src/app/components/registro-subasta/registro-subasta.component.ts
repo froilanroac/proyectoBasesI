@@ -53,10 +53,10 @@ export class RegistroSubastaComponent implements OnInit {
 
   mensajeError:any 
 
-  subastaRegistrada:boolean = false;
+  subastaRegistrada:boolean = true;
 
   organizadorRegistrar = {
-    id_subasta:4,
+    id_subasta:501,
     id_club:0
   }
 
@@ -93,6 +93,8 @@ export class RegistroSubastaComponent implements OnInit {
   coleccionistasInscribir:any = []
 
   organizadorRegistrado:boolean = false
+
+  idObjetosPurgados:any = []
 
   botonObjetoComic:boolean = true 
 
@@ -264,7 +266,36 @@ export class RegistroSubastaComponent implements OnInit {
     )
     this.eliminarClub()
     this.getColeccionistasInscribir()
+    this.getIdPurgar()
+
   }
+
+  
+
+  async getIdPurgar(){
+    console.log(this.organizadorRegistrar)
+     this.registroService.getIdObjetosPurgados(this.organizadorRegistrar).subscribe(
+      res => {
+        this.idObjetosPurgados = res
+        console.log(this.idObjetosPurgados)
+        this.purgarObjetos()
+      }, 
+      err => console.error(err)
+    )
+  }
+
+  purgarObjetos(){
+    let lista = this.objetosDeValor2
+    this.objetosDeValor2 = []
+    for(let objeto of this.idObjetosPurgados){
+        for(let insertar of lista){
+          if(objeto.id == insertar.id){
+            this.objetosDeValor2.push(insertar);
+          }
+        }
+    }
+  }
+
 
   eliminarClubInvitado(){
   let clubes = this.clubes2
@@ -387,6 +418,8 @@ export class RegistroSubastaComponent implements OnInit {
       }
     }
   }
+
+
 
   oVentaObjetoSubastadoRegular(){
     console.log(this.ordenVentaObjetoValor)

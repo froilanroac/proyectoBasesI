@@ -156,3 +156,14 @@ insert into c_i (id_club,id_interes) values (6,6);
 insert into c_i (id_club,id_interes) values (1,2);
 insert into c_i (id_club,id_interes) values (2,3);
 insert into c_i (id_club,id_interes) values (3,4);
+
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (1,"07:00","13:00","2021-01-01","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (2,"09:00","11:00","2020-04-01","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (3,"10:00","16:00","2019-06-03","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (4,"13:00","14:00","2018-02-02","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (5,"02:00","13:00","2019-07-07","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (6,"11:00","14:00","2021-08-02","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (7,"13:00","18:00","2021-03-08","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (8,"09:00","12:00","2021-02-02","VIR","A","NO");
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (9,"08:00","12:00","2021-07-05","VIR","A","NO");
+
