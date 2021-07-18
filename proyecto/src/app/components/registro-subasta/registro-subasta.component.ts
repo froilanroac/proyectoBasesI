@@ -53,7 +53,7 @@ export class RegistroSubastaComponent implements OnInit {
 
   mensajeError:any 
 
-  subastaRegistrada:boolean = true;
+  subastaRegistrada:boolean = false;
 
   organizadorRegistrar = {
     id_subasta:501,
