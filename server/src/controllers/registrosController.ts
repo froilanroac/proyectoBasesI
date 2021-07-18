@@ -221,7 +221,7 @@ public async primeraSubasta(req:Request, res:Response) {
     var mensaje = ''
     try {
       const { id_comic } = req.body; 
-      const respuesta = await pool.query("select e.id from historicos_duenos e where id_objeto_valor = "+id_comic+";")
+      const respuesta = await pool.query("select e.id from historicos_duenos e where id_comic = "+id_comic+";")
       if(respuesta['length'] > 1){
         mensaje = "NO"
       }else{
@@ -235,13 +235,13 @@ public async primeraSubasta(req:Request, res:Response) {
 
   public async ordenVentaComicSubastado(req:Request, res:Response){
     try {
-      const { id_comic , id_subasta } = req.body; 
+      const { id_comic , id_subasta,numero_en_subasta,duracion_puja_min } = req.body; 
       const respuesta = await pool.query("select  max(fecha_registro) from historicos_duenos where id_comic = "+id_comic+";")
       var fecha = respuesta[0]['max(fecha_registro)']
       fecha = fecha.toISOString().split('T')[0]
       const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_comic = "+id_comic+" and fecha_registro='"+fecha+"';")
 
-      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
+      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO,NUMERO_EN_SUBASTA,DURACION_PUJA_MIN) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"',"+numero_en_subasta+","+duracion_puja_min+");")
 
       res.json("ORDEN VENTA DE COMIC HECHA CON EXITO")
       } catch (e) {  
@@ -269,13 +269,13 @@ public async primeraSubasta(req:Request, res:Response) {
   public async ordenVentaObjetoSubastado(req:Request, res:Response){
     var mensaje = ''
     try {
-      const { id_objeto_valor , id_subasta } = req.body; 
+      const { id_objeto_valor , id_subasta,numero_en_subasta,duracion_puja_min } = req.body; 
       const respuesta = await pool.query("select  max(fecha_registro) from historicos_duenos where id_objeto_valor = "+id_objeto_valor+";")
       var fecha = respuesta[0]['max(fecha_registro)']
       fecha = fecha.toISOString().split('T')[0]
       const respuesta2 = await pool.query("select e.id,e.cedula_coleccionista,e.precio_compra$ from historicos_duenos e where id_objeto_valor = "+id_objeto_valor+" and fecha_registro='"+fecha+"';")
 
-      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
+      const respuesta3 = await pool.query("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO,NUMERO_EN_SUBASTA,DURACION_PUJA_MIN) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"',"+numero_en_subasta+","+duracion_puja_min+");")
       // console.log("INSERT INTO ORDENES_VENTA_SUBASTA (ID_SUBASTA,PRECIO_BASE$,CEDULA_COLECCIONISTA,ID_HISTORICO,FECHA_REGISTRO) VALUES ("+id_subasta+","+respuesta2[0]['precio_compra$']+","+respuesta2[0]['cedula_coleccionista']+","+respuesta2[0]['id']+",'"+fecha+"');")
 
       res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO")

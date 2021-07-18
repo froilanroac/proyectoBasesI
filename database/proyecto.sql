@@ -190,7 +190,7 @@ CREATE TABLE registros_beneficio (
     id_organizacion INT NOT NULL,
     id_subasta INT NOT NULL,
     porcentaje INT NOT NULL,
-    dinero_donado$ INT,
+    dinero_donado$ decimal(13,2),
     CONSTRAINT pk_registros_beneficio PRIMARY KEY (id,id_organizacion,id_subasta,porcentaje),
     CONSTRAINT fk_registros_beneficio_organizacion FOREIGN KEY (id_organizacion) REFERENCES organizaciones_caridad (id),
     CONSTRAINT fk_registros_beneficio_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id)

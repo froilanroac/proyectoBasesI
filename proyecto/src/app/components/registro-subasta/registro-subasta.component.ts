@@ -37,8 +37,10 @@ export class RegistroSubastaComponent implements OnInit {
 
   organizacionesCaridad:any = []
 
+  organizacionesCaridad2:any = []
+
   subastaRegistrar ={
-    id:0,
+    id:4,
     hora_inicio:"",
     hora_fin:'',
     fecha:'',
@@ -54,14 +56,14 @@ export class RegistroSubastaComponent implements OnInit {
   subastaRegistrada:boolean = false;
 
   organizadorRegistrar = {
-    id_subasta:0,
+    id_subasta:4,
     id_club:0
   }
 
   ordenVentaObjetoValor = {
 
     id_objeto_valor:0,
-    id_subasta:0,
+    id_subasta:4,
     precio_base$:null,
     numero_en_subasta:0,
     duracion_puja_min:null,
@@ -71,7 +73,7 @@ export class RegistroSubastaComponent implements OnInit {
   ordenVentaComic = {
 
     id_comic:0,
-    id_subasta:0,
+    id_subasta:4,
     precio_base$:null,
     numero_en_subasta:0,
     duracion_puja_min:null,
@@ -195,7 +197,8 @@ export class RegistroSubastaComponent implements OnInit {
     this.registroService.getOrganizaciones().subscribe(
       res => {
         this.organizacionesCaridad = res;
-        console.log(this.organizacionesCaridad)
+        this.organizacionesCaridad2 = res;
+        // console.log(this.organizacionesCaridad)
         // console.log("Membresias activas: "+ this.membresiasActivas['length'])
         // console.log(this.membresiasActivas)
       }, 
@@ -386,7 +389,7 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   oVentaObjetoSubastadoRegular(){
-    // console.log(this.ordenVentaObjetoValor)
+    console.log(this.ordenVentaObjetoValor)
     this.registroService.ordenVentaObjetoSubastado(this.ordenVentaObjetoValor).subscribe(
       res2 => {
          alert(res2)
@@ -516,15 +519,24 @@ registrarOrganizacion(){
     }, 
     err => console.error(err)
   ) 
+  this.eliminarOrganizacion()
 
 }
+
+  eliminarOrganizacion(){
+
+    let organizaciones = this.organizacionesCaridad2
+    this.organizacionesCaridad2 = []
+    for(let organizacion of organizaciones){
+      if(organizacion.id != this.registroCaridad.id_organizacion){
+        this.organizacionesCaridad2.push(organizacion);
+      }
+    }
+  }
 
   goInicio(){
     this.route.navigate(['/inicio']);
   }
-
-
-
 
 
 }
