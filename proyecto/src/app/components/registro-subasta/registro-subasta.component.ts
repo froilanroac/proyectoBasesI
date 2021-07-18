@@ -53,17 +53,17 @@ export class RegistroSubastaComponent implements OnInit {
 
   mensajeError:any 
 
-  subastaRegistrada:boolean = true;
+  subastaRegistrada:boolean = false;
 
   organizadorRegistrar = {
-    id_subasta:501,
+    id_subasta:0,
     id_club:0
   }
 
   ordenVentaObjetoValor = {
 
     id_objeto_valor:0,
-    id_subasta:4,
+    id_subasta:0,
     precio_base$:null,
     numero_en_subasta:0,
     duracion_puja_min:null,
@@ -73,7 +73,7 @@ export class RegistroSubastaComponent implements OnInit {
   ordenVentaComic = {
 
     id_comic:0,
-    id_subasta:4,
+    id_subasta:0,
     precio_base$:null,
     numero_en_subasta:0,
     duracion_puja_min:null,
