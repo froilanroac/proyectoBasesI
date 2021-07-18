@@ -65,6 +65,10 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/getidobjetospurgados`,club)
    }
 
+   getIdComicsPurgados(club:any){
+    return this.http.post(`${this.API_URL}/registros/getidcomicspurgados`,club)
+   }
+
    getColeccionistas(){
     return this.http.get(`${this.API_URL}/registros/getcoleccionistas`)
    }

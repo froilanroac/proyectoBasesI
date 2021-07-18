@@ -53,7 +53,7 @@ export class RegistroSubastaComponent implements OnInit {
 
   mensajeError:any 
 
-  subastaRegistrada:boolean = false;
+  subastaRegistrada:boolean = true;
 
   organizadorRegistrar = {
     id_subasta:501,
@@ -95,6 +95,8 @@ export class RegistroSubastaComponent implements OnInit {
   organizadorRegistrado:boolean = false
 
   idObjetosPurgados:any = []
+
+  idComicsPurgados:any = []
 
   botonObjetoComic:boolean = true 
 
@@ -266,19 +268,32 @@ export class RegistroSubastaComponent implements OnInit {
     )
     this.eliminarClub()
     this.getColeccionistasInscribir()
-    this.getIdPurgar()
+    this.getIdPurgarObjetos()
+    this.getIdPurgarComics()
 
   }
 
   
 
-  async getIdPurgar(){
+  async getIdPurgarObjetos(){
     console.log(this.organizadorRegistrar)
      this.registroService.getIdObjetosPurgados(this.organizadorRegistrar).subscribe(
       res => {
         this.idObjetosPurgados = res
         console.log(this.idObjetosPurgados)
         this.purgarObjetos()
+      }, 
+      err => console.error(err)
+    )
+  }
+
+  async getIdPurgarComics(){
+    console.log(this.organizadorRegistrar)
+     this.registroService.getIdComicsPurgados(this.organizadorRegistrar).subscribe(
+      res => {
+        this.idComicsPurgados = res
+        console.log(this.idComicsPurgados)
+        this.purgarComics()
       }, 
       err => console.error(err)
     )
@@ -291,6 +306,18 @@ export class RegistroSubastaComponent implements OnInit {
         for(let insertar of lista){
           if(objeto.id == insertar.id){
             this.objetosDeValor2.push(insertar);
+          }
+        }
+    }
+  }
+
+  purgarComics(){
+    let lista = this.comics2
+    this.comics2 = []
+    for(let comic of this.idComicsPurgados){
+        for(let insertar of lista){
+          if(comic.id == insertar.id){
+            this.comics2.push(insertar);
           }
         }
     }

@@ -142,6 +142,17 @@ public async getIdObjetosPurgados(req:Request, res:Response) {
 
 }
 
+public async getIdComicsPurgados(req:Request, res:Response) {
+  const { id_club } =  req.body; 
+  try{
+  const registros = await pool.query("select o.id from comics o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_comic and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club ="+ id_club +" and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_comic = o.id);");
+  res.json(registros);
+  } catch (e) {  
+    res.json("SQL ERROR: " + e.sqlMessage);            
+  }
+
+}
+
   public async getComics(req:Request, res:Response) {
     // res.json({text:'listando juegos'})
     const registros = await pool.query('SELECT * FROM comics');
