@@ -32,6 +32,18 @@ class RegistrosController {
             res.status(404).json({ text: 'el registro no existe' });
         });
     }
+    getSubasta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.body;
+                const registros = yield database_1.default.query('select * from subastas where id =' + id + ";");
+                return res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO registros set ? ", [req.body]);

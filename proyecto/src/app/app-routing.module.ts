@@ -18,6 +18,8 @@ import { RegistroLugarSubastaComponent } from "./components/registro-lugar-subas
 import { RegistroComicFormComponent  } from "./components/registro-comic-form/registro-comic-form.component";
 import { RegistroSubastasComponentComponent } from "./components/registro-subastas-component/registro-subastas-component.component";
 import { RegistroSubastaComponent } from "./components/registro-subasta/registro-subasta.component";
+import { SimularComponent } from "./components/simular/simular.component";
+import { ListaSimularComponent } from "./components/lista-simular/lista-simular.component";
 
 import { CalendarioSubastasComponent } from "./components/calendario-subastas/calendario-subastas.component";
 
@@ -109,7 +111,16 @@ const routes: Routes = [
   {
     path: 'calendario',
     component: CalendarioSubastasComponent
+  },
+  {
+    path: 'simular/:id',
+    component: SimularComponent
+  },
+  {
+    path: 'listasimular',
+    component: ListaSimularComponent
   }
+  
   
   
 ];

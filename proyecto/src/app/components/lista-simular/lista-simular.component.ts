@@ -4,15 +4,13 @@ import { ActivatedRoute,Router } from "@angular/router";
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-calendario-subastas',
-  templateUrl: './calendario-subastas.component.html',
-  styleUrls: ['./calendario-subastas.component.css']
+  selector: 'app-lista-simular',
+  templateUrl: './lista-simular.component.html',
+  styleUrls: ['./lista-simular.component.css']
 })
-export class CalendarioSubastasComponent implements OnInit {
+export class ListaSimularComponent implements OnInit {
 
   subastas:any = []
-
-  subastasNombre:any = []
 
   constructor(public datepipe:DatePipe, private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
@@ -25,6 +23,9 @@ export class CalendarioSubastasComponent implements OnInit {
       }, 
       err => console.error(err)
     )
+
   }
-  
+
+
+
 }

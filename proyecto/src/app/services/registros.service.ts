@@ -21,6 +21,10 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/${ id }`)
    }
 
+   getSubasta(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/getsubasta`, subasta)
+   }
+
    saveRegistro(registro:Registro){
     return this.http.post(`${this.API_URL}/registros`, registro)
    }
@@ -207,6 +211,7 @@ export class RegistrosService {
    registrarLugar(lugar:any){
     return this.http.post(`${this.API_URL}/registros/registrarlugar`,lugar)
    }
+
 
 
   }

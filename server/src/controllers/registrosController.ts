@@ -18,9 +18,17 @@ class RegistrosController{
             return res.json(registros[0])
         }
         res.status(404).json({text:'el registro no existe'});
-
-
     }
+
+    public async getSubasta (req:Request, res:Response) {
+      try {
+      const { id } = req.body; 
+      const registros = await pool.query('select * from subastas where id ='+id+";");
+      return res.json(registros)
+    } catch (e) {  
+      res.json("SQL ERROR: " + e.sqlMessage);  
+    }
+  }
 
     public async create (req:Request, res:Response){
         await pool.query("INSERT INTO registros set ? ", [req.body]);
