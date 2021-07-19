@@ -1,0 +1,15 @@
+Evento Seleccionado: 
+<br><br>
+<div class="card text-center" style="margin: 15px;" >
+    <div class="card-header">
+      ID DEL EVENTO: {{ subasta.id }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Club Organizador:</h5>
+      <p class="card-text">Hora inicio: {{ subasta.hora_inicio }} Hora fin: {{ subasta.hora_fin }}</p>
+      <p class="card-text">Tipo "{{ subasta.tipo }}" Caridad: "{{ subasta.caridad }}"</p>      
+    </div>
+    <div class="card-footer text-muted">
+      Fecha: {{ this.datepipe.transform(subasta.fecha,'yyyy/MM/dd')}}
+    </div>
+</div>
