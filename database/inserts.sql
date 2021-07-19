@@ -157,13 +157,45 @@ insert into c_i (id_club,id_interes) values (1,2);
 insert into c_i (id_club,id_interes) values (2,3);
 insert into c_i (id_club,id_interes) values (3,4);
 
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (1,"07:00","13:00","2021-01-01","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (2,"09:00","11:00","2020-04-01","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (3,"10:00","16:00","2019-06-03","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (4,"13:00","14:00","2018-02-02","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (5,"02:00","13:00","2019-07-07","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (6,"11:00","14:00","2021-08-02","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (7,"13:00","18:00","2021-03-08","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (8,"09:00","12:00","2021-02-02","VIR","A","NO");
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad) VALUES (9,"08:00","12:00","2021-07-05","VIR","A","NO");
+-- todo funcionaba hasta aqui 
 
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (1,'10:00','12:00','2021-08-08','VIR','S','SI','NO',NULL);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (2,'13:00','19:00','2021-09-09','VIR','S','SI','NO',NULL);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (3,'15:00','19:00','2021-10-10','VIR','S','SI','NO',NULL);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (4,'16:00','20:00','2021-11-11','VIR','S','SI','NO',NULL);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (5,'18:00','23:00','2021-12-11','VIR','S','SI','NO',NULL);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (6,'14:00','17:00','2021-11-11','PRE','S','SI','NO',1);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (7,'11:00','14:00','2021-11-11','PRE','S','SI','NO',2);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (8,'5:00','8:00','2021-05-06','PRE','S','SI','NO',3);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (9,'12:00','16:00','2021-11-11','PRE','S','SI','NO',4);
+
+
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (1,1,100,1000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (2,2,100,2000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (3,3,100,3000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (4,4,100,4000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (5,5,100,5000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (6,6,100,6000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (7,7,100,7000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (8,8,100,5000);
+insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (9,9,100,5000);
+
+insert into s_c (id_subasta,id_club,club_invitado) values (1,1,NULL);
+insert into s_c (id_subasta,id_club,club_invitado) values (1,NULL,2);
+insert into s_c (id_subasta,id_club,club_invitado) values (1,NULL,3);
+insert into s_c (id_subasta,id_club,club_invitado) values (1,NULL,4);
+insert into s_c (id_subasta,id_club,club_invitado) values (1,NULL,5);
+insert into s_c (id_subasta,id_club,club_invitado) values (1,NULL,6);
+insert into s_c (id_subasta,id_club,club_invitado) values (2,2,NULL);
+insert into s_c (id_subasta,id_club,club_invitado) values (2,NULL,1);
+insert into s_c (id_subasta,id_club,club_invitado) values (2,NULL,3);
+
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (1,'2016-02-02',2,2,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (1,'2017-12-20',8,2,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (1,'2020-12-31',9,2,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (1,'2016-04-03',3,3,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (1,'2017-03-03',4,4,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (2,'2015-01-01',1,1,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (2,'2018-03-03',7,1,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (2,'2016-04-03',3,3,1);
+insert into inscripciones (id_subasta,membresia_fechainicio,cedula_coleccionista,id_club,autorizado) values (2,'2017-03-03',4,4,1);
