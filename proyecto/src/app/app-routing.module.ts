@@ -19,6 +19,8 @@ import { RegistroComicFormComponent  } from "./components/registro-comic-form/re
 import { RegistroSubastasComponentComponent } from "./components/registro-subastas-component/registro-subastas-component.component";
 import { RegistroSubastaComponent } from "./components/registro-subasta/registro-subasta.component";
 
+import { CalendarioSubastasComponent } from "./components/calendario-subastas/calendario-subastas.component";
+
 import { InicioComponent } from "./components/inicio/inicio.component";
 
 const routes: Routes = [
@@ -103,6 +105,10 @@ const routes: Routes = [
   {
     path: 'registros/subasta',
     component: RegistroSubastaComponent
+  },
+  {
+    path: 'calendario',
+    component: CalendarioSubastasComponent
   }
   
   

@@ -94,6 +94,13 @@ class RegistrosController{
 
     }
 
+    public async getSubastas (req:Request, res:Response) {
+
+      const registros = await pool.query('SELECT * FROM subastas');
+      res.json(registros);
+
+  }
+
     public async getCiudades (req:Request, res:Response) {
         // res.json({text:'listando juegos'})
         const registros = await pool.query('SELECT * FROM ciudades');
@@ -113,6 +120,13 @@ class RegistrosController{
       res.json(registros);
 
   }
+
+  public async getNombreClubSubasta(req:Request, res:Response) {
+    const { id } = req.body; 
+    const registros = await pool.query("select c.nombre from subastas s, clubes c, s_c i where s.id = i.id_subasta and s.id="+id+"12312 and i.id_club = c.id ;");
+    res.json(registros);
+
+}
 
   public async getOrganizaciones(req:Request, res:Response) {
     const registros = await pool.query('SELECT * FROM organizaciones_caridad');

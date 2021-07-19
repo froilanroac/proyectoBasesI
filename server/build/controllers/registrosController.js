@@ -116,6 +116,12 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getSubastas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const registros = yield database_1.default.query('SELECT * FROM subastas');
+            res.json(registros);
+        });
+    }
     getCiudades(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})
@@ -133,6 +139,13 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})
             const registros = yield database_1.default.query('SELECT * FROM membresias');
+            res.json(registros);
+        });
+    }
+    getNombreClubSubasta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            const registros = yield database_1.default.query("select c.nombre from subastas s, clubes c, s_c i where s.id = i.id_subasta and s.id=" + id + "12312 and i.id_club = c.id ;");
             res.json(registros);
         });
     }

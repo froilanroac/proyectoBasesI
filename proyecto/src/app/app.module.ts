@@ -27,6 +27,7 @@ import { RegistroOrganizacionCaridadComponent } from './components/registro-orga
 import { RegistroLugarSubastaComponent } from './components/registro-lugar-subasta/registro-lugar-subasta.component';
 import { RegistroSubastasComponentComponent } from './components/registro-subastas-component/registro-subastas-component.component';
 import { RegistroSubastaComponent } from './components/registro-subasta/registro-subasta.component';
+import { CalendarioSubastasComponent } from './components/calendario-subastas/calendario-subastas.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { RegistroSubastaComponent } from './components/registro-subasta/registro
     RegistroOrganizacionCaridadComponent,
     RegistroLugarSubastaComponent,
     RegistroSubastasComponentComponent,
-    RegistroSubastaComponent
+    RegistroSubastaComponent,
+    CalendarioSubastasComponent
   ],
   imports: [
     BrowserModule,
