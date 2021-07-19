@@ -30,6 +30,26 @@ class RegistrosController{
     }
   }
 
+  public async getOrdenesVentaSubasta(req:Request, res:Response) {
+    try {
+    const { id } = req.body; 
+    const registros = await pool.query("select * from ordenes_venta_subasta where id_subasta = "+id+";");
+    return res.json(registros)
+  } catch (e) {  
+    res.json("SQL ERROR: " + e.sqlMessage);  
+  }
+  }
+
+  public async getInscripciones(req:Request, res:Response) {
+    try {
+    const { id } = req.body; 
+    const registros = await pool.query("select * from inscripciones where id_subasta = "+id+";");
+    return res.json(registros)
+  } catch (e) {  
+    res.json("SQL ERROR: " + e.sqlMessage);  
+  }
+  }
+
     public async create (req:Request, res:Response){
         await pool.query("INSERT INTO registros set ? ", [req.body]);
         res.json({message:'registro insertado'});
@@ -267,6 +287,49 @@ public async primeraSubasta(req:Request, res:Response) {
         mensaje = "SI"
       }
       res.json(mensaje)
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async esComic(req:Request, res:Response){
+    var mensaje = ''
+    try {
+      const { id_historico } = req.body; 
+      const respuesta = await pool.query("select h.id from historicos_duenos h where h.id_objeto_valor is null and h.id = "+id_historico+";")
+      console.log(respuesta['length'])
+      console.log(respuesta)
+      if(respuesta['length'] > 0){
+        mensaje = "SI"
+      }else{
+        mensaje = "NO"
+      }
+      console.log(mensaje)
+      res.json(mensaje)
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async comicSubastado(req:Request, res:Response){
+    try {
+      const { id_inscr_ganador,id_subasta_ganador, id_historico, id_subasta,cedula_coleccionista,precio_compra$} = req.body; 
+      const respuesta = await pool.query("update ordenes_venta_subasta set precio_venta = "+precio_compra$+", id_insc_ganador = "+id_inscr_ganador+",id_subasta_ganador = "+ id_subasta_ganador  +" where id_subasta = "+ id_subasta +" and id_historico = "+ id_historico +";")
+      const respuesta2 = await pool.query("select c.id_comic from historicos_duenos c where c.id = "+id_historico+";")
+      const respuesta3 = await pool.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,ID_COMIC) VALUES ("+cedula_coleccionista+",(CURRENT_DATE),"+precio_compra$+","+respuesta2[0]['id_comic']+");");
+      res.json("VENTA DE COMIC  REGISTRADA CON EXITO")
+      } catch (e) {  
+        res.json("SQL ERROR: " + e.sqlMessage);            
+      }
+  }
+
+  public async objetoSubastado(req:Request, res:Response){
+    try {
+      const { id_inscr_ganador,id_subasta_ganador, id_historico, id_subasta,cedula_coleccionista,precio_compra$} = req.body; 
+      const respuesta = await pool.query("update ordenes_venta_subasta set precio_venta = "+precio_compra$+", id_insc_ganador = "+id_inscr_ganador+",id_subasta_ganador = "+ id_subasta_ganador  +" where id_subasta = "+ id_subasta +" and id_historico = "+ id_historico +";")
+      const respuesta2 = await pool.query("select c.id_objeto_valor from historicos_duenos c where c.id = "+id_historico+";")
+      const respuesta3 = await pool.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,id_objeto_valor) VALUES ("+cedula_coleccionista+",(CURRENT_DATE),"+precio_compra$+","+respuesta2[0]['id_objeto_valor']+");");
+      res.json("VENTA DE OBJETO REGISTRADA CON EXITO")
       } catch (e) {  
         res.json("SQL ERROR: " + e.sqlMessage);            
       }

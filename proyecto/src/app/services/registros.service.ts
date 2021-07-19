@@ -25,6 +25,26 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/getsubasta`, subasta)
    }
 
+   esComic(comic:any){
+    return this.http.post(`${this.API_URL}/registros/escomic`, comic)
+   }
+
+   comicSubastado(comic:any){
+    return this.http.post(`${this.API_URL}/registros/comicsubastado`, comic)
+   }
+
+   objetoSubastado(objeto:any){
+    return this.http.post(`${this.API_URL}/registros/objetosubastado`, objeto)
+   }
+
+   getOrdenesVenta(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/getordenesventa`, subasta)
+   }
+
+   getInscripciones(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/getinscripciones`, subasta)
+   }
+
    saveRegistro(registro:Registro){
     return this.http.post(`${this.API_URL}/registros`, registro)
    }

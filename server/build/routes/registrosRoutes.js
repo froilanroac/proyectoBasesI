@@ -32,6 +32,11 @@ class RegistrosRoutes {
         this.router.post('/ordenventacomicregular', registrosController_1.default.ordenVentaComicRegular);
         this.router.post('/getcoleccionistasinscribir', registrosController_1.default.getColeccionistasParaInscribir);
         this.router.post('/getsubasta', registrosController_1.default.getSubasta);
+        this.router.post('/getordenesventa', registrosController_1.default.getOrdenesVentaSubasta);
+        this.router.post('/getinscripciones', registrosController_1.default.getInscripciones);
+        this.router.post('/escomic', registrosController_1.default.esComic);
+        this.router.post('/comicsubastado', registrosController_1.default.comicSubastado);
+        this.router.post('/objetosubastado', registrosController_1.default.objetoSubastado);
         this.router.post('/getidobjetospurgados', registrosController_1.default.getIdObjetosPurgados);
         this.router.post('/getidcomicspurgados', registrosController_1.default.getIdComicsPurgados);
         this.router.post('/getcedulaspurgadas', registrosController_1.default.getCedulasPurgadas);
