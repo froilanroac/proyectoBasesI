@@ -19,9 +19,7 @@ CREATE TABLE ciudades (
     id_pais INT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     CONSTRAINT pk_ciudad PRIMARY KEY (id, id_pais),
-    CONSTRAINT fk_pais FOREIGN KEY (id_pais) REFERENCES paises (id),
-    CONSTRAINT unique_ciudades_pais UNIQUE (id_pais,nombre)
-    -- este unique es nuevo ciudades por pais
+    CONSTRAINT fk_pais FOREIGN KEY (id_pais) REFERENCES paises (id)
 );
 
 CREATE TABLE intereses (
@@ -136,21 +134,21 @@ CREATE TABLE historicos_duenos (
 ); 
 
 CREATE TABLE subastas (
-    id INT AUTO_INCREMENT,
-    hora_inicio DATE NOT NULL,
-    hora_fin DATE NOT NULL,
+    id INT,
+    hora_inicio time NOT NULL,
+    hora_fin time NOT NULL,
     fecha DATE NOT NULL,
     modo CHAR(5) NOT NULL,
     tipo CHAR(5) NOT NULL,
     caridad CHAR(5) NOT NULL,
-    cancelada CHAR(5) NOT NULL,
+    cancelada CHAR(5),
     id_lugar INT,
     CONSTRAINT pk_subasta PRIMARY KEY (id),
     CONSTRAINT fk_lugar_subasta FOREIGN KEY (id_lugar) REFERENCES lugares_subasta (id),
     CONSTRAINT modo_subasta CHECK (modo in ('PRE','VIR')),
-    CONSTRAINT tipo_subasta CHECK (modo in ('A','S')),
-    CONSTRAINT caridad_subasta CHECK (modo in ('SI','NO')),
-    CONSTRAINT subasta_cancelada CHECK (modo in ('SI','NO'))
+    CONSTRAINT tipo_subasta CHECK (tipo in ('A','S')),
+    CONSTRAINT caridad_subasta CHECK (caridad in ('SI','NO')),
+    CONSTRAINT subasta_cancelada CHECK (cancelada in ('SI','NO'))
 );
 
 CREATE TABLE inscripciones (
@@ -189,10 +187,10 @@ CREATE TABLE c_i (
 
 CREATE TABLE registros_beneficio (
     id INT AUTO_INCREMENT,
-    id_organizacion INT,
-    id_subasta INT,
+    id_organizacion INT NOT NULL,
+    id_subasta INT NOT NULL,
     porcentaje INT NOT NULL,
-    dinero_donado$ INT,
+    dinero_donado$ decimal(13,2),
     CONSTRAINT pk_registros_beneficio PRIMARY KEY (id,id_organizacion,id_subasta,porcentaje),
     CONSTRAINT fk_registros_beneficio_organizacion FOREIGN KEY (id_organizacion) REFERENCES organizaciones_caridad (id),
     CONSTRAINT fk_registros_beneficio_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id)
@@ -201,7 +199,7 @@ CREATE TABLE registros_beneficio (
 CREATE TABLE ordenes_venta_subasta (
     id INT AUTO_INCREMENT,
     id_subasta INT NOT NULL,
-    precio_base$ INT NOT NULL,
+    precio_base$ DECIMAL(13,2) NOT NULL,
     id_historico INT NOT NULL,
     cedula_coleccionista INT NOT NULL,
     fecha_registro DATE NOT NULL,

@@ -91,7 +91,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
     console.log(this.coleccionista.id_representante);
 
     if (this.coleccionista.id_representante && this.coleccionista.cedula_representante){
-      alert("VERIFICAR CAMPOS DE REPRESENTANTES, NO PUEDEN ESTAR LOS DOS AL MISMO TIMEMOP")
+      alert("VERIFICAR CAMPOS DE REPRESENTANTES, NO PUEDEN ESTAR LOS DOS AL MISMO TIMEMO")
       this.route.navigate(['/inicio']);
     }
     

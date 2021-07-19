@@ -1,0 +1,12 @@
+CLUB A REGISTRAR UN TELEFONO::
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="valorRegistrar.id_club" >
+    <option value="{{ club.id }}" *ngFor="let club of clubes">Club: {{ club.nombre }} (id:{{ club.id }})</option>
+</select>
+INGRESE EL TELEFONO:
+<input type="number" name='telefono' [(ngModel)]="valorRegistrar.telefono"  placeholder="Telefono" class="form-control">
+
+<button class="btn-success btn-block btn" (click)=registrarTelefono()>
+    Guardar
+</button>
+
+

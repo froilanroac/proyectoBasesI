@@ -11,8 +11,18 @@ import { RegistroColeccionistaFormComponent } from "./components/registro-colecc
 import { RegistroMembresiaFormComponent } from "./components/registro-membresia-form/registro-membresia-form.component"
 import { RegistroCierreMembresiaFormComponent } from "./components/registro-cierre-membresia-form/registro-cierre-membresia-form.component"
 import { RegistroObjetoFormComponent } from "./components/registro-objeto-form/registro-objeto-form.component";
-
+import { RegistroInteresesComponent } from "./components/registro-intereses/registro-intereses.component";
+import { RegistroContactosClubesComponent } from "./components/registro-contactos-clubes/registro-contactos-clubes.component";
+import { RegistroOrganizacionCaridadComponent } from "./components/registro-organizacion-caridad/registro-organizacion-caridad.component";
+import { RegistroLugarSubastaComponent } from "./components/registro-lugar-subasta/registro-lugar-subasta.component";
 import { RegistroComicFormComponent  } from "./components/registro-comic-form/registro-comic-form.component";
+import { RegistroSubastasComponentComponent } from "./components/registro-subastas-component/registro-subastas-component.component";
+import { RegistroSubastaComponent } from "./components/registro-subasta/registro-subasta.component";
+import { SimularComponent } from "./components/simular/simular.component";
+import { ListaSimularComponent } from "./components/lista-simular/lista-simular.component";
+
+import { CalendarioSubastasComponent } from "./components/calendario-subastas/calendario-subastas.component";
+
 import { InicioComponent } from "./components/inicio/inicio.component";
 
 const routes: Routes = [
@@ -73,8 +83,45 @@ const routes: Routes = [
   {
     path: 'registros/comic',
     component: RegistroComicFormComponent 
+  },
+  {
+    path: 'registros/intereses',
+    component: RegistroInteresesComponent
+  },
+  {
+    path: 'registros/contactos',
+    component: RegistroContactosClubesComponent
+  },
+  {
+    path: 'registros/organizacion',
+    component: RegistroOrganizacionCaridadComponent
+  },
+  {
+    path: 'registros/lugares',
+    component: RegistroLugarSubastaComponent
+  },
+  {
+    path: 'registros/subastas',
+    component: RegistroSubastasComponentComponent
+  },
+  {
+    path: 'registros/subasta',
+    component: RegistroSubastaComponent
+  },
+  {
+    path: 'calendario',
+    component: CalendarioSubastasComponent
+  },
+  {
+    path: 'simular/:id',
+    component: SimularComponent
+  },
+  {
+    path: 'listasimular',
+    component: ListaSimularComponent
   }
-
+  
+  
   
 ];
 
