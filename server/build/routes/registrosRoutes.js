@@ -37,6 +37,7 @@ class RegistrosRoutes {
         this.router.post('/escomic', registrosController_1.default.esComic);
         this.router.post('/comicsubastado', registrosController_1.default.comicSubastado);
         this.router.post('/objetosubastado', registrosController_1.default.objetoSubastado);
+        this.router.post('/getregistrosbeneficio', registrosController_1.default.getRegistrosBeneficio);
         this.router.post('/getidobjetospurgados', registrosController_1.default.getIdObjetosPurgados);
         this.router.post('/getidcomicspurgados', registrosController_1.default.getIdComicsPurgados);
         this.router.post('/getcedulaspurgadas', registrosController_1.default.getCedulasPurgadas);

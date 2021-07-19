@@ -30,6 +30,8 @@ export class SimularComponent implements OnInit {
 
   recaudado:number = 0
 
+  registrosBeneficio:any = []
+
 
   constructor(public datepipe:DatePipe, private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
@@ -109,6 +111,33 @@ export class SimularComponent implements OnInit {
     event.target.disabled = true;  
   }
 
+  registrarBeneficio(){
+
+    this.registroService.getRegistrosBeneficio(this.subasta)
+    .subscribe(
+      res=> {
+        this.registrosBeneficio = res;
+        console.log(this.registrosBeneficio)
+      },
+      err => console.error(err)
+    )
+
+  }
+
+  registrarBeneficiosServidor(beneficios:any){
+    for(let beneficio of beneficios){
+      console.log(beneficio)
+      // this.registroService.registrarBeneficio(beneficio,dinero)
+      // .subscribe(
+      //   res=> {
+      //       alert(res)
+      //   },
+      //   err => console.error(err)
+      // )
+
+    }
+  }
+
 
 
   terminarSubastaObjeto(){
@@ -148,6 +177,7 @@ export class SimularComponent implements OnInit {
               .subscribe(
                 res=> {
                     alert(res)
+                    this.recaudado += this.pujaGanadora.p
                     this.pujaGanadora = []
                 },
                 err => console.error(err)
@@ -179,6 +209,7 @@ export class SimularComponent implements OnInit {
               .subscribe(
                 res=> {
                     alert(res)
+                    this.recaudado += this.pujaGanadora.p
                     this.pujaGanadora = []
                 },
                 err => console.error(err)

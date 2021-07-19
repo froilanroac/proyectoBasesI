@@ -213,6 +213,13 @@ public async getIdComicsPurgados(req:Request, res:Response) {
 
 }
 
+public async getRegistrosBeneficio(req:Request, res:Response) {
+  const { id } = req.body;
+  const registros = await pool.query("select * from registros_beneficio where id_subasta = "+id +";");
+  res.json(registros);
+
+}
+
 public async getMembresiasActivas(req:Request, res:Response) {
   // res.json({text:'listando juegos'})
   const registros = await pool.query('SELECT * FROM membresias where fecha_fin is null;');

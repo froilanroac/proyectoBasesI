@@ -13,6 +13,7 @@ Evento Seleccionado:
     <div class="card-footer text-muted">
       Fecha: {{ this.datepipe.transform(subasta.fecha,'yyyy/MM/dd')}}
     </div>
+    <button type="button" (click)="registrarBeneficio()" class="btn btn-danger" style="margin: 5px;">TERMINAR SUBASTA</button>
 </div>
 
 

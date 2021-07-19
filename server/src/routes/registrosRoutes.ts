@@ -41,6 +41,8 @@ class RegistrosRoutes{
         this.router.post('/comicsubastado', registrosController.comicSubastado);
 
         this.router.post('/objetosubastado', registrosController.objetoSubastado);
+
+        this.router.post('/getregistrosbeneficio', registrosController.getRegistrosBeneficio);
         
         this.router.post('/getidobjetospurgados', registrosController.getIdObjetosPurgados);
 

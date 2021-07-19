@@ -246,6 +246,13 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    getRegistrosBeneficio(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            const registros = yield database_1.default.query("select * from registros_beneficio where id_subasta = " + id + ";");
+            res.json(registros);
+        });
+    }
     getMembresiasActivas(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})
