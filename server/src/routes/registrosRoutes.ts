@@ -34,6 +34,8 @@ class RegistrosRoutes{
 
         this.router.post('/getidcomicspurgados', registrosController.getIdComicsPurgados);
 
+        this.router.post('/getcedulaspurgadas', registrosController.getCedulasPurgadas);
+
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController.getIntereses);
         // this.router.post('/', registrosController.create);

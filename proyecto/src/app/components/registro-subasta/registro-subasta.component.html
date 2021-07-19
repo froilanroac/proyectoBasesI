@@ -134,7 +134,7 @@ INSCRIBIR A PARTICIPANTE:
 
 
 <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="idInscripcion">
-    <option *ngFor="let coleccionista of coleccionistasInscribirId" value="{{ coleccionista.id }}"> CEDULA: {{ coleccionista.cedula_coleccionista }}, Id Club: {{ coleccionista.id_club }}</option>
+    <option *ngFor="let coleccionista of coleccionistasInscribirId2" value="{{ coleccionista.id }}"> CEDULA: {{ coleccionista.cedula_coleccionista }}, Id Club: {{ coleccionista.id_club }}</option>
 </select>
 
 <button class="btn-success btn-block btn" (click)="registrarInscripcion()">

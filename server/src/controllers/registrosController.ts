@@ -131,6 +131,17 @@ class RegistrosController{
 
 }
 
+public async getCedulasPurgadas(req:Request, res:Response) {
+  const { id } =  req.body; 
+  try{
+  const registros = await pool.query("select distinct(m.cedula_coleccionista) from membresias m, s_c s, ordenes_venta_subasta o where m.fecha_fin is null and m.id_club = s.club_invitado and s.id_subasta = "+id+" and m.cedula_coleccionista not in (select o.cedula_coleccionista from ordenes_Venta_subasta o where o.id_subasta = "+id+");");
+  res.json(registros);
+  } catch (e) {  
+    res.json("SQL ERROR: " + e.sqlMessage);            
+  }
+
+}
+
 public async getIdObjetosPurgados(req:Request, res:Response) {
   const { id_club } =  req.body; 
   try{

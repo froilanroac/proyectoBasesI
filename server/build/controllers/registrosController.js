@@ -154,6 +154,18 @@ class RegistrosController {
             }
         });
     }
+    getCedulasPurgadas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            try {
+                const registros = yield database_1.default.query("select distinct(m.cedula_coleccionista) from membresias m, s_c s, ordenes_venta_subasta o where m.fecha_fin is null and m.id_club = s.club_invitado and s.id_subasta = " + id + " and m.cedula_coleccionista not in (select o.cedula_coleccionista from ordenes_Venta_subasta o where o.id_subasta = " + id + ");");
+                res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     getIdObjetosPurgados(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;

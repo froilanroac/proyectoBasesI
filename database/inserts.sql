@@ -87,7 +87,7 @@ insert into historicos_duenos (cedula_coleccionista,fecha_registro,id_comic,prec
 
 
 insert into membresias (fecha_inicio, cedula_coleccionista,id_club,email,id_club_responsable,fecha_fin) values ('2015-01-01',1,1,'robert@gmail.com',1,NULL);
-insert into membresias (fecha_inicio, cedula_coleccionista,id_club,email,id_club_responsable,fecha_fin) values ('2015-01-01',1,2,'robert@gmail.com',1,NULL);
+insert into membresias (fecha_inicio, cedula_coleccionista,id_club,email,id_club_responsable,fecha_fin) values ('2015-01-01',1,2,'robert@gmail.com',NULL,NULL);
 insert into membresias (fecha_inicio, cedula_coleccionista,id_club,email,id_club_responsable,fecha_fin) values ('2016-02-02',2,2,'chrisnolan@gmail.com',2,NULL);
 insert into membresias (fecha_inicio, cedula_coleccionista,id_club,email,id_club_responsable,fecha_fin) values ('2016-04-03',3,3,'jonnolan@gmail.com',3,NULL);
 insert into membresias (fecha_inicio, cedula_coleccionista,id_club,email,id_club_responsable,fecha_fin) values ('2017-03-03',4,4,'mcfly@gmail.com',4,NULL);

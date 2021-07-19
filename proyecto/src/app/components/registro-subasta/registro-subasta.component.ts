@@ -40,7 +40,7 @@ export class RegistroSubastaComponent implements OnInit {
   organizacionesCaridad2:any = []
 
   subastaRegistrar ={
-    id:4,
+    id:0,
     hora_inicio:"",
     hora_fin:'',
     fecha:'',
@@ -131,7 +131,11 @@ export class RegistroSubastaComponent implements OnInit {
 
   coleccionistasInscribirId:any = []
 
+  coleccionistasInscribirId2:any = []
+
   idInscripcion:number = 0
+
+  cedulasPurgadas:any = []
 
 
 
@@ -262,6 +266,7 @@ export class RegistroSubastaComponent implements OnInit {
           this.organizadorRegistrado = true;
         }
         alert(res)
+        this.getCedulasPurgadas()
         
       }, 
       err => console.error(err)
@@ -270,13 +275,14 @@ export class RegistroSubastaComponent implements OnInit {
     this.getColeccionistasInscribir()
     this.getIdPurgarObjetos()
     this.getIdPurgarComics()
+    
 
   }
 
   
 
   async getIdPurgarObjetos(){
-    console.log(this.organizadorRegistrar)
+    // console.log(this.organizadorRegistrar)
      this.registroService.getIdObjetosPurgados(this.organizadorRegistrar).subscribe(
       res => {
         this.idObjetosPurgados = res
@@ -288,11 +294,11 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   async getIdPurgarComics(){
-    console.log(this.organizadorRegistrar)
+    // console.log(this.organizadorRegistrar)
      this.registroService.getIdComicsPurgados(this.organizadorRegistrar).subscribe(
       res => {
         this.idComicsPurgados = res
-        console.log(this.idComicsPurgados)
+        // console.log(this.idComicsPurgados)
         this.purgarComics()
       }, 
       err => console.error(err)
@@ -342,11 +348,35 @@ export class RegistroSubastaComponent implements OnInit {
     this.registroService.registrarInvitacion(this.invitacionRegistrar).subscribe(
       res => {
           alert(res);
+          this.getCedulasPurgadas()
       }, 
       err => console.error(err)
     )  
     this.eliminarClubInvitado()
+    
   }
+
+  getCedulasPurgadas(){
+      // console.log(this.subastaRegistrar)
+    this.registroService.getIdCedulasPurgadas(this.subastaRegistrar).subscribe(
+      res => {
+        this.cedulasPurgadas = res
+        this.coleccionistasInscribirId2 = []
+        console.log("purgando")
+        console.log(this.cedulasPurgadas)
+        for(let purgado of this.cedulasPurgadas){
+          for(let insertar of this.coleccionistasInscribirId){
+            if(purgado.cedula_coleccionista == insertar.cedula_coleccionista){
+              this.coleccionistasInscribirId2.push(insertar);
+            }
+          }
+        }
+      }, 
+      err => console.error(err)
+    )
+
+  }
+
 
 
   registrarInscripcion(){
@@ -360,13 +390,14 @@ export class RegistroSubastaComponent implements OnInit {
       }
     }
 
-    console.log(this.inscripcion)
+    // console.log(this.inscripcion)
     this.registrarInscripcionServidor()
+
 
   }
 
   registrarInscripcionServidor(){
-    console.log(this.inscripcion)
+    // console.log(this.inscripcion)
     this.registroService.registrarInscripcion(this.inscripcion).subscribe(
       res => {
     alert(res)
@@ -378,20 +409,20 @@ export class RegistroSubastaComponent implements OnInit {
 
   eliminarInscripcion(){
 
-    let coleccionistas = this.coleccionistasInscribirId
+    let coleccionistas = this.coleccionistasInscribirId2
     // console.log(coleccionistas)
     // console.log(this.inscripcion)
-    this.coleccionistasInscribirId = []
+    this.coleccionistasInscribirId2 = []
       for(let inscripcion of coleccionistas){
       if(inscripcion.cedula_coleccionista != this.inscripcion.cedula_coleccionista){
-        this.coleccionistasInscribirId.push(inscripcion);
+        this.coleccionistasInscribirId2.push(inscripcion);
       }
       }
   }
 
 
   registrarOrdenVentaObjeto(){
-      console.log(this.ordenVentaObjetoValor)
+      // console.log(this.ordenVentaObjetoValor)
     this.registroService.primeraSubastaObjeto(this.ordenVentaObjetoValor).subscribe(
       res => {
          let mensaje = String(res)
@@ -418,7 +449,7 @@ export class RegistroSubastaComponent implements OnInit {
 
   oVentaObjetoRegular(){
 
-    console.log(this.ordenVentaObjetoValor)
+    // console.log(this.ordenVentaObjetoValor)
 
     this.registroService.ordenVentaObjetoRegular(this.ordenVentaObjetoValor).subscribe(
       res => {
@@ -429,6 +460,7 @@ export class RegistroSubastaComponent implements OnInit {
         this.ordenVentaObjetoValor.numero_en_subasta++;
         this.ordenVentaObjetoValor.precio_base$ = null,
         this.ordenVentaObjetoValor.duracion_puja_min = null
+        this.getCedulasPurgadas()
       }, 
       err => console.error(err)
     )
@@ -459,6 +491,7 @@ export class RegistroSubastaComponent implements OnInit {
          this.ordenVentaObjetoValor.numero_en_subasta++;
          this.ordenVentaObjetoValor.precio_base$ = null,
          this.ordenVentaObjetoValor.duracion_puja_min = null
+         this.getCedulasPurgadas()
       }, 
       err2 => console.error(err2)
     )
@@ -524,6 +557,7 @@ oVentaComic(){
       this.ordenVentaObjetoValor.numero_en_subasta++;
     // this.ordenVentaComic.precio_base$ = null,
     // this.ordenVentaComic.duracion_puja_min = null
+    this.getCedulasPurgadas()
     }, 
     err => console.error(err)
   )
@@ -533,7 +567,7 @@ oVentaComic(){
   
 
 oVentaComicSubastadoRegular(){
-  console.log(this.ordenVentaComic)
+  // console.log(this.ordenVentaComic)
   this.registroService.ordenVentaComicSubastado(this.ordenVentaComic).subscribe(
     res2 => {
        alert(res2)
@@ -543,6 +577,7 @@ oVentaComicSubastadoRegular(){
        this.ordenVentaObjetoValor.numero_en_subasta++;
       //  this.ordenVentaComic.precio_base$ = null,
       //  this.ordenVentaComic.duracion_puja_min = null
+      this.getCedulasPurgadas()
     }, 
     err2 => console.error(err2)
   )
