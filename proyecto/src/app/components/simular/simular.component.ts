@@ -28,7 +28,7 @@ export class SimularComponent implements OnInit {
 
   pujaGanadora:any = []
 
-  recaudado:number = 500
+  recaudado:number = 0
 
   registrosBeneficio:any = []
 
