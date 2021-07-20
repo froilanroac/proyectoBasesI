@@ -43,6 +43,8 @@ class RegistrosRoutes{
         this.router.post('/objetosubastado', registrosController.objetoSubastado);
 
         this.router.post('/getregistrosbeneficio', registrosController.getRegistrosBeneficio);
+
+        this.router.post('/registrarbeneficio', registrosController.registrarBeneficio);
         
         this.router.post('/getidobjetospurgados', registrosController.getIdObjetosPurgados);
 

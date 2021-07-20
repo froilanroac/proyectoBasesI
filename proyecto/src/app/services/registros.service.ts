@@ -45,6 +45,10 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/getregistrosbeneficio`, subasta)
    }
 
+   registrarBeneficio(recaudado:any ){
+    return this.http.post(`${this.API_URL}/registros/registrarbeneficio`, recaudado)
+   }
+
    getInscripciones(subasta:any){
     return this.http.post(`${this.API_URL}/registros/getinscripciones`, subasta)
    }

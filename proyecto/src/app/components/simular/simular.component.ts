@@ -28,7 +28,7 @@ export class SimularComponent implements OnInit {
 
   pujaGanadora:any = []
 
-  recaudado:number = 0
+  recaudado:number = 500
 
   registrosBeneficio:any = []
 
@@ -117,7 +117,8 @@ export class SimularComponent implements OnInit {
     .subscribe(
       res=> {
         this.registrosBeneficio = res;
-        console.log(this.registrosBeneficio)
+        // console.log(this.registrosBeneficio)
+        this.registrarBeneficiosServidor(this.registrosBeneficio)
       },
       err => console.error(err)
     )
@@ -127,13 +128,18 @@ export class SimularComponent implements OnInit {
   registrarBeneficiosServidor(beneficios:any){
     for(let beneficio of beneficios){
       console.log(beneficio)
-      // this.registroService.registrarBeneficio(beneficio,dinero)
-      // .subscribe(
-      //   res=> {
-      //       alert(res)
-      //   },
-      //   err => console.error(err)
-      // )
+      let b = {
+        id: beneficio.id,
+        recaudado: this.recaudado,
+        porcentaje: beneficio.porcentaje
+      }
+      this.registroService.registrarBeneficio(b)
+      .subscribe(
+        res=> {
+            alert(res)
+        },
+        err => console.error(err)
+      )
 
     }
   }

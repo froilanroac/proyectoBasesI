@@ -185,6 +185,13 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    registrarBeneficio(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id, recaudado, porcentaje } = req.body;
+            const registros = yield database_1.default.query("update registros_beneficio set dinero_donado$ = " + recaudado * (porcentaje / 100) + " where id = " + id + ";");
+            res.json(registros);
+        });
+    }
     getOrganizaciones(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const registros = yield database_1.default.query('SELECT * FROM organizaciones_caridad');
