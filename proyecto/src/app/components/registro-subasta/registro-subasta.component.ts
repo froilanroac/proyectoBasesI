@@ -40,20 +40,20 @@ export class RegistroSubastaComponent implements OnInit {
   organizacionesCaridad2:any = []
 
   subastaRegistrar ={
-    id:0,
+    id:2,
     hora_inicio:"",
     hora_fin:'',
     fecha:'',
     modo:'',
     tipo:'',
-    caridad:'',
+    caridad:'SI',
     cancelada:'',
     id_lugar:null
   }
 
   mensajeError:any 
 
-  subastaRegistrada:boolean = false;
+  subastaRegistrada:boolean = true;
 
   organizadorRegistrar = {
     id_subasta:0,
@@ -136,6 +136,8 @@ export class RegistroSubastaComponent implements OnInit {
   idInscripcion:number = 0
 
   cedulasPurgadas:any = []
+
+  porcentaje:number = 100
 
 
 
@@ -608,14 +610,30 @@ getColeccionistasInscribir(){
 
 registrarOrganizacion(){
 
+
+  if(this.filtro(this.registroCaridad.porcentaje) <= this.porcentaje){
   this.registroService.registrarCaridad(this.registroCaridad).subscribe(
     res => {
+      let mensaje = String(res)
       alert(res)
+      if (!mensaje.includes("ERROR")){
+      this.porcentaje -= this.filtro(this.registroCaridad.porcentaje)
+      this.eliminarOrganizacion()
+      }
     }, 
     err => console.error(err)
   ) 
-  this.eliminarOrganizacion()
+  }else{
+    alert("NO SE PUEDE EXEDER DEL PORCENTAJE DISPONIBLE, INTENTE NUEVAMENTE")
+  }
+}
 
+filtro(entrada:any):number {
+  let number = 0
+  if(entrada != null){
+    number = entrada
+  }
+  return number 
 }
 
   eliminarOrganizacion(){
