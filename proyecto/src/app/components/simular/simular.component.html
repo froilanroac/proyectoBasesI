@@ -21,6 +21,8 @@ Evento Seleccionado:
   NO HAY MAS OBJETOS PARA SUBASTAR.
 </div>
 
+
+
 <div *ngIf="hayObjetos == true">
 <div class="card text-center border-dark"  *ngIf="(this.objetoSubastar| json) != '{}'">
   <div class="card-header">Elemento a subastar </div>
@@ -29,8 +31,9 @@ Evento Seleccionado:
     <h5 class="card-title">Precio Base en €: {{this.objetoSubastar.precio_base$/0.85 | number : '1.0-2'}}</h5>
     <p class="card-text">Id Historico: {{this.objetoSubastar.id_historico}}</p>
     <p class="card-text">Id Orden de Venta: {{this.objetoSubastar.id}}</p>
-    <p class="card-text">Orden en la subasta: {{ this.objetoSubastar.numero_en_subasta + 1}}</p>
+    <p class="card-text">Orden en la subasta: {{ this.objetoSubastar.numero_en_subasta + 1}} </p>
   </div>
+  <div class="alert alert-danger" *ngIf="subasta.tipo == 'A'" > Segundos para que se acabe la puja: {{counter.sec}} </div>
   <button type="button" (click)="terminarSubastaObjeto()" class="btn btn-danger" style="margin: 5px;">TERMINAR SUBASTA PARA ESTE OBJETO</button>
 
 </div>

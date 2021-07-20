@@ -3,6 +3,7 @@ import { RegistrosService } from 'src/app/services/registros.service';
 import { ActivatedRoute,Router } from "@angular/router";
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-simular',
   templateUrl: './simular.component.html',
@@ -32,6 +33,11 @@ export class SimularComponent implements OnInit {
 
   registrosBeneficio:any = []
 
+  tiempo: number = 0
+
+  counter = { min:0, sec:0 }
+  
+
 
   constructor(public datepipe:DatePipe, private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
@@ -39,7 +45,7 @@ export class SimularComponent implements OnInit {
 
     
     const params = this.activatedRoute.snapshot.params;
-    console.log(params.id)
+    console.log("subasta id: "+params.id)
     if (params.id){
 
       this.registroService.getSubasta(params)
@@ -72,12 +78,34 @@ export class SimularComponent implements OnInit {
         err => console.error(err)
       )
     }
+    
+  }
+
+  
+
+  startTimer() {
+    console.log(this.tiempo)
+    this.counter = { min: 0, sec: this.tiempo } // choose whatever you want
+    let intervalId = setInterval(() => {
+      console.log(this.counter)
+      if (this.counter.sec - 1 == -1) {
+        this.counter.min -= 1;
+        this.counter.sec = 59
+      } 
+      else this.counter.sec -= 1
+      if (this.counter.min === 0 && this.counter.sec == 0){
+        clearInterval(intervalId)
+        this.terminarSubastaObjeto()
+      } 
+    }, 1000)
   }
 
   seleccionarObjeto(){
     for(let objeto of this.ordenesVenta){
       if(objeto.numero_en_subasta == this.ordenObjeto){
           this.objetoSubastar = objeto
+          this.tiempo = this.objetoSubastar.duracion_puja_min
+          if(this.subasta.tipo == 'A'){this.startTimer()}
       }
     }
   }
@@ -87,6 +115,38 @@ export class SimularComponent implements OnInit {
   pujar(puja:number | string , inscripcion:number | string ,cedula:number | string){
     console.log("La persona de inscripcion "+ inscripcion + "Pujo "+puja)
     
+    if(this.subasta.tipo == 'A'){
+      //validar que la puja sea la mayor
+
+      if(puja < this.pujaGanadora.p){
+        alert("LA PUJA DEBE SER MAYOR A LA OFERTA MAXIMA, INTENTE NUEVAMENTE")
+      }else{
+
+        if(puja >= this.objetoSubastar.precio_base$){
+          alert("PUJA REALIZADA CON EXITO")
+        this.pujas.push({
+          i: inscripcion,
+          p: Number(puja) ,
+          c: Number(cedula)
+        })
+    
+        const max = this.pujas.reduce(function(prev:any , current:any) {
+        return (prev.p > current.p) ? prev : current
+        
+        }) 
+    
+        this.pujaGanadora = max
+        console.log(this.pujaGanadora)
+
+      }else{
+        alert("LA PUJA NO PUEDE SER MENOR A LA DEL PRECIO BASE... INTENTE NUEVAMENTE")
+      }
+
+      }
+
+
+    }else{
+
     if(puja >= this.objetoSubastar.precio_base$){
       alert("PUJA REALIZADA CON EXITO")
     this.pujas.push({
@@ -105,6 +165,9 @@ export class SimularComponent implements OnInit {
   }else{
     alert("LA PUJA NO PUEDE SER MENOR A LA DEL PRECIO BASE... INTENTE NUEVAMENTE")
   }
+  
+    }
+
   }
 
   actionMethod(event: any) {
@@ -117,7 +180,7 @@ export class SimularComponent implements OnInit {
     .subscribe(
       res=> {
         this.registrosBeneficio = res;
-        // console.log(this.registrosBeneficio)
+        console.log("REGISTRANDO BENEFICIOS ...")
         this.registrarBeneficiosServidor(this.registrosBeneficio)
       },
       err => console.error(err)
@@ -237,7 +300,6 @@ export class SimularComponent implements OnInit {
    }
 
   }
-
 
 
 }
