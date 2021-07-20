@@ -85,9 +85,13 @@ export class SimularComponent implements OnInit {
 
   startTimer() {
     console.log(this.tiempo)
+    let objeto = this.ordenObjeto
     this.counter = { min: 0, sec: this.tiempo } // choose whatever you want
     let intervalId = setInterval(() => {
       // console.log(this.counter)
+      if(objeto != this.ordenObjeto){
+        return;
+      }
       if (this.counter.sec - 1 == -1) {
         this.counter.min -= 1;
         this.counter.sec = 59
@@ -116,7 +120,7 @@ export class SimularComponent implements OnInit {
 
 
   pujar(puja:number | string , inscripcion:number | string ,cedula:number | string){
-    console.log("La persona de inscripcion "+ inscripcion + "Pujo "+puja)
+    console.log("La persona de inscripcion "+ inscripcion + " Pujo "+puja)
     console.log(this.pujas)
     if(this.subasta.tipo == 'A'){
       //validar que la puja sea la mayor
@@ -185,6 +189,7 @@ export class SimularComponent implements OnInit {
         this.registrosBeneficio = res;
         console.log("REGISTRANDO BENEFICIOS ...")
         this.registrarBeneficiosServidor(this.registrosBeneficio)
+        this.route.navigate(['/inicio']);
       },
       err => console.error(err)
     )

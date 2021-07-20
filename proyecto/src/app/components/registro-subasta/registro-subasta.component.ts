@@ -366,7 +366,7 @@ export class RegistroSubastaComponent implements OnInit {
         console.log(this.cedulasPurgadas)
         for(let purgado of this.cedulasPurgadas){
           for(let insertar of this.coleccionistasInscribirId){
-            if(purgado.cedula_coleccionista == insertar.cedula_coleccionista){
+            if(purgado.cedula_coleccionista == insertar.cedula_coleccionista && purgado.id_club == insertar.id_club){
               this.coleccionistasInscribirId2.push(insertar);
             }
           }
