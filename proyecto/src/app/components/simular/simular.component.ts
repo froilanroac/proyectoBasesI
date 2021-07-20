@@ -224,7 +224,7 @@ export class SimularComponent implements OnInit {
      }
    }else{
     alert("EL OBJETO FUE SUBASTADO, LA INSCRIPCION GANADORA FUE: " + this.pujaGanadora.i)
-
+    this.pujaGanadora = []
     console.log(this.objetoSubastar)
     this.registroService.esComic(this.objetoSubastar)
     .subscribe(
