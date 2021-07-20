@@ -34,6 +34,7 @@ Evento Seleccionado:
     <p class="card-text">Orden en la subasta: {{ this.objetoSubastar.numero_en_subasta + 1}} </p>
   </div>
   <div class="alert alert-danger" *ngIf="subasta.tipo == 'A'" > Segundos para que se acabe la puja: {{counter.sec}} </div>
+  <div class="alert alert-warning" > PUJA MAXIMA {{ this.pujaGanadora.p }}</div>
   <button type="button" (click)="terminarSubastaObjeto()" class="btn btn-danger" style="margin: 5px;">TERMINAR SUBASTA PARA ESTE OBJETO</button>
 
 </div>

@@ -87,7 +87,7 @@ export class SimularComponent implements OnInit {
     console.log(this.tiempo)
     this.counter = { min: 0, sec: this.tiempo } // choose whatever you want
     let intervalId = setInterval(() => {
-      console.log(this.counter)
+      // console.log(this.counter)
       if (this.counter.sec - 1 == -1) {
         this.counter.min -= 1;
         this.counter.sec = 59
@@ -101,10 +101,13 @@ export class SimularComponent implements OnInit {
   }
 
   seleccionarObjeto(){
+    this.pujaGanadora = []
+    this.pujas = []
     for(let objeto of this.ordenesVenta){
       if(objeto.numero_en_subasta == this.ordenObjeto){
           this.objetoSubastar = objeto
           this.tiempo = this.objetoSubastar.duracion_puja_min
+            console.log(this.objetoSubastar.duracion_puja_min)
           if(this.subasta.tipo == 'A'){this.startTimer()}
       }
     }
@@ -114,11 +117,11 @@ export class SimularComponent implements OnInit {
 
   pujar(puja:number | string , inscripcion:number | string ,cedula:number | string){
     console.log("La persona de inscripcion "+ inscripcion + "Pujo "+puja)
-    
+    console.log(this.pujas)
     if(this.subasta.tipo == 'A'){
       //validar que la puja sea la mayor
 
-      if(puja < this.pujaGanadora.p){
+      if(puja <= this.pujaGanadora.p){
         alert("LA PUJA DEBE SER MAYOR A LA OFERTA MAXIMA, INTENTE NUEVAMENTE")
       }else{
 
@@ -136,7 +139,7 @@ export class SimularComponent implements OnInit {
         }) 
     
         this.pujaGanadora = max
-        console.log(this.pujaGanadora)
+        // console.log(this.pujaGanadora)
 
       }else{
         alert("LA PUJA NO PUEDE SER MENOR A LA DEL PRECIO BASE... INTENTE NUEVAMENTE")
@@ -161,7 +164,7 @@ export class SimularComponent implements OnInit {
     }) 
 
     this.pujaGanadora = max
-    console.log(this.pujaGanadora)
+    // console.log(this.pujaGanadora)
   }else{
     alert("LA PUJA NO PUEDE SER MENOR A LA DEL PRECIO BASE... INTENTE NUEVAMENTE")
   }
@@ -190,12 +193,13 @@ export class SimularComponent implements OnInit {
 
   registrarBeneficiosServidor(beneficios:any){
     for(let beneficio of beneficios){
-      console.log(beneficio)
+      console.log(this.recaudado)
       let b = {
         id: beneficio.id,
         recaudado: this.recaudado,
         porcentaje: beneficio.porcentaje
       }
+      console.log(b)
       this.registroService.registrarBeneficio(b)
       .subscribe(
         res=> {
@@ -212,8 +216,6 @@ export class SimularComponent implements OnInit {
   terminarSubastaObjeto(){
    if(this.pujaGanadora['length'] == 0){
      alert("EL OBJETO NO FUE SUBASTADO, PASANDO AL SIGUIENTE OBJETO")
-     this.pujaGanadora = []
-
      if(this.ordenObjeto < this.numeroObjetos){
      this.ordenObjeto++
      this.seleccionarObjeto()
@@ -224,7 +226,7 @@ export class SimularComponent implements OnInit {
      }
    }else{
     alert("EL OBJETO FUE SUBASTADO, LA INSCRIPCION GANADORA FUE: " + this.pujaGanadora.i)
-    this.pujaGanadora = []
+    
     console.log(this.objetoSubastar)
     this.registroService.esComic(this.objetoSubastar)
     .subscribe(
@@ -241,13 +243,14 @@ export class SimularComponent implements OnInit {
                 id_subasta: this.subasta.id,
                 cedula_coleccionista: this.pujaGanadora.c
               }
-
+              this.recaudado += this.pujaGanadora.p
+              console.log("REGISTRANDO DUEÑO: ")
+              console.log(ordenVentaComic)
               this.registroService.comicSubastado(ordenVentaComic)
               .subscribe(
                 res=> {
                     alert(res)
-                    this.recaudado += this.pujaGanadora.p
-                    this.pujaGanadora = []
+                    // this.recaudado += this.pujaGanadora.p
                 },
                 err => console.error(err)
               )
@@ -264,7 +267,7 @@ export class SimularComponent implements OnInit {
 
           }else{
             alert("registrando objeto")
-
+            // console.log(this.pujaGanadora)
               let ordenVentaObjeto = {
                 precio_compra$:this.pujaGanadora.p,
                 id_inscr_ganador: this.pujaGanadora.i,
@@ -273,13 +276,13 @@ export class SimularComponent implements OnInit {
                 id_subasta: this.subasta.id,
                 cedula_coleccionista: this.pujaGanadora.c
               }
-
+              this.recaudado += this.pujaGanadora.p
+              console.log("REGISTRANDO DUEÑO: ")
+                console.log(ordenVentaObjeto)
               this.registroService.objetoSubastado(ordenVentaObjeto)
               .subscribe(
                 res=> {
                     alert(res)
-                    this.recaudado += this.pujaGanadora.p
-                    this.pujaGanadora = []
                 },
                 err => console.error(err)
               )

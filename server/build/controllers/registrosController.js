@@ -154,8 +154,13 @@ class RegistrosController {
     }
     getSubastas(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const registros = yield database_1.default.query('SELECT * FROM subastas');
-            res.json(registros);
+            try {
+                const registros = yield database_1.default.query('SELECT * FROM subastas');
+                res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
         });
     }
     getCiudades(req, res) {
@@ -463,6 +468,7 @@ class RegistrosController {
                 res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO");
             }
             catch (e) {
+                console.log(e);
                 res.json("SQL ERROR: " + e.sqlMessage);
             }
         });

@@ -123,9 +123,12 @@ class RegistrosController{
     }
 
     public async getSubastas (req:Request, res:Response) {
-
+      try{
       const registros = await pool.query('SELECT * FROM subastas');
       res.json(registros);
+    } catch (e) {  
+      res.json("SQL ERROR: " + e.sqlMessage);            
+    }
 
   }
 
@@ -412,6 +415,7 @@ public async primeraSubasta(req:Request, res:Response) {
 
       res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO")
       } catch (e) {  
+        console.log(e)
         res.json("SQL ERROR: " + e.sqlMessage);            
       }
   }
