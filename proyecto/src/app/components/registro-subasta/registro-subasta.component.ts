@@ -40,20 +40,20 @@ export class RegistroSubastaComponent implements OnInit {
   organizacionesCaridad2:any = []
 
   subastaRegistrar ={
-    id:2,
+    id:0,
     hora_inicio:"",
     hora_fin:'',
     fecha:'',
     modo:'',
     tipo:'',
-    caridad:'SI',
+    caridad:'',
     cancelada:'',
     id_lugar:null
   }
 
   mensajeError:any 
 
-  subastaRegistrada:boolean = true;
+  subastaRegistrada:boolean = false;
 
   organizadorRegistrar = {
     id_subasta:0,
