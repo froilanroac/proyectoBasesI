@@ -172,6 +172,17 @@ public async registrarBeneficio(req:Request, res:Response) {
 
 }
 
+public async eliminarSubasta(req:Request, res:Response) {
+  const { id } =  req.body; 
+  try{
+    const registros = await pool.query('DELETE FROM SUBASTAS WHERE ID='+ id );
+  res.json("SUBASTA ELIMINADA CON EXITO");
+  } catch (e) {  
+    res.json("SQL ERROR: " + e.sqlMessage);            
+  }
+
+}
+
   public async getColeccionistasParaInscribir(req:Request, res:Response) {
     const { id_club } =  req.body; 
     try{

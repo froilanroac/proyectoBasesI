@@ -167,6 +167,11 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getcoleccionistasinscribir`)
    }
 
+   eliminarSubasta(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/eliminarsubasta`,subasta)
+   }
+   
+
    ordenVentaObjetoSubastado(objeto:any){
     return this.http.post(`${this.API_URL}/registros/ordenventaobjetosubastado`,objeto)
    }

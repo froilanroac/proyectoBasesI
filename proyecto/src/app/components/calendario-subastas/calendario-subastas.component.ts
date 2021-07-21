@@ -26,5 +26,16 @@ export class CalendarioSubastasComponent implements OnInit {
       err => console.error(err)
     )
   }
+
+  eliminarSubasta(subasta:any){
+
+    this.registroService.eliminarSubasta(subasta).subscribe(
+      res => {
+        alert(res)
+      }, 
+      err => console.error(err)
+    )
+
+  }
   
 }

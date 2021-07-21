@@ -43,6 +43,7 @@ class RegistrosRoutes {
         this.router.post('/getidcomicspurgados', registrosController_1.default.getIdComicsPurgados);
         this.router.post('/getcedulaspurgadas', registrosController_1.default.getCedulasPurgadas);
         this.router.post('/getnombreclub', registrosController_1.default.getNombreClubSubasta);
+        this.router.post('/eliminarsubasta', registrosController_1.default.eliminarSubasta);
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController_1.default.getIntereses);
         // this.router.post('/', registrosController.create);

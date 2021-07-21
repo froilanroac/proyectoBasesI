@@ -54,6 +54,8 @@ class RegistrosRoutes{
 
         this.router.post('/getnombreclub', registrosController.getNombreClubSubasta);
 
+        this.router.post('/eliminarsubasta', registrosController.eliminarSubasta);
+
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController.getIntereses);
         // this.router.post('/', registrosController.create);

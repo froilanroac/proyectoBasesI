@@ -203,6 +203,18 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    eliminarSubasta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            try {
+                const registros = yield database_1.default.query('DELETE FROM SUBASTAS WHERE ID=' + id);
+                res.json("SUBASTA ELIMINADA CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     getColeccionistasParaInscribir(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;
