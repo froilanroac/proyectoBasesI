@@ -238,15 +238,17 @@ export class SimularComponent implements OnInit {
       res=> {
           let mensaje = String(res)
           if(mensaje == "SI"){
-              alert("REGISTRANDO VENTA DEL COMIC")
 
+              let sig =  prompt("REGISTRANDO VENTA DEL COMIC, POR FAVOR INGRESE ALGUN SIGNIFICADO ", "");
+              console.log(sig)
               let ordenVentaComic = {
                 precio_compra$:this.pujaGanadora.p,
                 id_inscr_ganador: this.pujaGanadora.i,
                 id_subasta_ganador:  this.subasta.id,
                 id_historico: this.objetoSubastar.id_historico,
                 id_subasta: this.subasta.id,
-                cedula_coleccionista: this.pujaGanadora.c
+                cedula_coleccionista: this.pujaGanadora.c,
+                significado: sig
               }
               this.recaudado += this.pujaGanadora.p
               console.log("REGISTRANDO DUEÑO: ")
@@ -272,6 +274,8 @@ export class SimularComponent implements OnInit {
 
           }else{
             alert("registrando objeto")
+            let sig =  prompt("REGISTRANDO VENTA DEL COMIC, POR FAVOR INGRESE ALGUN SIGNIFICADO ", "");
+            console.log(sig)
             // console.log(this.pujaGanadora)
               let ordenVentaObjeto = {
                 precio_compra$:this.pujaGanadora.p,
@@ -279,7 +283,8 @@ export class SimularComponent implements OnInit {
                 id_subasta_ganador:  this.subasta.id,
                 id_historico: this.objetoSubastar.id_historico,
                 id_subasta: this.subasta.id,
-                cedula_coleccionista: this.pujaGanadora.c
+                cedula_coleccionista: this.pujaGanadora.c,
+                significado: sig
               }
               this.recaudado += this.pujaGanadora.p
               console.log("REGISTRANDO DUEÑO: ")

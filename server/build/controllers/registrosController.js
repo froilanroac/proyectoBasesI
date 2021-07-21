@@ -389,10 +389,10 @@ class RegistrosController {
     comicSubastado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id_inscr_ganador, id_subasta_ganador, id_historico, id_subasta, cedula_coleccionista, precio_compra$ } = req.body;
+                const { id_inscr_ganador, id_subasta_ganador, id_historico, id_subasta, cedula_coleccionista, precio_compra$, significado } = req.body;
                 const respuesta = yield database_1.default.query("update ordenes_venta_subasta set precio_venta = " + precio_compra$ + ", id_insc_ganador = " + id_inscr_ganador + ",id_subasta_ganador = " + id_subasta_ganador + " where id_subasta = " + id_subasta + " and id_historico = " + id_historico + ";");
                 const respuesta2 = yield database_1.default.query("select c.id_comic from historicos_duenos c where c.id = " + id_historico + ";");
-                const respuesta3 = yield database_1.default.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,ID_COMIC) VALUES (" + cedula_coleccionista + ",(CURRENT_DATE)," + precio_compra$ + "," + respuesta2[0]['id_comic'] + ");");
+                const respuesta3 = yield database_1.default.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,ID_COMIC) VALUES (" + cedula_coleccionista + ",(CURRENT_DATE)," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['id_comic'] + ");");
                 res.json("VENTA DE COMIC  REGISTRADA CON EXITO");
             }
             catch (e) {
@@ -403,10 +403,10 @@ class RegistrosController {
     objetoSubastado(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id_inscr_ganador, id_subasta_ganador, id_historico, id_subasta, cedula_coleccionista, precio_compra$ } = req.body;
+                const { id_inscr_ganador, id_subasta_ganador, id_historico, id_subasta, cedula_coleccionista, precio_compra$, significado } = req.body;
                 const respuesta = yield database_1.default.query("update ordenes_venta_subasta set precio_venta = " + precio_compra$ + ", id_insc_ganador = " + id_inscr_ganador + ",id_subasta_ganador = " + id_subasta_ganador + " where id_subasta = " + id_subasta + " and id_historico = " + id_historico + ";");
                 const respuesta2 = yield database_1.default.query("select c.id_objeto_valor from historicos_duenos c where c.id = " + id_historico + ";");
-                const respuesta3 = yield database_1.default.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,id_objeto_valor) VALUES (" + cedula_coleccionista + ",(CURRENT_DATE)," + precio_compra$ + "," + respuesta2[0]['id_objeto_valor'] + ");");
+                const respuesta3 = yield database_1.default.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,id_objeto_valor) VALUES (" + cedula_coleccionista + ",(CURRENT_DATE)," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['id_objeto_valor'] + ");");
                 res.json("VENTA DE OBJETO REGISTRADA CON EXITO");
             }
             catch (e) {
