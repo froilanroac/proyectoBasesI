@@ -163,8 +163,8 @@ export class RegistrosService {
    }
 
 
-   getColeccionistasParaInscripcion(club:any){
-    return this.http.post(`${this.API_URL}/registros/getcoleccionistasinscribir`,club)
+   getColeccionistasParaInscripcion(){
+    return this.http.get(`${this.API_URL}/registros/getcoleccionistasinscribir`)
    }
 
    ordenVentaObjetoSubastado(objeto:any){

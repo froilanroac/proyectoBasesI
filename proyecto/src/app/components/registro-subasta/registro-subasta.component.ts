@@ -46,7 +46,7 @@ export class RegistroSubastaComponent implements OnInit {
     fecha:'',
     modo:'',
     tipo:'',
-    caridad:'',
+    caridad:'SI',
     cancelada:'',
     id_lugar:null
   }
@@ -139,6 +139,10 @@ export class RegistroSubastaComponent implements OnInit {
 
   porcentaje:number = 100
 
+  clubesOrganizadores:any = []
+
+  organizadores:any = []
+
 
 
 
@@ -168,7 +172,7 @@ export class RegistroSubastaComponent implements OnInit {
     this.registroService.getObjetos().subscribe(
       res => {
         this.objetosDeValor = res;
-        this.objetosDeValor2 = res;
+        // this.objetosDeValor2 = res;
         // console.log(this.objetosDeValor) 
         console.log("Objetos registrados: "+ this.objetosDeValor['length'])
       }, 
@@ -178,7 +182,7 @@ export class RegistroSubastaComponent implements OnInit {
     this.registroService.getComics().subscribe(
       res => {
         this.comics = res;
-        this.comics2 = res;
+        // this.comics2 = res;
         // console.log(this.comics) 
         console.log("Comics registrados: "+ this.comics['length'])
       }, 
@@ -214,6 +218,25 @@ export class RegistroSubastaComponent implements OnInit {
       }, 
       err => console.error(err)
     )
+
+      this.registroService.getColeccionistasParaInscripcion().subscribe(
+    res => {
+        this.coleccionistasInscribir = res
+        // console.log(this.coleccionistasInscribir)
+        let i = 0
+          for(let coleccionista of this.coleccionistasInscribir){
+            this.coleccionistasInscribirId.push({
+              id:i,
+              cedula_coleccionista: coleccionista.cedula_coleccionista,
+              fecha_inicio: this.datepipe.transform(coleccionista.fecha_inicio,'yyyy/MM/dd'),
+              id_club: coleccionista.id_club
+            })
+            i++
+        }
+        // console.log(this.coleccionistasInscribirId)
+    }, 
+    err => console.error(err)
+  )  
     
     
   }
@@ -256,79 +279,139 @@ export class RegistroSubastaComponent implements OnInit {
 
   registrarOrganizador(){
 
+  
     // console.log(this.organizadorRegistrar)
-
     this.registroService.registrarOrganizador(this.organizadorRegistrar).subscribe(
       res => {
         
         this.mensajeError = String(res)
         if(this.mensajeError.includes("ERROR")){
           this.organizadorRegistrado = false;
+          
         }else{
-          this.organizadorRegistrado = true;
+          if(this.subastaRegistrar.caridad == 'NO'){
+            this.organizadorRegistrado = true;
+          }
+          
+          this.registrarClubOrganizador()
         }
         alert(res)
-        this.getCedulasPurgadas()
+        // this.getCedulasPurgadas()
         
       }, 
       err => console.error(err)
     )
-    this.eliminarClub()
-    this.getColeccionistasInscribir()
-    this.getIdPurgarObjetos()
-    this.getIdPurgarComics()
+    
+  // this.getColeccionistasInscribir()
+  this.getIdPurgarObjetos()
+  this.getIdPurgarComics()
     
 
   }
 
+  registrarClubOrganizador(){
+    this.organizadores.push(this.organizadorRegistrar.id_club)
+    this.purgarInvitaciones()
+  }
+
+  purgarInvitaciones(){
+
+    for(let organizador of this.organizadores){
+      for(let club of this.clubes2){
+          if(organizador == club.id){
+            this.pugarArray(this.clubes2,organizador)
+          }
+      }
+    }
+    console.log(this.clubes2)
+ 
+  }
+
+  pugarArray(array:any, valor:any ){
+    for (var i = array.length - 1; i >= 0; --i) {
+      if (array[i].id == valor) {
+          array.splice(i,1);
+      }
+  }
+  }
+
+
   
 
-  async getIdPurgarObjetos(){
-    // console.log(this.organizadorRegistrar)
+  
+
+   getIdPurgarObjetos(){
+
+    console.log(this.organizadorRegistrar)
+    console.log("Purgando Objetos")
      this.registroService.getIdObjetosPurgados(this.organizadorRegistrar).subscribe(
       res => {
-        this.idObjetosPurgados = res
-        console.log(this.idObjetosPurgados)
-        this.purgarObjetos()
+        // this.idObjetosPurgados = res
+        this.agregarId(res)
       }, 
       err => console.error(err)
     )
   }
 
-  async getIdPurgarComics(){
-    // console.log(this.organizadorRegistrar)
+  agregarId(res:any){
+    for(let id of res){
+      this.idObjetosPurgados.push(id)
+    }
+    console.log(this.idObjetosPurgados)
+    this.agregarObjetos()
+    
+  }
+
+  agregarObjetos(){
+
+    this.objetosDeValor2 = []
+    console.log(this.objetosDeValor)
+    for(let id of this.idObjetosPurgados){
+      for(let objeto of this.objetosDeValor){
+        if(id.id == objeto.id){
+          this.objetosDeValor2.push(objeto)
+        }
+      }
+    }
+
+    this.objetosDeValor2 = this.objetosDeValor2.filter(function (thing:any, index:any, self:any) {
+        return index === self.findIndex((t:any) => (
+          t.place === thing.place && t.nombre === thing.nombre
+        ));
+      }
+    )
+  }
+
+  getIdPurgarComics(){
+
+    console.log(this.organizadorRegistrar)
+    console.log("Purgando Comics")
      this.registroService.getIdComicsPurgados(this.organizadorRegistrar).subscribe(
       res => {
         this.idComicsPurgados = res
-        // console.log(this.idComicsPurgados)
-        this.purgarComics()
+        console.log(this.idComicsPurgados)
+        this.agregarComics()
       }, 
       err => console.error(err)
     )
   }
 
-  purgarObjetos(){
-    let lista = this.objetosDeValor2
-    this.objetosDeValor2 = []
-    for(let objeto of this.idObjetosPurgados){
-        for(let insertar of lista){
-          if(objeto.id == insertar.id){
-            this.objetosDeValor2.push(insertar);
-          }
-        }
-    }
-  }
 
-  purgarComics(){
-    let lista = this.comics2
-    this.comics2 = []
-    for(let comic of this.idComicsPurgados){
-        for(let insertar of lista){
-          if(comic.id == insertar.id){
-            this.comics2.push(insertar);
-          }
+
+  agregarComics(){
+    for(let id of this.idComicsPurgados){
+      for(let comic of this.comics){
+        if(id.id == comic.id){
+          this.comics2.push(comic)
         }
+      }
     }
+    this.comics2 = this.comics2.filter(function (thing:any, index:any, self:any) {
+      return index === self.findIndex((t:any) => (
+        t.place === thing.place && t.titulo === thing.titulo
+      ));
+    }
+  )
   }
 
 
@@ -346,7 +429,6 @@ export class RegistroSubastaComponent implements OnInit {
   registrarInvitacion(){
 
     // console.log(this.invitacionRegistrar)
-
     this.registroService.registrarInvitacion(this.invitacionRegistrar).subscribe(
       res => {
           alert(res);
@@ -362,10 +444,12 @@ export class RegistroSubastaComponent implements OnInit {
       // console.log(this.subastaRegistrar)
     this.registroService.getIdCedulasPurgadas(this.subastaRegistrar).subscribe(
       res => {
-        this.cedulasPurgadas = res
+        this.cedulasPurgadas = []
         this.coleccionistasInscribirId2 = []
-        console.log("purgando")
+        this.cedulasPurgadas = res
+        console.log("Cedulas Purgadas")
         console.log(this.cedulasPurgadas)
+        // console.log(this.coleccionistasInscribirId)
         for(let purgado of this.cedulasPurgadas){
           for(let insertar of this.coleccionistasInscribirId){
             if(purgado.cedula_coleccionista == insertar.cedula_coleccionista && purgado.id_club == insertar.id_club){
@@ -373,6 +457,14 @@ export class RegistroSubastaComponent implements OnInit {
             }
           }
         }
+
+        console.log(this.coleccionistasInscribirId2)
+      //   this.coleccionistasInscribirId2 = this.coleccionistasInscribirId2.filter(function (thing:any, index:any, self:any) {
+      //     return index === self.findIndex((t:any) => (
+      //       t.place === thing.place && t.cedula_coleccionista === thing.cedula_coleccionista && t.id_club === thing.id_club
+      //     ));
+      //   }
+      // )
       }, 
       err => console.error(err)
     )
@@ -399,7 +491,7 @@ export class RegistroSubastaComponent implements OnInit {
   }
 
   registrarInscripcionServidor(){
-    // console.log(this.inscripcion)
+    console.log(this.inscripcion)
     this.registroService.registrarInscripcion(this.inscripcion).subscribe(
       res => {
     alert(res)
@@ -462,7 +554,7 @@ export class RegistroSubastaComponent implements OnInit {
         this.ordenVentaObjetoValor.numero_en_subasta++;
         this.ordenVentaObjetoValor.precio_base$ = null,
         this.ordenVentaObjetoValor.duracion_puja_min = null
-        this.getCedulasPurgadas()
+        // this.getCedulasPurgadas()
       }, 
       err => console.error(err)
     )
@@ -493,7 +585,7 @@ export class RegistroSubastaComponent implements OnInit {
          this.ordenVentaObjetoValor.numero_en_subasta++;
          this.ordenVentaObjetoValor.precio_base$ = null,
          this.ordenVentaObjetoValor.duracion_puja_min = null
-         this.getCedulasPurgadas()
+        //  this.getCedulasPurgadas()
       }, 
       err2 => console.error(err2)
     )
@@ -537,15 +629,7 @@ eliminarComic(){
   }
 }
 
-eliminarClub(){
-// revisar si hace que explota el proyecto
-  this.clubes2 = []
-  for(let club of this.clubes){
-    if(club.id != this.organizadorRegistrar.id_club){
-      this.clubes2.push(club);
-    }
-  }
-}
+
 
 
 oVentaComic(){
@@ -559,7 +643,7 @@ oVentaComic(){
       this.ordenVentaObjetoValor.numero_en_subasta++;
     // this.ordenVentaComic.precio_base$ = null,
     // this.ordenVentaComic.duracion_puja_min = null
-    this.getCedulasPurgadas()
+    // this.getCedulasPurgadas()
     }, 
     err => console.error(err)
   )
@@ -579,7 +663,7 @@ oVentaComicSubastadoRegular(){
        this.ordenVentaObjetoValor.numero_en_subasta++;
       //  this.ordenVentaComic.precio_base$ = null,
       //  this.ordenVentaComic.duracion_puja_min = null
-      this.getCedulasPurgadas()
+      // this.getCedulasPurgadas()
     }, 
     err2 => console.error(err2)
   )
@@ -587,24 +671,24 @@ oVentaComicSubastadoRegular(){
 
 getColeccionistasInscribir(){
 
-  this.registroService.getColeccionistasParaInscripcion(this.organizadorRegistrar).subscribe(
-    res => {
-        this.coleccionistasInscribir = res
-        // console.log(this.coleccionistasInscribir)
-        let i = 0
-          for(let coleccionista of this.coleccionistasInscribir){
-            this.coleccionistasInscribirId.push({
-              id:i,
-              cedula_coleccionista: coleccionista.cedula_coleccionista,
-              fecha_inicio: this.datepipe.transform(coleccionista.fecha_inicio,'yyyy/MM/dd'),
-              id_club: coleccionista.id_club
-            })
-            i++
-        }
-        // console.log(this.coleccionistasInscribirId)
-    }, 
-    err => console.error(err)
-  )  
+  // this.registroService.getColeccionistasParaInscripcion(this.organizadorRegistrar).subscribe(
+  //   res => {
+  //       this.coleccionistasInscribir = res
+  //       // console.log(this.coleccionistasInscribir)
+  //       let i = 0
+  //         for(let coleccionista of this.coleccionistasInscribir){
+  //           this.coleccionistasInscribirId.push({
+  //             id:i,
+  //             cedula_coleccionista: coleccionista.cedula_coleccionista,
+  //             fecha_inicio: this.datepipe.transform(coleccionista.fecha_inicio,'yyyy/MM/dd'),
+  //             id_club: coleccionista.id_club
+  //           })
+  //           i++
+  //       }
+  //       // console.log(this.coleccionistasInscribirId)
+  //   }, 
+  //   err => console.error(err)
+  // )  
 
 }
 

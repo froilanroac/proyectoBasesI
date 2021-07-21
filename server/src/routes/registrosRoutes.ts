@@ -29,7 +29,7 @@ class RegistrosRoutes{
         this.router.post('/ordenventaobjetoregular', registrosController.ordenVentaObjetoRegular);
         this.router.post('/ordenventacomicsubastado', registrosController.ordenVentaComicSubastado);
         this.router.post('/ordenventacomicregular', registrosController.ordenVentaComicRegular);
-        this.router.post('/getcoleccionistasinscribir', registrosController.getColeccionistasParaInscribir);
+        this.router.get('/getcoleccionistasinscribir', registrosController.getColeccionistasParaInscribir);
         this.router.post('/getsubasta', registrosController.getSubasta);
 
         this.router.post('/getordenesventa', registrosController.getOrdenesVentaSubasta);
