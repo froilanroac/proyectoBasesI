@@ -89,7 +89,12 @@ class RegistrosController{
     public async registrarInscripcion(req:Request, res:Response){
       const { id_subasta,membresia_fechainicio ,cedula_coleccionista,id_club,autorizado } = req.body; 
       try {
-          const respuesta = await pool.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES ("+id_subasta+",'"+membresia_fechainicio+"',"+cedula_coleccionista+","+id_club+","+autorizado+");")
+          const resp = await pool.query("select distinct(m.cedula_coleccionista) from membresias m, coleccionistas c where c.cedula = m.cedula_coleccionista and m.cedula_coleccionista = "+cedula_coleccionista+" and (c.cedula_representante is not null  or c.id_representante is not null) and m.id_club = "+id_club+";")
+          if(resp['length'] > 0){
+            const respuesta = await pool.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES ("+id_subasta+",'"+membresia_fechainicio+"',"+cedula_coleccionista+","+id_club+",1);")
+          }else{
+            const respuesta = await pool.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES ("+id_subasta+",'"+membresia_fechainicio+"',"+cedula_coleccionista+","+id_club+",0);")
+          }
           res.json('INSCRIPCION INSERTADA CON EXITO');
         } catch (e) {  
           res.json("SQL ERROR: " + e.sqlMessage);            

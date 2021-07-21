@@ -115,7 +115,13 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_subasta, membresia_fechainicio, cedula_coleccionista, id_club, autorizado } = req.body;
             try {
-                const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + "," + autorizado + ");");
+                const resp = yield database_1.default.query("select distinct(m.cedula_coleccionista) from membresias m, coleccionistas c where c.cedula = m.cedula_coleccionista and m.cedula_coleccionista = " + cedula_coleccionista + " and (c.cedula_representante is not null  or c.id_representante is not null) and m.id_club = " + id_club + ";");
+                if (resp['length'] > 0) {
+                    const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + ",1);");
+                }
+                else {
+                    const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + ",0);");
+                }
                 res.json('INSCRIPCION INSERTADA CON EXITO');
             }
             catch (e) {
