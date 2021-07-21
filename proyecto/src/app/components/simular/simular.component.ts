@@ -274,7 +274,7 @@ export class SimularComponent implements OnInit {
 
           }else{
             alert("registrando objeto")
-            let sig =  prompt("REGISTRANDO VENTA DEL COMIC, POR FAVOR INGRESE ALGUN SIGNIFICADO ", "");
+            let sig =  prompt("REGISTRANDO VENTA DEL OBJETO, POR FAVOR INGRESE ALGUN SIGNIFICADO ", "");
             console.log(sig)
             // console.log(this.pujaGanadora)
               let ordenVentaObjeto = {
