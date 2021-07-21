@@ -200,7 +200,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id, recaudado, porcentaje } = req.body;
             const registros = yield database_1.default.query("update registros_beneficio set dinero_donado$ = " + recaudado * (porcentaje / 100) + " where id = " + id + ";");
-            res.json(registros);
+            res.json("BENEFICIO REGISTRADO CON EXITO");
         });
     }
     getOrganizaciones(req, res) {

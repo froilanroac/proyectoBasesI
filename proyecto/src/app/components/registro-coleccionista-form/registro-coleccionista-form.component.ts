@@ -150,7 +150,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
         .subscribe(
         res => {
           alert(res);
-          // this.route.navigate(['/inicio']);
+          this.route.navigate(['/inicio']);
         },
         err => console.error(err)
         );
@@ -189,7 +189,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
         .subscribe(
         res => {
           alert(res);
-          // this.route.navigate(['/inicio']);
+          this.route.navigate(['/inicio']);
         },
         err => console.error(err)
         );
@@ -230,7 +230,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
       .subscribe(
       res => {
         alert(res);
-        // this.route.navigate(['/inicio']);
+        this.route.navigate(['/inicio']);
       },
       err => console.error(err)
       );

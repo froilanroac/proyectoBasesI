@@ -167,7 +167,7 @@ class RegistrosController{
 public async registrarBeneficio(req:Request, res:Response) {
   const { id, recaudado, porcentaje } = req.body; 
   const registros = await pool.query("update registros_beneficio set dinero_donado$ = "+recaudado*(porcentaje/100)+" where id = "+ id+";");
-  res.json(registros);
+  res.json("BENEFICIO REGISTRADO CON EXITO");
 
 }
 
