@@ -30,12 +30,20 @@ class RegistrosRoutes {
         this.router.post('/ordenventaobjetoregular', registrosController_1.default.ordenVentaObjetoRegular);
         this.router.post('/ordenventacomicsubastado', registrosController_1.default.ordenVentaComicSubastado);
         this.router.post('/ordenventacomicregular', registrosController_1.default.ordenVentaComicRegular);
-        this.router.post('/getcoleccionistasinscribir', registrosController_1.default.getColeccionistasParaInscribir);
+        this.router.get('/getcoleccionistasinscribir', registrosController_1.default.getColeccionistasParaInscribir);
         this.router.post('/getsubasta', registrosController_1.default.getSubasta);
+        this.router.post('/getordenesventa', registrosController_1.default.getOrdenesVentaSubasta);
+        this.router.post('/getinscripciones', registrosController_1.default.getInscripciones);
+        this.router.post('/escomic', registrosController_1.default.esComic);
+        this.router.post('/comicsubastado', registrosController_1.default.comicSubastado);
+        this.router.post('/objetosubastado', registrosController_1.default.objetoSubastado);
+        this.router.post('/getregistrosbeneficio', registrosController_1.default.getRegistrosBeneficio);
+        this.router.post('/registrarbeneficio', registrosController_1.default.registrarBeneficio);
         this.router.post('/getidobjetospurgados', registrosController_1.default.getIdObjetosPurgados);
         this.router.post('/getidcomicspurgados', registrosController_1.default.getIdComicsPurgados);
         this.router.post('/getcedulaspurgadas', registrosController_1.default.getCedulasPurgadas);
         this.router.post('/getnombreclub', registrosController_1.default.getNombreClubSubasta);
+        this.router.post('/eliminarsubasta', registrosController_1.default.eliminarSubasta);
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController_1.default.getIntereses);
         // this.router.post('/', registrosController.create);

@@ -25,15 +25,16 @@
                 </select>
 
                 <input type="text" [(ngModel)]="coleccionista.nombre2"  placeholder="Segundo Nombre del coleccionista" class="form-control" autofocus>
-
+                <br>
+                <div *ngIf="representante == true">
+                <p>EL COLECCIONISTA ES MENOR DE EDAD, DEBE REGISTRAR UN REPRESENTANTE</p>
                 <input type="text" [(ngModel)]="coleccionista.cedula_representante "  placeholder="Cedula del representante coleccionista (si es coleccionista tambien)" class="form-control" >
                 <input type="text" [(ngModel)]="coleccionista.id_representante  "  placeholder="Id del representante coleccionista (si no coleccionista)" class="form-control">
-
+                <button class="btn-success btn-block btn" (click)=registrarColeccionista()> Registrar</button>
+                </div>
+                <button class="btn-success btn-block btn" *ngIf="representante == false" (click)=mayorDeEdad()> Guardar</button>
             </div>
 
-            <button class="btn-success btn-block btn" (click)=registrarColeccionista()>
-                Guardar
-            </button>
         </div>
     </div>
 </div>
