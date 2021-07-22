@@ -159,7 +159,7 @@ CREATE TABLE inscripciones (
     id_club INT NOT NULL,
     autorizado BOOLEAN NOT NULL,
     CONSTRAINT pk_inscripciones PRIMARY KEY (id,id_subasta),
-    CONSTRAINT fk_inscripciones_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id),
+    CONSTRAINT fk_inscripciones_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id) ON DELETE CASCADE,
     CONSTRAINT fk_inscripciones_membresias FOREIGN KEY (membresia_fechainicio,cedula_coleccionista,id_club) REFERENCES membresias (fecha_inicio,cedula_coleccionista,id_club)
 );
 
@@ -170,7 +170,7 @@ CREATE TABLE s_c (
     id_club INT,
     club_invitado INT,
     CONSTRAINT pk_s_c PRIMARY KEY (id,id_subasta),
-    CONSTRAINT fk_s_c_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id),
+    CONSTRAINT fk_s_c_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id) ON DELETE CASCADE,
     CONSTRAINT fk_s_c_club FOREIGN KEY (id_club) REFERENCES clubes (id),
     CONSTRAINT fk_s_c_club_invitado FOREIGN KEY (club_invitado) REFERENCES clubes (id)
 
@@ -193,7 +193,7 @@ CREATE TABLE registros_beneficio (
     dinero_donado$ decimal(13,2),
     CONSTRAINT pk_registros_beneficio PRIMARY KEY (id,id_organizacion,id_subasta,porcentaje),
     CONSTRAINT fk_registros_beneficio_organizacion FOREIGN KEY (id_organizacion) REFERENCES organizaciones_caridad (id),
-    CONSTRAINT fk_registros_beneficio_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id)
+    CONSTRAINT fk_registros_beneficio_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id) ON DELETE CASCADE
 );
 
 CREATE TABLE ordenes_venta_subasta (
@@ -209,7 +209,7 @@ CREATE TABLE ordenes_venta_subasta (
     id_insc_ganador INT,
     id_subasta_ganador INT,
     CONSTRAINT pk_ordenes_venta_subasta PRIMARY KEY (id,id_subasta),
-    CONSTRAINT fk_ordenes_venta_subasta_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id),
+    CONSTRAINT fk_ordenes_venta_subasta_subasta FOREIGN KEY (id_subasta) REFERENCES subastas (id) ON DELETE CASCADE,
     CONSTRAINT fk_ordenes_venta_subasta_ganador FOREIGN KEY (id_insc_ganador,id_subasta_ganador) REFERENCES inscripciones (id,id_subasta),
     CONSTRAINT fk_ordenes_venta_subasta_historico_dueno FOREIGN KEY (id_historico,cedula_coleccionista,fecha_registro) REFERENCES historicos_duenos (id,cedula_coleccionista,fecha_registro)
 

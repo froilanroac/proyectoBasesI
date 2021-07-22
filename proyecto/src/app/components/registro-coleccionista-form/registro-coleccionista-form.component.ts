@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrosService } from 'src/app/services/registros.service';
 import { ActivatedRoute,Router } from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class RegistroColeccionistaFormComponent implements OnInit {
     nombre_1:'',
     apellido1:'',
     telefono:'',
-    fecha_nacimiento:'',
+    fecha_nacimiento:new Date(),
     id_ciudad:null,
     id_pais:null,
     apellido2:'',
@@ -42,8 +43,10 @@ export class RegistroColeccionistaFormComponent implements OnInit {
     
   };
 
+  representante:boolean = false; 
 
-  constructor(private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
+
+  constructor(public datepipe: DatePipe,private registroService: RegistrosService, private route: Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -76,13 +79,31 @@ export class RegistroColeccionistaFormComponent implements OnInit {
                 ciudad.nombre_pais=pais.nombre;
             }
           }
-          console.log(this.arrayCiudades2);  
+          // console.log(this.arrayCiudades2);  
         }   
            
       }, 
       err => console.error(err)
     );
 
+  }
+
+  mayorDeEdad() {
+
+    let date1 = new Date();      
+
+    let fecha = new Date(this.coleccionista.fecha_nacimiento)
+    let Difference_In_Time = date1.getTime() - fecha.getTime();
+      
+    let age = Difference_In_Time / ((1000 * 3600 * 24))/365;
+
+    if(age > 15){
+      this.representante = false 
+      this.registrarMayorDeEdad()
+    }else{
+      this.representante = true
+    }
+      
   }
 
   registrarColeccionista(){
@@ -92,7 +113,10 @@ export class RegistroColeccionistaFormComponent implements OnInit {
 
     if (this.coleccionista.id_representante && this.coleccionista.cedula_representante){
       alert("VERIFICAR CAMPOS DE REPRESENTANTES, NO PUEDEN ESTAR LOS DOS AL MISMO TIMEMO")
-      this.route.navigate(['/inicio']);
+    }
+
+    if (!this.coleccionista.id_representante  && !this.coleccionista.cedula_representante){
+      alert("VERIFICAR CAMPOS DE REPRESENTANTES, NO HAY NINGUNO REGISTRADO")
     }
     
 
@@ -173,8 +197,11 @@ export class RegistroColeccionistaFormComponent implements OnInit {
         console.log(coleccionistaInsertar);
 
     }
+  }
 
-    if (!this.coleccionista.id_representante  && !this.coleccionista.cedula_representante){
+  registrarMayorDeEdad(){
+
+        if (!this.coleccionista.id_representante  && !this.coleccionista.cedula_representante){
       console.log("mayor de edad");
       let coleccionistaInsertar = {
         cedula:this.coleccionista.cedula,
@@ -199,7 +226,6 @@ export class RegistroColeccionistaFormComponent implements OnInit {
       }
 
 
-
       this.registroService.registrarColeccionista(coleccionistaInsertar)
       .subscribe(
       res => {
@@ -210,9 +236,9 @@ export class RegistroColeccionistaFormComponent implements OnInit {
       );
 
       console.log(coleccionistaInsertar);
-
-    
+ 
     }
+
   }
 
 }

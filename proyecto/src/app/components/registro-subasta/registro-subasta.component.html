@@ -22,7 +22,7 @@ TIPO DE EVENTO:
 <p *ngIf="subastaRegistrar.caridad == 'NO'" >SUBASTA ASCENDENTE</p>
 
 
-<br>
+
 
 MODO
 <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]='subastaRegistrar.modo'>
@@ -36,6 +36,7 @@ Direccion:
 <option value="{{ lugar.id }}" *ngFor="let lugar of lugares">NOMBRE: {{ lugar.nombre_lugar }} DIR: {{ lugar.calle }}, {{ lugar.avenida }}</option>
 </select>
 </div>
+<br>
 <button class="btn-success btn-block btn" (click)=registrarEvento()>
     REGISTRAR EVENTO
 </button>
@@ -101,13 +102,13 @@ COMPLETE LOS CAMPOS REQUERIDOS:
 <br>
 <input *ngIf="subastaRegistrar.caridad == 'NO'" type="number"  class="form-control" placeholder="DURACION DE LAS PUJAS (EN MINUTOS)" [(ngModel)]='ordenVentaComic.duracion_puja_min'>
 <input *ngIf="precioBaseComic == true" type="number"  class="form-control" placeholder="PRECIO BASE" [(ngModel)]='ordenVentaComic.precio_base$'>
-
+<br>
 <button class="btn-success btn-block btn" *ngIf="primeraVezComic == true" (click)="oVentaComic()">
-    CONFIRMAR ORDEN DE VENTA 1
+    CONFIRMAR ORDEN DE VENTA 
 </button>
-
+<br>
 <button class="btn-success btn-block btn" *ngIf="primeraVezComic == false" (click)="oVentaComicSubastadoRegular()">
-    CONFIRMAR ORDEN DE VENTA 2
+    CONFIRMAR ORDEN DE VENTA 
 </button> 
 </div>
 
@@ -146,18 +147,19 @@ INSCRIBIR A PARTICIPANTE:
 
 
 
-<div *ngIf="subastaRegistrar.caridad == 'SI'">
+<div *ngIf="subastaRegistrar.caridad == 'SI' && this.porcentaje > 0">
     INSCRIBIR ORGANIZACION DE CARIDAD : 
 <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="registroCaridad.id_organizacion" >
     <option *ngFor="let organizacion of organizacionesCaridad2" value="{{ organizacion.id }}"> {{ organizacion.nombre }} </option>
 </select>
+<br>
 <input type="number"  class="form-control" placeholder="Porcentaje a donar" [(ngModel)]='registroCaridad.porcentaje'>
-
+<p> Porcentaje Disponible: {{ this.porcentaje }}</p>
 
 <button class="btn-success btn-block btn" (click)="registrarOrganizacion()" >
     REGISTRAR ORGANIZACION
 </button>
-
+<br><br>
 
 </div>
 

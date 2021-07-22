@@ -1,15 +1,68 @@
 Evento Seleccionado: 
 <br><br>
-<div class="card text-center" style="margin: 15px;" >
+<div class="container">
+<div class="card text-center bg-warning" style="margin: 15px;" >
     <div class="card-header">
       ID DEL EVENTO: {{ subasta.id }}
     </div>
     <div class="card-body">
-      <h5 class="card-title">Club Organizador:</h5>
+      <h5 class="card-title">Club Organizador</h5>
       <p class="card-text">Hora inicio: {{ subasta.hora_inicio }} Hora fin: {{ subasta.hora_fin }}</p>
       <p class="card-text">Tipo "{{ subasta.tipo }}" Caridad: "{{ subasta.caridad }}"</p>      
     </div>
     <div class="card-footer text-muted">
       Fecha: {{ this.datepipe.transform(subasta.fecha,'yyyy/MM/dd')}}
     </div>
+    <button type="button" (click)="registrarBeneficio()" class="btn btn-danger" style="margin: 5px;">TERMINAR SUBASTA</button>
+</div>
+
+
+<div class="alert alert-danger" *ngIf="hayObjetos == false" role="alert">
+  NO HAY MAS OBJETOS PARA SUBASTAR.
+</div>
+
+
+
+<div *ngIf="hayObjetos == true">
+<div class="card text-center border-dark"  *ngIf="(this.objetoSubastar| json) != '{}'">
+  <div class="card-header">Elemento a subastar </div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">Precio Base en $: {{this.objetoSubastar.precio_base$}}</h5>
+    <h5 class="card-title">Precio Base en €: {{this.objetoSubastar.precio_base$/0.85 | number : '1.0-2'}}</h5>
+    <p class="card-text">Id Historico: {{this.objetoSubastar.id_historico}}</p>
+    <p class="card-text">Id Orden de Venta: {{this.objetoSubastar.id}}</p>
+    <p class="card-text">Orden en la subasta: {{ this.objetoSubastar.numero_en_subasta + 1}} </p>
+  </div>
+  <div class="alert alert-danger" *ngIf="subasta.tipo == 'A'" > Segundos para que se acabe la puja: {{counter.sec}} </div>
+  <div class="alert alert-warning" > PUJA MAXIMA {{ this.pujaGanadora.p }} $</div>
+  <button type="button" (click)="terminarSubastaObjeto()" class="btn btn-danger" style="margin: 5px;">TERMINAR SUBASTA PARA ESTE OBJETO</button>
+
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 text-center" style="margin: 15px;" *ngIf="(this.inscripciones| json) != '[]'">
+
+  <div class="col" *ngFor="let inscripcion of this.inscripciones">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Inscripcion: {{ this.inscripcion.id }} </h5>
+        <p class="card-text">Cedula: {{ this.inscripcion.cedula_coleccionista }}</p>
+        <input #puja type="number" class="form-control" placeholder="Precio a ofrecer" style="margin: 5px;" min="1" max="5">
+        <button class="btn btn-warning" style="margin: 5px;" (click)="pujar(puja.value,this.inscripcion.id,this.inscripcion.cedula_coleccionista)" >Pujar</button>
+
+        <!-- <button type="button" class="btn btn-danger" style="margin: 5px;">No Participar</button> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div></div>
+
+
+
+</div>
+
+
+
+
 </div>

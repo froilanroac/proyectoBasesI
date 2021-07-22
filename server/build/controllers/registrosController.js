@@ -44,6 +44,30 @@ class RegistrosController {
             }
         });
     }
+    getOrdenesVentaSubasta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.body;
+                const registros = yield database_1.default.query("select * from ordenes_venta_subasta where id_subasta = " + id + ";");
+                return res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    getInscripciones(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.body;
+                const registros = yield database_1.default.query("select * from inscripciones where id_subasta = " + id + ";");
+                return res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield database_1.default.query("INSERT INTO registros set ? ", [req.body]);
@@ -91,7 +115,13 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_subasta, membresia_fechainicio, cedula_coleccionista, id_club, autorizado } = req.body;
             try {
-                const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + "," + autorizado + ");");
+                const resp = yield database_1.default.query("select distinct(m.cedula_coleccionista) from membresias m, coleccionistas c where c.cedula = m.cedula_coleccionista and m.cedula_coleccionista = " + cedula_coleccionista + " and (c.cedula_representante is not null  or c.id_representante is not null) and m.id_club = " + id_club + ";");
+                if (resp['length'] > 0) {
+                    const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + ",1);");
+                }
+                else {
+                    const respuesta = yield database_1.default.query("INSERT INTO INSCRIPCIONES (ID_SUBASTA,MEMBRESIA_FECHAINICIO,CEDULA_COLECCIONISTA,ID_CLUB,AUTORIZADO) VALUES (" + id_subasta + ",'" + membresia_fechainicio + "'," + cedula_coleccionista + "," + id_club + ",0);");
+                }
                 res.json('INSCRIPCION INSERTADA CON EXITO');
             }
             catch (e) {
@@ -130,8 +160,13 @@ class RegistrosController {
     }
     getSubastas(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const registros = yield database_1.default.query('SELECT * FROM subastas');
-            res.json(registros);
+            try {
+                const registros = yield database_1.default.query('SELECT * FROM subastas');
+                res.json(registros);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
         });
     }
     getCiudades(req, res) {
@@ -161,17 +196,36 @@ class RegistrosController {
             res.json(registros);
         });
     }
+    registrarBeneficio(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id, recaudado, porcentaje } = req.body;
+            const registros = yield database_1.default.query("update registros_beneficio set dinero_donado$ = " + recaudado * (porcentaje / 100) + " where id = " + id + ";");
+            res.json("BENEFICIO REGISTRADO CON EXITO");
+        });
+    }
     getOrganizaciones(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const registros = yield database_1.default.query('SELECT * FROM organizaciones_caridad');
             res.json(registros);
         });
     }
+    eliminarSubasta(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            try {
+                const registros = yield database_1.default.query('DELETE FROM SUBASTAS WHERE ID=' + id);
+                res.json("SUBASTA ELIMINADA CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     getColeccionistasParaInscribir(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;
             try {
-                const registros = yield database_1.default.query('select e.cedula_coleccionista, e.id_club, e.fecha_inicio from membresias e where fecha_fin is null and id_club <> ' + id_club + ";");
+                const registros = yield database_1.default.query('select e.cedula_coleccionista, e.id_club, e.fecha_inicio from membresias e where fecha_fin is null;');
                 res.json(registros);
             }
             catch (e) {
@@ -183,7 +237,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.body;
             try {
-                const registros = yield database_1.default.query("select distinct(m.cedula_coleccionista) from membresias m, s_c s, ordenes_venta_subasta o where m.fecha_fin is null and m.id_club = s.club_invitado and s.id_subasta = " + id + " and m.cedula_coleccionista not in (select o.cedula_coleccionista from ordenes_Venta_subasta o where o.id_subasta = " + id + ");");
+                const registros = yield database_1.default.query("select distinct(m.cedula_coleccionista),m.id_club from membresias m, s_c s, ordenes_venta_subasta o where m.fecha_fin is null and m.id_club = s.club_invitado and s.id_subasta = " + id + " and m.cedula_coleccionista not in (select o.cedula_coleccionista from ordenes_Venta_subasta o where o.id_subasta = " + id + ");");
                 res.json(registros);
             }
             catch (e) {
@@ -195,7 +249,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;
             try {
-                const registros = yield database_1.default.query("select o.id from objetos_de_valor o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_objeto_valor and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club =" + id_club + " and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_objeto_valor = o.id);");
+                const registros = yield database_1.default.query("select distinct(o.id) from objetos_de_valor o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_objeto_valor and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club =" + id_club + " and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_objeto_valor = o.id);");
                 res.json(registros);
             }
             catch (e) {
@@ -207,7 +261,7 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id_club } = req.body;
             try {
-                const registros = yield database_1.default.query("select o.id from comics o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_comic and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club =" + id_club + " and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_comic = o.id);");
+                const registros = yield database_1.default.query("select distinct(o.id) from comics o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_comic and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club =" + id_club + " and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_comic = o.id);");
                 res.json(registros);
             }
             catch (e) {
@@ -219,6 +273,13 @@ class RegistrosController {
         return __awaiter(this, void 0, void 0, function* () {
             // res.json({text:'listando juegos'})
             const registros = yield database_1.default.query('SELECT * FROM comics');
+            res.json(registros);
+        });
+    }
+    getRegistrosBeneficio(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.body;
+            const registros = yield database_1.default.query("select * from registros_beneficio where id_subasta = " + id + ";");
             res.json(registros);
         });
     }
@@ -309,6 +370,56 @@ class RegistrosController {
             }
         });
     }
+    esComic(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var mensaje = '';
+            try {
+                const { id_historico } = req.body;
+                const respuesta = yield database_1.default.query("select h.id from historicos_duenos h where h.id_objeto_valor is null and h.id = " + id_historico + ";");
+                console.log(respuesta['length']);
+                console.log(respuesta);
+                if (respuesta['length'] > 0) {
+                    mensaje = "SI";
+                }
+                else {
+                    mensaje = "NO";
+                }
+                console.log(mensaje);
+                res.json(mensaje);
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    comicSubastado(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_inscr_ganador, id_subasta_ganador, id_historico, id_subasta, cedula_coleccionista, precio_compra$, significado } = req.body;
+                const respuesta = yield database_1.default.query("update ordenes_venta_subasta set precio_venta = " + precio_compra$ + ", id_insc_ganador = " + id_inscr_ganador + ",id_subasta_ganador = " + id_subasta_ganador + " where id_subasta = " + id_subasta + " and id_historico = " + id_historico + ";");
+                const respuesta2 = yield database_1.default.query("select c.id_comic from historicos_duenos c where c.id = " + id_historico + ";");
+                const respuesta3 = yield database_1.default.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,ID_COMIC) VALUES (" + cedula_coleccionista + ",(CURRENT_DATE)," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['id_comic'] + ");");
+                res.json("VENTA DE COMIC  REGISTRADA CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
+    objetoSubastado(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id_inscr_ganador, id_subasta_ganador, id_historico, id_subasta, cedula_coleccionista, precio_compra$, significado } = req.body;
+                const respuesta = yield database_1.default.query("update ordenes_venta_subasta set precio_venta = " + precio_compra$ + ", id_insc_ganador = " + id_inscr_ganador + ",id_subasta_ganador = " + id_subasta_ganador + " where id_subasta = " + id_subasta + " and id_historico = " + id_historico + ";");
+                const respuesta2 = yield database_1.default.query("select c.id_objeto_valor from historicos_duenos c where c.id = " + id_historico + ";");
+                const respuesta3 = yield database_1.default.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,id_objeto_valor) VALUES (" + cedula_coleccionista + ",(CURRENT_DATE)," + precio_compra$ + ",'" + significado + "'," + respuesta2[0]['id_objeto_valor'] + ");");
+                res.json("VENTA DE OBJETO REGISTRADA CON EXITO");
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e.sqlMessage);
+            }
+        });
+    }
     primeraSubastaComic(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             var mensaje = '';
@@ -375,6 +486,7 @@ class RegistrosController {
                 res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO");
             }
             catch (e) {
+                console.log(e);
                 res.json("SQL ERROR: " + e.sqlMessage);
             }
         });

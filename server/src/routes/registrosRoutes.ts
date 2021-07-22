@@ -29,8 +29,22 @@ class RegistrosRoutes{
         this.router.post('/ordenventaobjetoregular', registrosController.ordenVentaObjetoRegular);
         this.router.post('/ordenventacomicsubastado', registrosController.ordenVentaComicSubastado);
         this.router.post('/ordenventacomicregular', registrosController.ordenVentaComicRegular);
-        this.router.post('/getcoleccionistasinscribir', registrosController.getColeccionistasParaInscribir);
+        this.router.get('/getcoleccionistasinscribir', registrosController.getColeccionistasParaInscribir);
         this.router.post('/getsubasta', registrosController.getSubasta);
+
+        this.router.post('/getordenesventa', registrosController.getOrdenesVentaSubasta);
+
+        this.router.post('/getinscripciones', registrosController.getInscripciones);
+
+        this.router.post('/escomic', registrosController.esComic);
+
+        this.router.post('/comicsubastado', registrosController.comicSubastado);
+
+        this.router.post('/objetosubastado', registrosController.objetoSubastado);
+
+        this.router.post('/getregistrosbeneficio', registrosController.getRegistrosBeneficio);
+
+        this.router.post('/registrarbeneficio', registrosController.registrarBeneficio);
         
         this.router.post('/getidobjetospurgados', registrosController.getIdObjetosPurgados);
 
@@ -39,6 +53,8 @@ class RegistrosRoutes{
         this.router.post('/getcedulaspurgadas', registrosController.getCedulasPurgadas);
 
         this.router.post('/getnombreclub', registrosController.getNombreClubSubasta);
+
+        this.router.post('/eliminarsubasta', registrosController.eliminarSubasta);
 
         // revisar esto de objeto (post?)
         this.router.get('/getintereses', registrosController.getIntereses);

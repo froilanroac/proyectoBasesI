@@ -25,6 +25,34 @@ export class RegistrosService {
     return this.http.post(`${this.API_URL}/registros/getsubasta`, subasta)
    }
 
+   esComic(comic:any){
+    return this.http.post(`${this.API_URL}/registros/escomic`, comic)
+   }
+
+   comicSubastado(comic:any){
+    return this.http.post(`${this.API_URL}/registros/comicsubastado`, comic)
+   }
+
+   objetoSubastado(objeto:any){
+    return this.http.post(`${this.API_URL}/registros/objetosubastado`, objeto)
+   }
+
+   getOrdenesVenta(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/getordenesventa`, subasta)
+   }
+
+   getRegistrosBeneficio(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/getregistrosbeneficio`, subasta)
+   }
+
+   registrarBeneficio(recaudado:any ){
+    return this.http.post(`${this.API_URL}/registros/registrarbeneficio`, recaudado)
+   }
+
+   getInscripciones(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/getinscripciones`, subasta)
+   }
+
    saveRegistro(registro:Registro){
     return this.http.post(`${this.API_URL}/registros`, registro)
    }
@@ -135,9 +163,14 @@ export class RegistrosService {
    }
 
 
-   getColeccionistasParaInscripcion(club:any){
-    return this.http.post(`${this.API_URL}/registros/getcoleccionistasinscribir`,club)
+   getColeccionistasParaInscripcion(){
+    return this.http.get(`${this.API_URL}/registros/getcoleccionistasinscribir`)
    }
+
+   eliminarSubasta(subasta:any){
+    return this.http.post(`${this.API_URL}/registros/eliminarsubasta`,subasta)
+   }
+   
 
    ordenVentaObjetoSubastado(objeto:any){
     return this.http.post(`${this.API_URL}/registros/ordenventaobjetosubastado`,objeto)

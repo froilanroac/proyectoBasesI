@@ -167,7 +167,7 @@ insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,
 insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (6,'14:00','17:00','2021-11-11','PRE','S','SI','NO',1);
 insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (7,'11:00','14:00','2021-11-11','PRE','S','SI','NO',2);
 insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (8,'5:00','8:00','2021-05-06','PRE','S','SI','NO',3);
-insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (9,'12:00','16:00','2021-11-11','PRE','S','SI','NO',4);
+insert into subastas (id,hora_inicio,hora_fin,fecha,modo,tipo,caridad,cancelada,id_lugar) values (9,'12:00','16:00','2021-11-12','PRE','S','SI','NO',4);
 
 
 insert into registros_beneficio (id_organizacion,id_subasta,porcentaje,dinero_donado$) values (1,1,100,1000);

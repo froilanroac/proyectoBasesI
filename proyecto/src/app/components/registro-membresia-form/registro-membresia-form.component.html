@@ -12,19 +12,25 @@
                     <option value="{{ club.id }}" *ngFor="let club of clubes">Club: {{ club.nombre }} (id:{{ club.id }})</option>
                 </select>
                 <input type="text" name='email' [(ngModel)]="membresia.email" placeholder="Email" class="form-control">
-                CLUB RESPONSABLE:
+                <div *ngIf="mayor == true">
+                La persona es mayor de edad, puede ser responsable, ingrese si desea o no serlo: 
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="membresia.id_club_responsable" >
-                    <option [ngValue]="-1">NO ES RESPONSABLE</option>
-                    <option value="{{ club.id }}" *ngFor="let club of clubes">Club: {{ club.nombre }} (id:{{ club.id }})</option>
+                    <option  selected [ngValue]="-1">NO</option>
+                    <option [ngValue]="1">SI</option>
                 </select>
-                  
+                <button class="btn-success btn-block btn"  (click)=registrarMembresia()>
+                    REGISTRAR
+                </button>
+                </div> 
             </div>
 
+            <button class="btn-success btn-block btn" *ngIf="confirmar == true" (click)=registrarMembresia()>
+                CONFIRMAR REGISTRO 
+            </button>
 
 
-
-            <button class="btn-success btn-block btn" (click)=registrarMembresia()>
-                Guardar
+            <button class="btn-success btn-block btn" *ngIf="boton == true" (click)=mayorDeEdad()>
+                REGISTRAR
             </button>
         </div>
     </div>
