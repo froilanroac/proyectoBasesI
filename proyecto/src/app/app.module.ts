@@ -20,6 +20,16 @@ import { RegistroColeccionistaFormComponent } from './components/registro-colecc
 import { RegistroMembresiaFormComponent } from './components/registro-membresia-form/registro-membresia-form.component';
 import { RegistroCierreMembresiaFormComponent } from './components/registro-cierre-membresia-form/registro-cierre-membresia-form.component';
 import { RegistroObjetoFormComponent } from './components/registro-objeto-form/registro-objeto-form.component';
+import { RegistroComicFormComponent } from './components/registro-comic-form/registro-comic-form.component';
+import { RegistroInteresesComponent } from './components/registro-intereses/registro-intereses.component';
+import { RegistroContactosClubesComponent } from './components/registro-contactos-clubes/registro-contactos-clubes.component';
+import { RegistroOrganizacionCaridadComponent } from './components/registro-organizacion-caridad/registro-organizacion-caridad.component';
+import { RegistroLugarSubastaComponent } from './components/registro-lugar-subasta/registro-lugar-subasta.component';
+import { RegistroSubastasComponentComponent } from './components/registro-subastas-component/registro-subastas-component.component';
+import { RegistroSubastaComponent } from './components/registro-subasta/registro-subasta.component';
+import { CalendarioSubastasComponent } from './components/calendario-subastas/calendario-subastas.component';
+import { SimularComponent } from './components/simular/simular.component';
+import { ListaSimularComponent } from './components/lista-simular/lista-simular.component';
 
 
 @NgModule({
@@ -36,7 +46,17 @@ import { RegistroObjetoFormComponent } from './components/registro-objeto-form/r
     RegistroColeccionistaFormComponent,
     RegistroMembresiaFormComponent,
     RegistroCierreMembresiaFormComponent,
-    RegistroObjetoFormComponent
+    RegistroObjetoFormComponent,
+    RegistroComicFormComponent,
+    RegistroInteresesComponent,
+    RegistroContactosClubesComponent,
+    RegistroOrganizacionCaridadComponent,
+    RegistroLugarSubastaComponent,
+    RegistroSubastasComponentComponent,
+    RegistroSubastaComponent,
+    CalendarioSubastasComponent,
+    SimularComponent,
+    ListaSimularComponent
   ],
   imports: [
     BrowserModule,

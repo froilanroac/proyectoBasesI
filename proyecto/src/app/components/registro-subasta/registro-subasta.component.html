@@ -1,0 +1,177 @@
+<div class="container" *ngIf="subastaRegistrada == false">
+
+INGRESE LOS DATOS PARA EL EVENTO:
+<br>
+<br>
+IDENTIFICADOR DEL EVENTO (SOLO NUMEROS ENTEROS)
+<input type="number"  class="form-control" placeholder="ID" [(ngModel)]='subastaRegistrar.id'>
+HORA DE INICIO:
+<input type="time"  class="form-control" [(ngModel)]='subastaRegistrar.hora_inicio'>
+HORA DE FIN:
+<input type="time"  class="form-control" [(ngModel)]='subastaRegistrar.hora_fin'>
+FECHA: 
+<input type="date"  class="form-control" [(ngModel)]='subastaRegistrar.fecha'>
+ES DE CARIDAD
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]='subastaRegistrar.caridad'>
+<option value="SI"> SI </option>
+<option value="NO"> NO </option>
+</select>
+
+TIPO DE EVENTO:
+<p *ngIf="subastaRegistrar.caridad == 'SI'"  > SUBASTA SILENCIOSA</p>
+<p *ngIf="subastaRegistrar.caridad == 'NO'" >SUBASTA ASCENDENTE</p>
+
+
+
+
+MODO
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]='subastaRegistrar.modo'>
+<option value="PRE"> PRESENCIAL </option>
+<option value="VIR"> VIRTUAL </option>
+</select>
+<div *ngIf="subastaRegistrar.modo == 'PRE'">
+Direccion: 
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]='subastaRegistrar.id_lugar'>
+<option value="{{ lugar.id }}" *ngFor="let lugar of lugares">NOMBRE: {{ lugar.nombre_lugar }} DIR: {{ lugar.calle }}, {{ lugar.avenida }}</option>
+</select>
+</div>
+<br>
+<button class="btn-success btn-block btn" (click)=registrarEvento()>
+    REGISTRAR EVENTO
+</button>
+
+<br>
+</div>
+
+<div *ngIf="subastaRegistrada==true">
+<!-- todo esto se activa luego de registrada la subasta. -->
+PARA SEGUIR CON LOS REGISTROS DEL EVENTO, POR FAVOR COMPLETE LOS SIGUIENTES APARTADOS:
+<br><br>
+<br>
+
+<div *ngIf="organizadorRegistrado == false">
+    SELECCIONAR CLUB ORGANIZADOR: 
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]='organizadorRegistrar.id_club'>
+    <option value="{{club.id}}" *ngFor="let club of clubes" value="">NOMBRE: {{ club.nombre }}</option>
+</select>
+
+<button class="btn-success btn-block btn" (click)=registrarOrganizador()>
+    REGISTRAR ORGANIZADOR
+</button>
+
+</div>
+
+<br>
+
+
+SELECCIONAR OBJETO DE VALOR A SUBASTAR: 
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]= "ordenVentaObjetoValor.id_objeto_valor">
+    <option value="{{ objeto.id }}" *ngFor="let objeto of objetosDeValor2" value="">NOMBRE: {{ objeto.nombre }} DESCRIPCION: {{ objeto.descripcion }}</option>
+</select>
+<div *ngIf="botonObjeto==false">
+COMPLETE LOS CAMPOS REQUERIDOS: 
+<br>
+<input *ngIf="subastaRegistrar.caridad == 'NO'" type="number"  class="form-control" placeholder="DURACIOn DE LAS PUJAS (EN MINUTOS)" [(ngModel)]='ordenVentaObjetoValor.duracion_puja_min'>
+<input *ngIf="precioBase == true" type="number"  class="form-control" placeholder="PRECIO BASE" [(ngModel)]='ordenVentaObjetoValor.precio_base$'>
+
+<button class="btn-success btn-block btn" *ngIf="primeraVezObjetoRegular == true" (click)="oVentaObjetoRegular()">
+    CONFIRMAR ORDEN DE VENTA
+</button>
+
+<button class="btn-success btn-block btn" *ngIf="primeraVezObjetoRegular == false" (click)="oVentaObjetoSubastadoRegular()">
+    CONFIRMAR ORDEN DE VENTA
+</button>
+</div>
+
+<button class="btn-success btn-block btn" (click)=registrarOrdenVentaObjeto() *ngIf="botonObjeto==true">
+    REGISTRAR
+</button>
+<br>
+<br>
+
+
+SELECCIONAR COMIC A SUBASTAR: 
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]= "ordenVentaComic.id_comic">
+    <option value="{{ comic.id }}" *ngFor="let comic of comics2" value="">NOMBRE: {{ comic.titulo }} Titulo: {{ comic.titulo }}, {{ comic.editor}}</option>
+</select>
+<div *ngIf="botonObjetoComic==false">
+COMPLETE LOS CAMPOS REQUERIDOS: 
+<br>
+<input *ngIf="subastaRegistrar.caridad == 'NO'" type="number"  class="form-control" placeholder="DURACION DE LAS PUJAS (EN MINUTOS)" [(ngModel)]='ordenVentaComic.duracion_puja_min'>
+<input *ngIf="precioBaseComic == true" type="number"  class="form-control" placeholder="PRECIO BASE" [(ngModel)]='ordenVentaComic.precio_base$'>
+<br>
+<button class="btn-success btn-block btn" *ngIf="primeraVezComic == true" (click)="oVentaComic()">
+    CONFIRMAR ORDEN DE VENTA 
+</button>
+<br>
+<button class="btn-success btn-block btn" *ngIf="primeraVezComic == false" (click)="oVentaComicSubastadoRegular()">
+    CONFIRMAR ORDEN DE VENTA 
+</button> 
+</div>
+
+<button class="btn-success btn-block btn" (click)=registrarOrdenVentaComic() *ngIf="botonObjetoComic==true">
+    REGISTRAR
+</button>
+<br>
+<br>
+SELECCIONAR CLUB A INVITAR: 
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]= "invitacionRegistrar.club_invitado">
+    <option *ngFor="let club of clubes2" value="{{ club.id }}">NOMBRE: {{ club.nombre }}</option>
+</select>
+
+<button class="btn-success btn-block btn" (click)="registrarInvitacion()" >
+    REGISTRAR INVITACION
+</button>
+
+<br>
+<br>
+
+INSCRIBIR A PARTICIPANTE: 
+
+
+
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="idInscripcion">
+    <option *ngFor="let coleccionista of coleccionistasInscribirId2" value="{{ coleccionista.id }}"> CEDULA: {{ coleccionista.cedula_coleccionista }}, Id Club: {{ coleccionista.id_club }}</option>
+</select>
+
+<button class="btn-success btn-block btn" (click)="registrarInscripcion()">
+    REGISTRAR PARTICIPANTE
+</button>
+
+
+<br><br>
+
+
+
+<div *ngIf="subastaRegistrar.caridad == 'SI' && this.porcentaje > 0">
+    INSCRIBIR ORGANIZACION DE CARIDAD : 
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="registroCaridad.id_organizacion" >
+    <option *ngFor="let organizacion of organizacionesCaridad2" value="{{ organizacion.id }}"> {{ organizacion.nombre }} </option>
+</select>
+<br>
+<input type="number"  class="form-control" placeholder="Porcentaje a donar" [(ngModel)]='registroCaridad.porcentaje'>
+<p> Porcentaje Disponible: {{ this.porcentaje }}</p>
+
+<button class="btn-success btn-block btn" (click)="registrarOrganizacion()" >
+    REGISTRAR ORGANIZACION
+</button>
+<br><br>
+
+</div>
+
+<button class="btn-success btn-block btn" (click)="goInicio()" >
+    TERMINAR CON LOS REGISTROS DEL EVENTO
+</button>
+
+</div>
+
+
+
+
+
+
+

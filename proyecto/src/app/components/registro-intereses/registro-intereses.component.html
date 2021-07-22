@@ -1,0 +1,51 @@
+CLUB A REGISTRAR UN INTERES:
+<select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="valorRegistrar.id_club" >
+    <option value="{{ club.id }}" *ngFor="let club of clubes">Club: {{ club.nombre }} (id:{{ club.id }})</option>
+</select>
+
+
+<div>
+    <fieldset class="form-group">
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="form-check">
+            <input class="form-check-input" [(ngModel)]="intereses.valor" type="radio" name="gridRadios" id="gridRadios1" value="1" checked>
+            <label class="form-check-label" for="gridRadios1">
+              USAR UN INTERES DE LA LISTA
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" [(ngModel)]="intereses.valor" type="radio" name="gridRadios" id="gridRadios2" value="2">
+            <label class="form-check-label" for="gridRadios2">
+              REGISTRAR UN NUEVO INTERES
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    
+
+    <input *ngIf="intereses.valor == 2" type="text" [(ngModel)]="valorRegistrar.interes" placeholder="Ingrese un Interes"  class="form-control" >
+
+
+
+    <div *ngIf="intereses.valor == 1" >
+        <fieldset >
+          <div class="form-group" >
+            <label for="disabledSelect">Menu de intereses</label>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="valorRegistrar.interes">
+                <option value="{{interes.descripcion}}" *ngFor="let interes of interesesBase">{{ interes.descripcion }}</option>
+            </select>
+            
+          </div>
+        </fieldset>
+      </div>
+
+    <button class="btn-success btn-block btn" (click)=registrarInteres()>
+       Registrar
+    </button>
+
+</div>
+
+
+ 
