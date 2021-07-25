@@ -6,7 +6,9 @@ instalaciones requeridas:
 2) npm install -g @angular/cli
 3) npm install -g typescript 
 4) Mysql 8.0.26 or higher 
-5) 
+
+npm i express morgan promise-mysql cors
+npm i nodemon -D
 
 <!-- npm run dev
 npm run build
