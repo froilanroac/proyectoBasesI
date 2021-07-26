@@ -32,7 +32,7 @@ En la carpeta "database" están los scripts correspondientes para la configuraci
 
 **ASEGURARSE DE TENER UN USUARIO ADMINISTRADOR CON LAS SIGUIENTES CREDENCIALES:** 
 
-> USER: ROOT
+> USER: root
 > 
 > PASSWORD:password
 
