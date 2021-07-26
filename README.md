@@ -28,13 +28,19 @@ En la carpeta "proyecto"
 
 ## Configuración de la base de datos:
 
-En la carpeta "database" están los scripts correspondientes para la configuración de la base de datos. 
+En el MBD crear una base de datos llamada "proyecto" y estar en ella para ejectuar los scripts de creacion de las tablas e inserción.
+
+    CREATE DATABASE proyecto;
+    
+    USE proyecto;
+
+En la carpeta "database" están dichos scripts. 
 
 **ASEGURARSE DE TENER UN USUARIO ADMINISTRADOR CON LAS SIGUIENTES CREDENCIALES:** 
 
-> USER: root
+> User: root
 > 
-> PASSWORD:password
+> Password: password
 
 Ejecutar el siguiente script en el MBD para la creación de las tablas  
 
