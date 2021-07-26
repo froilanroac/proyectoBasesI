@@ -33,3 +33,5 @@ En la carpeta "server" ejecutar:
 En la carpeta "proyecto" 
 
     ng serve -o
+
+> Los comandos de esta sección deberían hacerse cada una en una shell por separado, ya que los procesos siempre deben estar corriendo para el funcionamiento de la aplicación. 
