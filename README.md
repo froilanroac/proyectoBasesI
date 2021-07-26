@@ -30,7 +30,7 @@ En la carpeta "server" ejecutar:
     npm run build
 
 
-En la carpeta "proyecto" 
+En la carpeta "proyecto" ejecutar: 
 
     ng serve -o
 
