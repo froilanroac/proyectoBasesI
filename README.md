@@ -13,7 +13,7 @@
  3. Typescript (**4.3.5 o >**)
  4. MySQL (**8.0.26 o >**)
 
-## Luego de instalar lo arriba mencionado ejecutar lo siguiente en orden de aparición: 
+## Luego de instalar lo arriba mencionado ejecutar los siguientes paquetes: 
 
 En la carpeta "server"
 
@@ -34,9 +34,7 @@ En el MBD crear una base de datos llamada "proyecto" y estar en ella para ejectu
     
     USE proyecto;
 
-En la carpeta "database" están dichos scripts. 
-
-**ASEGURARSE DE TENER UN USUARIO ADMINISTRADOR CON LAS SIGUIENTES CREDENCIALES:** 
+**ASEGURARSE DE TENER UN USUARIO CON LAS SIGUIENTES CREDENCIALES:** 
 
 > User: root
 > 
@@ -46,7 +44,7 @@ Ejecutar el siguiente script en el MBD para la creación de las tablas
 
     proyecto.sql 
 
-**OPCIONAL:**  En este script están la inserción de alguna data para probar que todo este funcionando correctamente. 
+**OPCIONAL:**  En este script está la inserción de alguna data para probar que todo este funcionando correctamente. 
 
     inserts.sql
 
