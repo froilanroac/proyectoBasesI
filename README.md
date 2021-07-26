@@ -1,5 +1,11 @@
 #  Proyecto Bases I 
 
+## Contenido de cada carpeta:
+
+ - server: Un servidor en express que se conecta al MBD, aquí hará las peticiones angular. 
+ - proyecto: El Front y el Back completo de la aplicación
+ - database: Los scrips de creación de las tablas, inserts, Modelo Entidad-Relación y Modelo relacional de la Base de Datos. 
+
 ## Instalaciones requeridas: 
 
  1. Node (**6.14.13 o >**)
@@ -20,6 +26,25 @@ En la carpeta "proyecto"
 
     npm install 
 
+## Configuración de la base de datos:
+
+En la carpeta "database" están los scripts correspondientes para la configuración de la base de datos. 
+
+**ASEGURARSE DE TENER UN USUARIO ADMINISTRADOR CON LAS SIGUIENTES CREDENCIALES:** 
+
+> USER: ROOT
+> 
+> PASSWORD:password
+
+Ejecutar el siguiente script en el MBD para la creación de las tablas  
+
+    proyecto.sql 
+
+**OPCIONAL:**  En este script están la inserción de alguna data para probar que todo este funcionando correctamente. 
+
+    inserts.sql
+
+ 
 
 ## Para iniciar la aplicación:
 
@@ -30,7 +55,7 @@ En la carpeta "server" ejecutar:
     npm run build
 
 
-En la carpeta "proyecto" ejecutar: 
+En la carpeta "proyecto" 
 
     ng serve -o
 
