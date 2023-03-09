@@ -36,6 +36,8 @@ export class SimularComponent implements OnInit {
   tiempo: number = 0
 
   descripcion:any = {}
+
+  botonesCerrados:any = [] 
   
 
   counter = { min:0, sec:0 }
@@ -166,12 +168,19 @@ export class SimularComponent implements OnInit {
     }else{
 
     if(puja >= this.objetoSubastar.precio_base$){
-      alert("PUJA REALIZADA CON EXITO")
+
+    alert("PUJA REALIZADA CON EXITO")
     this.pujas.push({
       i: inscripcion,
       p: Number(puja) ,
       c: Number(cedula)
     })
+    const btn = document.getElementById(`${inscripcion}`)
+      if (btn) {
+        btn.style.display = 'none'
+        this.botonesCerrados.push(inscripcion)
+    } 
+      
 
     const max = this.pujas.reduce(function(prev:any , current:any) {
     return (prev.p > current.p) ? prev : current
@@ -230,6 +239,12 @@ export class SimularComponent implements OnInit {
 
 
   terminarSubastaObjeto(){
+  this.botonesCerrados.forEach((element: number | string) => {
+    const btn = document.getElementById(`${element}`)
+    if (btn){
+      btn.style.display = "inline-block"
+    }
+  });
    if(this.pujaGanadora['length'] == 0){
      alert("EL OBJETO NO FUE SUBASTADO, PASANDO AL SIGUIENTE OBJETO")
      if(this.ordenObjeto < this.numeroObjetos){

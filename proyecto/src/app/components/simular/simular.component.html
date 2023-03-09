@@ -48,7 +48,7 @@ Evento Seleccionado:
         <h5 class="card-title">Inscripcion: {{ this.inscripcion.id }} </h5>
         <p class="card-text">Cedula: {{ this.inscripcion.cedula_coleccionista }}</p>
         <input #puja type="number" class="form-control" placeholder="Precio a ofrecer" style="margin: 5px;" min="1" max="5">
-        <button class="btn btn-warning" style="margin: 5px;" (click)="pujar(puja.value,this.inscripcion.id,this.inscripcion.cedula_coleccionista)" >Pujar</button>
+        <button id="{{ this.inscripcion.id }}" class="btn btn-warning" style="margin: 5px;" (click)="pujar(puja.value,this.inscripcion.id,this.inscripcion.cedula_coleccionista)" >Pujar</button>
 
         <!-- <button type="button" class="btn btn-danger" style="margin: 5px;">No Participar</button> -->
       </div>
