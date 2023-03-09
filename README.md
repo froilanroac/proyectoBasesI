@@ -1,6 +1,6 @@
 #  Proyecto Bases I 
 
-![App Screenshot](./database/entidad-relacion.svg)
+![App Screenshot](entidad-relacion.svg)
 
 ## Contenido de cada carpeta:
 
