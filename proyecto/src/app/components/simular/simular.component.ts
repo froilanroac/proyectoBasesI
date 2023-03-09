@@ -35,6 +35,9 @@ export class SimularComponent implements OnInit {
 
   tiempo: number = 0
 
+  descripcion:any = {}
+  
+
   counter = { min:0, sec:0 }
   
 
@@ -109,7 +112,15 @@ export class SimularComponent implements OnInit {
     this.pujas = []
     for(let objeto of this.ordenesVenta){
       if(objeto.numero_en_subasta == this.ordenObjeto){
-          this.objetoSubastar = objeto
+        this.objetoSubastar = objeto
+        let descripcion
+          this.registroService.getDescripcionObjeto(this.objetoSubastar).subscribe(
+            res=> {
+              this.descripcion = res
+            },
+            err=> console.error(err)
+          )
+          console.log(descripcion)
           this.tiempo = this.objetoSubastar.duracion_puja_min
             console.log(this.objetoSubastar.duracion_puja_min)
           if(this.subasta.tipo == 'A'){this.startTimer()}

@@ -26,7 +26,7 @@ class RegistrosController{
       const registros = await pool.query('select * from subastas where id ='+id+";");
       return res.json(registros)
     } catch (e) {  
-      res.json("SQL ERROR: " + e.sqlMessage);  
+      res.json("SQL ERROR: " + e);  
     }
   }
 
@@ -36,7 +36,7 @@ class RegistrosController{
     const registros = await pool.query("select * from ordenes_venta_subasta where id_subasta = "+id+";");
     return res.json(registros)
   } catch (e) {  
-    res.json("SQL ERROR: " + e.sqlMessage);  
+    res.json("SQL ERROR: " + e);  
   }
   }
 
@@ -46,7 +46,7 @@ class RegistrosController{
     const registros = await pool.query("select * from inscripciones where id_subasta = "+id+";");
     return res.json(registros)
   } catch (e) {  
-    res.json("SQL ERROR: " + e.sqlMessage);  
+    res.json("SQL ERROR: " + e);  
   }
   }
 
@@ -72,7 +72,7 @@ class RegistrosController{
             const respuesta = await pool.query("INSERT INTO paises set ? ", [req.body]);
             res.json('PAIS INSERTADO CON EXITO');
           } catch (e) {  
-            res.json("SQL ERROR: " + e.sqlMessage);            
+            res.json("SQL ERROR: " + e);            
           }
     }
 
@@ -82,7 +82,7 @@ class RegistrosController{
           const respuesta = await pool.query("INSERT INTO organizaciones_caridad (NOMBRE,DESCRIPCION) VALUES ('"+nombre+"','"+descripcion+"');");
           res.json('ORGANIZACION INSERTADA CON EXITO');
         } catch (e) {  
-          res.json("SQL ERROR: " + e.sqlMessage);            
+          res.json("SQL ERROR: " + e);            
         }
     }
 
@@ -97,7 +97,7 @@ class RegistrosController{
           }
           res.json('INSCRIPCION INSERTADA CON EXITO');
         } catch (e) {  
-          res.json("SQL ERROR: " + e.sqlMessage);            
+          res.json("SQL ERROR: " + e);            
         }
     }
 
@@ -106,7 +106,7 @@ class RegistrosController{
             const respuesta = await pool.query("INSERT INTO representantes set ? ", [req.body]);
             res.json('REPRESENTANTE REGISTRADO CON EXITO');
           } catch (e) {  
-            res.json("SQL ERROR: " + e.sqlMessage);            
+            res.json("SQL ERROR: " + e);            
           }
     }
 
@@ -116,7 +116,7 @@ class RegistrosController{
             const respuesta = await pool.query("INSERT INTO coleccionistas set ? ", [req.body]);
             res.json('COLECCIONISTA INSERTADO CON EXITO');
           } catch (e) {  
-            res.json("SQL ERROR: " + e.sqlMessage);            
+            res.json("SQL ERROR: " + e);            
           }
     }
 
@@ -132,7 +132,7 @@ class RegistrosController{
       const registros = await pool.query('SELECT * FROM subastas');
       res.json(registros);
     } catch (e) {  
-      res.json("SQL ERROR: " + e.sqlMessage);            
+      res.json("SQL ERROR: " + e);            
     }
 
   }
@@ -183,7 +183,7 @@ public async eliminarSubasta(req:Request, res:Response) {
     const registros = await pool.query('DELETE FROM SUBASTAS WHERE ID='+ id );
   res.json("SUBASTA ELIMINADA CON EXITO");
   } catch (e) {  
-    res.json("SQL ERROR: " + e.sqlMessage);            
+    res.json("SQL ERROR: " + e);            
   }
 
 }
@@ -194,7 +194,7 @@ public async eliminarSubasta(req:Request, res:Response) {
     const registros = await pool.query('select e.cedula_coleccionista, e.id_club, e.fecha_inicio from membresias e where fecha_fin is null;');
     res.json(registros);
     } catch (e) {  
-      res.json("SQL ERROR: " + e.sqlMessage);            
+      res.json("SQL ERROR: " + e);            
     }
 
 }
@@ -205,7 +205,7 @@ public async getCedulasPurgadas(req:Request, res:Response) {
   const registros = await pool.query("select distinct(m.cedula_coleccionista),m.id_club from membresias m, s_c s, ordenes_venta_subasta o where m.fecha_fin is null and m.id_club = s.club_invitado and s.id_subasta = "+id+" and m.cedula_coleccionista not in (select o.cedula_coleccionista from ordenes_Venta_subasta o where o.id_subasta = "+id+");");
   res.json(registros);
   } catch (e) {  
-    res.json("SQL ERROR: " + e.sqlMessage);            
+    res.json("SQL ERROR: " + e);            
   }
 
 }
@@ -216,7 +216,7 @@ public async getIdObjetosPurgados(req:Request, res:Response) {
   const registros = await pool.query("select distinct(o.id) from objetos_de_valor o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_objeto_valor and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club ="+ id_club +" and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_objeto_valor = o.id);");
   res.json(registros);
   } catch (e) {  
-    res.json("SQL ERROR: " + e.sqlMessage);            
+    res.json("SQL ERROR: " + e);            
   }
 
 }
@@ -227,7 +227,7 @@ public async getIdComicsPurgados(req:Request, res:Response) {
   const registros = await pool.query("select distinct(o.id) from comics o,historicos_duenos h, coleccionistas c, membresias m where o.id = h.id_comic and h.cedula_coleccionista = c.cedula and c.cedula = m.cedula_coleccionista and m.fecha_fin is null and m.id_club ="+ id_club +" and h.fecha_registro = (select max(p.fecha_registro) from historicos_duenos p where p.id_comic = o.id);");
   res.json(registros);
   } catch (e) {  
-    res.json("SQL ERROR: " + e.sqlMessage);            
+    res.json("SQL ERROR: " + e);            
   }
 
 }
@@ -272,7 +272,7 @@ public async primeraSubasta(req:Request, res:Response) {
             const respuesta = await pool.query("INSERT INTO ciudades set ? ", [req.body]);
             res.json('CIUDAD INSERTADA CON EXITO');
           } catch (e) {  
-            res.json("SQL ERROR: " + e.sqlMessage);            
+            res.json("SQL ERROR: " + e);            
           }
     }
 
@@ -281,7 +281,7 @@ public async primeraSubasta(req:Request, res:Response) {
             const respuesta = await pool.query("INSERT INTO clubes set ? ", [req.body]);
             res.json('CLUB INSERTADO CON EXITO');
           } catch (e) {  
-            res.json("SQL ERROR: " + e.sqlMessage);            
+            res.json("SQL ERROR: " + e);            
           }
     }
 
@@ -291,7 +291,7 @@ public async primeraSubasta(req:Request, res:Response) {
           const respuesta = await pool.query("INSERT INTO membresias set ? ", [req.body]);
           res.json('MEMBRESIA REGISTRADA CON EXITO');
         } catch (e) {  
-          res.json("SQL ERROR: " + e.sqlMessage);            
+          res.json("SQL ERROR: " + e);            
         }
   }
 
@@ -301,7 +301,7 @@ public async primeraSubasta(req:Request, res:Response) {
       const respuesta = await pool.query("INSERT INTO SUBASTAS (ID,HORA_INICIO,HORA_FIN,FECHA,MODO,TIPO,CARIDAD,CANCELADA,ID_LUGAR) VALUES ("+id+",'"+hora_inicio+"','"+hora_fin+"','"+fecha+"','"+modo+"','"+tipo+"','"+caridad+"','NO',"+id_lugar+");")
       res.json('EVENTO REGISTRADO CON EXITO');
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -321,7 +321,7 @@ public async primeraSubasta(req:Request, res:Response) {
       }
       res.json(mensaje)
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -340,7 +340,7 @@ public async primeraSubasta(req:Request, res:Response) {
       console.log(mensaje)
       res.json(mensaje)
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -352,7 +352,7 @@ public async primeraSubasta(req:Request, res:Response) {
       const respuesta3 = await pool.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,ID_COMIC) VALUES ("+cedula_coleccionista+",(CURRENT_DATE),"+precio_compra$+",'"+significado+"',"+respuesta2[0]['id_comic']+");");
       res.json("VENTA DE COMIC  REGISTRADA CON EXITO")
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -364,7 +364,7 @@ public async primeraSubasta(req:Request, res:Response) {
       const respuesta3 = await pool.query("INSERT INTO HISTORICOS_DUENOS (CEDULA_COLECCIONISTA,FECHA_REGISTRO,PRECIO_COMPRA$,SIGNIFICADO,id_objeto_valor) VALUES ("+cedula_coleccionista+",(CURRENT_DATE),"+precio_compra$+",'"+significado+"',"+respuesta2[0]['id_objeto_valor']+");");
       res.json("VENTA DE OBJETO REGISTRADA CON EXITO")
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -380,7 +380,7 @@ public async primeraSubasta(req:Request, res:Response) {
       }
       res.json(mensaje)
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -396,7 +396,7 @@ public async primeraSubasta(req:Request, res:Response) {
 
       res.json("ORDEN VENTA DE COMIC HECHA CON EXITO")
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -413,7 +413,7 @@ public async primeraSubasta(req:Request, res:Response) {
       res.json("ORDEN VENTA DE COMIC HECHA CON EXITO")
       } catch (e) {  
         console.log(e); 
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -432,7 +432,7 @@ public async primeraSubasta(req:Request, res:Response) {
       res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO")
       } catch (e) {  
         console.log(e)
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -449,7 +449,7 @@ public async primeraSubasta(req:Request, res:Response) {
       res.json("ORDEN VENTA DE OBJETO HECHA CON EXITO")
       } catch (e) {  
         console.log(e); 
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -459,7 +459,7 @@ public async primeraSubasta(req:Request, res:Response) {
       const respuesta = await pool.query("INSERT INTO S_C (ID_SUBASTA,ID_CLUB) VALUES ("+id_subasta+","+id_club+");")
       res.json('ORGANIZADOR REGISTRADO CON EXITO');
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -469,7 +469,7 @@ public async primeraSubasta(req:Request, res:Response) {
       const respuesta = await pool.query("INSERT INTO registros_beneficio (id_organizacion,id_subasta,porcentaje) VALUES ("+id_organizacion+","+id_subasta+","+porcentaje+");")
       res.json('CARIDAD REGISTRADA CON EXITO');
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -479,7 +479,7 @@ public async primeraSubasta(req:Request, res:Response) {
       const respuesta = await pool.query("INSERT INTO S_C (ID_SUBASTA,CLUB_INVITADO) VALUES ("+id_subasta+","+club_invitado+");")
       res.json('INVITACION REGISTRADA CON EXITO');
       } catch (e) {  
-        res.json("SQL ERROR: " + e.sqlMessage);            
+        res.json("SQL ERROR: " + e);            
       }
   }
 
@@ -513,7 +513,7 @@ public async cerrarMembresia (req:Request, res:Response){
 
   res.json("CERRANDO MEMBRESIA DE " +fecha+','+ cedula+','+id_club);
 } catch (e) { 
-  res.json("SQL ERROR: " + e.sqlMessage);            
+  res.json("SQL ERROR: " + e);            
 }
 }
 
@@ -532,7 +532,7 @@ public async registrarObjeto (req:Request, res:Response){
       }
       res.json("OBJETO REGISTRADO CON EXITO");
     } catch (e) {  
-      res.json("SQL ERROR: " + e.sqlMessage);            
+      res.json("SQL ERROR: " + e);            
     }
   }
 
@@ -560,7 +560,7 @@ public async registrarComic (req:Request, res:Response){
       }
       res.json("OBJETO REGISTRADO CON EXITO");
     } catch (e) {  
-      res.json("SQL ERROR: " + e.sqlMessage);            
+      res.json("SQL ERROR: " + e);            
     }
   }
 
@@ -589,7 +589,7 @@ public async registrarComic (req:Request, res:Response){
         res.json("INTERES REGISTRADO CON EXITO");
       } catch (e) {  
 
-        res.json("SQL ERROR: " + e.sqlMessage);           
+        res.json("SQL ERROR: " + e);           
       }
     }
 
@@ -601,7 +601,7 @@ public async registrarComic (req:Request, res:Response){
       const registros = await pool.query("INSERT INTO contactos_club (id_club,telefono) VALUES ("+id_club+","+telefono+");");    
       res.json("TELEFONO REGISTRADO CON EXITO");
     } catch (e) { 
-      res.json("SQL ERROR: " + e.sqlMessage);            
+      res.json("SQL ERROR: " + e);            
     }
     }
 
@@ -611,8 +611,37 @@ public async registrarComic (req:Request, res:Response){
         const registros = await pool.query("INSERT INTO lugares_subasta (calle,avenida,id_ciudad,id_pais,tipo,nombre_lugar) VALUES ('"+calle+"','"+avenida+"',"+id_ciudad+","+id_pais+",'"+tipo+"','"+nombre_lugar +"');")
       res.json("LUGAR REGISTRADO CON EXITO");
     } catch (e) { 
-      res.json("SQL ERROR: " + e.sqlMessage);            
+      res.json("SQL ERROR: " + e);            
     }
+    }
+
+    public async getDescripcionObjetoSubasta(req: Request, res:Response){
+      // yo del futuro, si ves esto, perdoname :(
+      try{
+        const { id_historico } = req.body
+        const respuesta = await pool.query(`select id_comic, id_objeto_valor from historicos_duenos where id=${id_historico}`)
+        const { id_comic, id_objeto_valor } = respuesta[0]
+        if(id_comic){
+            const titulo = await pool.query(`select titulo from comics where id=${id_comic}`);
+            const respuesta = {
+              tipo:"Comic",
+              titulo: titulo[0]?.titulo || "Undefined"
+            }
+            console.log(respuesta)
+            res.json(respuesta)
+        }else if (id_objeto_valor){
+            const nombre = await pool.query(`select nombre from objetos_de_valor where id =${id_objeto_valor}`)
+            const respuesta = {
+              tipo:"Objeto",
+              titulo: nombre[0]?.nombre || "Undefined"
+            }
+            console.log(respuesta)
+            res.json(respuesta)
+        }
+      }catch(e){
+        res.json("SQL ERROR: "+e);
+      }
+
     }
 
 }

@@ -30,6 +30,7 @@ class RegistrosRoutes{
         this.router.post('/ordenventacomicsubastado', registrosController.ordenVentaComicSubastado);
         this.router.post('/ordenventacomicregular', registrosController.ordenVentaComicRegular);
         this.router.get('/getcoleccionistasinscribir', registrosController.getColeccionistasParaInscribir);
+        this.router.post('/getdescripcionobjeto', registrosController.getDescripcionObjetoSubasta);
         this.router.post('/getsubasta', registrosController.getSubasta);
 
         this.router.post('/getordenesventa', registrosController.getOrdenesVentaSubasta);

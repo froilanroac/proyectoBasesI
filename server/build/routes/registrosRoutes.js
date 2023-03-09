@@ -7,7 +7,7 @@ const express_1 = require("express");
 const registrosController_1 = __importDefault(require("../controllers/registrosController"));
 class RegistrosRoutes {
     constructor() {
-        this.router = express_1.Router();
+        this.router = (0, express_1.Router)();
         this.config();
     }
     config() {
@@ -31,6 +31,7 @@ class RegistrosRoutes {
         this.router.post('/ordenventacomicsubastado', registrosController_1.default.ordenVentaComicSubastado);
         this.router.post('/ordenventacomicregular', registrosController_1.default.ordenVentaComicRegular);
         this.router.get('/getcoleccionistasinscribir', registrosController_1.default.getColeccionistasParaInscribir);
+        this.router.post('/getdescripcionobjeto', registrosController_1.default.getDescripcionObjetoSubasta);
         this.router.post('/getsubasta', registrosController_1.default.getSubasta);
         this.router.post('/getordenesventa', registrosController_1.default.getOrdenesVentaSubasta);
         this.router.post('/getinscripciones', registrosController_1.default.getInscripciones);

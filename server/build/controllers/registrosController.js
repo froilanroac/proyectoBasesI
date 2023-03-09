@@ -40,7 +40,7 @@ class RegistrosController {
                 return res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -52,7 +52,7 @@ class RegistrosController {
                 return res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -64,7 +64,7 @@ class RegistrosController {
                 return res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -95,7 +95,7 @@ class RegistrosController {
                 res.json('PAIS INSERTADO CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -107,7 +107,7 @@ class RegistrosController {
                 res.json('ORGANIZACION INSERTADA CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -125,7 +125,7 @@ class RegistrosController {
                 res.json('INSCRIPCION INSERTADA CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -136,7 +136,7 @@ class RegistrosController {
                 res.json('REPRESENTANTE REGISTRADO CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -147,7 +147,7 @@ class RegistrosController {
                 res.json('COLECCIONISTA INSERTADO CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -165,7 +165,7 @@ class RegistrosController {
                 res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -217,7 +217,7 @@ class RegistrosController {
                 res.json("SUBASTA ELIMINADA CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -229,7 +229,7 @@ class RegistrosController {
                 res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -241,7 +241,7 @@ class RegistrosController {
                 res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -253,7 +253,7 @@ class RegistrosController {
                 res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -265,7 +265,7 @@ class RegistrosController {
                 res.json(registros);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -311,7 +311,7 @@ class RegistrosController {
                 res.json('CIUDAD INSERTADA CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -322,7 +322,7 @@ class RegistrosController {
                 res.json('CLUB INSERTADO CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -333,7 +333,7 @@ class RegistrosController {
                 res.json('MEMBRESIA REGISTRADA CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -345,7 +345,7 @@ class RegistrosController {
                 res.json('EVENTO REGISTRADO CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -366,7 +366,7 @@ class RegistrosController {
                 res.json(mensaje);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -388,7 +388,7 @@ class RegistrosController {
                 res.json(mensaje);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -402,7 +402,7 @@ class RegistrosController {
                 res.json("VENTA DE COMIC  REGISTRADA CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -416,7 +416,7 @@ class RegistrosController {
                 res.json("VENTA DE OBJETO REGISTRADA CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -435,7 +435,7 @@ class RegistrosController {
                 res.json(mensaje);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -451,7 +451,7 @@ class RegistrosController {
                 res.json("ORDEN VENTA DE COMIC HECHA CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -468,7 +468,7 @@ class RegistrosController {
             }
             catch (e) {
                 console.log(e);
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -487,7 +487,7 @@ class RegistrosController {
             }
             catch (e) {
                 console.log(e);
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -504,7 +504,7 @@ class RegistrosController {
             }
             catch (e) {
                 console.log(e);
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -516,7 +516,7 @@ class RegistrosController {
                 res.json('ORGANIZADOR REGISTRADO CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -528,7 +528,7 @@ class RegistrosController {
                 res.json('CARIDAD REGISTRADA CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -540,7 +540,7 @@ class RegistrosController {
                 res.json('INVITACION REGISTRADA CON EXITO');
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -573,7 +573,7 @@ class RegistrosController {
                 res.json("CERRANDO MEMBRESIA DE " + fecha + ',' + cedula + ',' + id_club);
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -594,7 +594,7 @@ class RegistrosController {
                 res.json("OBJETO REGISTRADO CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -622,7 +622,7 @@ class RegistrosController {
                 res.json("OBJETO REGISTRADO CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -650,7 +650,7 @@ class RegistrosController {
                 res.json("INTERES REGISTRADO CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -664,7 +664,7 @@ class RegistrosController {
                 res.json("TELEFONO REGISTRADO CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
             }
         });
     }
@@ -676,7 +676,39 @@ class RegistrosController {
                 res.json("LUGAR REGISTRADO CON EXITO");
             }
             catch (e) {
-                res.json("SQL ERROR: " + e.sqlMessage);
+                res.json("SQL ERROR: " + e);
+            }
+        });
+    }
+    getDescripcionObjetoSubasta(req, res) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            // yo del futuro, si ves esto, perdoname :(
+            try {
+                const { id_historico } = req.body;
+                const respuesta = yield database_1.default.query(`select id_comic, id_objeto_valor from historicos_duenos where id=${id_historico}`);
+                const { id_comic, id_objeto_valor } = respuesta[0];
+                if (id_comic) {
+                    const titulo = yield database_1.default.query(`select titulo from comics where id=${id_comic}`);
+                    const respuesta = {
+                        tipo: "Comic",
+                        titulo: ((_a = titulo[0]) === null || _a === void 0 ? void 0 : _a.titulo) || "Undefined"
+                    };
+                    console.log(respuesta);
+                    res.json(respuesta);
+                }
+                else if (id_objeto_valor) {
+                    const nombre = yield database_1.default.query(`select nombre from objetos_de_valor where id =${id_objeto_valor}`);
+                    const respuesta = {
+                        tipo: "Objeto",
+                        titulo: ((_b = nombre[0]) === null || _b === void 0 ? void 0 : _b.nombre) || "Undefined"
+                    };
+                    console.log(respuesta);
+                    res.json(respuesta);
+                }
+            }
+            catch (e) {
+                res.json("SQL ERROR: " + e);
             }
         });
     }

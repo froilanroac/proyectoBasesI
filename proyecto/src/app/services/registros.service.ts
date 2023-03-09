@@ -122,9 +122,9 @@ export class RegistrosService {
     return this.http.get(`${this.API_URL}/registros/getsubastas`)
    }
 
-  //  getNombreClubSubasta(subasta:any ){
-  //   return this.http.post(`${this.API_URL}/registros/getnombreclub`,subasta)
-  //  }
+   getDescripcionObjeto(objeto: any){
+    return this.http.post(`${this.API_URL}/registros/getdescripcionobjeto`,objeto)
+   }
 
    primeraSubastaObjeto(objeto:any){
     return this.http.post(`${this.API_URL}/registros/primerasubastaobjeto`,objeto)
