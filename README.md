@@ -1,5 +1,7 @@
 #  Proyecto Bases I 
 
+![App Screenshot](./database/entidad-relacion.svg)
+
 ## Contenido de cada carpeta:
 
  - server: Un servidor en express que se conecta al MBD, aquí hará las peticiones angular. 
